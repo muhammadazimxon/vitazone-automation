@@ -1,0 +1,21 @@
+name: Build Windows installer
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+jobs:
+  msi:
+    runs-on: windows-2022   # на нём уже стоит WiX 3 для jpackage
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew.bat :desktopApp:packageMsi --no-daemon
+        shell: cmd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Vitazone-windows-msi
+          path: desktopApp/build/compose/binaries/main/msi/*.msi
