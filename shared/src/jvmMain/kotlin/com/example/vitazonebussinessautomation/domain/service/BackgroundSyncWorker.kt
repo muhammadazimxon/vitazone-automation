@@ -114,11 +114,11 @@ class BackgroundSyncWorker(
             intervalSeconds = intervalSeconds
         )
 
-        addLog("🟢 Запущена фоновая служба слежения за 1С (проверка каждые $intervalSeconds сек.)")
+        addLog("🟢 Запущена фоновая служба: данные читаются напрямую из базы 1С раз в минуту")
 
         syncJob = scope.launch {
             // STEP 1: INITIAL IMMEDIATE FULL SYNC ON STARTUP
-            addLog("⚡ ПЕРВАЯ ВЫГРУЗКА ПРИ ЗАПУСКЕ: Проверка недостающих накладных 1С в Google Sheets...")
+            addLog("⚡ Первая выгрузка из базы 1С при запуске...")
             safeSyncCheck(force = true)
 
             // STEP 2: CONTINUOUS WATCHER FOR ACCOUNTANT ACTIONS IN 1C
@@ -165,9 +165,7 @@ class BackgroundSyncWorker(
     }
 
     private suspend fun performSyncCheck(force: Boolean = false): Result<String> {
-        val path = _state.value.monitoredPath.trim()
         val url = _state.value.webAppUrl.trim().ifBlank { "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec" }
-        val onecApi = _state.value.onecHttpUrl.trim()
 
         if (url.isBlank()) {
             val err = "Укажите Google Apps Script Web App URL"
@@ -175,78 +173,13 @@ class BackgroundSyncWorker(
             return Result.failure(Exception(err))
         }
 
-        // 0. Прямое подключение к базе 1С (COM) — основной режим: данные всегда актуальные
+        // Единственный источник данных — сама база 1С (COM). Выгруженные файлы больше не читаются.
         val onecConn = _state.value.onecConnectionString.trim()
-        if (onecConn.isNotBlank()) {
-            return checkViaCom(onecConn, url, force)
+        if (onecConn.isBlank()) {
+            logOnecErrorOnce("Не указана база 1С: укажите папку базы в приложении и нажмите «Подключить 1С»")
+            return Result.failure(Exception("Не указана база 1С"))
         }
-
-        // 1. Try 1C HTTP REST API if specified
-        if (onecApi.isNotBlank()) {
-            try {
-                val conn = URL(onecApi).openConnection() as HttpURLConnection
-                conn.requestMethod = "POST"
-                conn.connectTimeout = 10000
-                conn.readTimeout = 10000
-                val code = conn.responseCode
-                if (code in 200..299) {
-                    val bytes = conn.inputStream.readBytes()
-                    loggedErrors.clear()
-                    val currentChecksum = CRC32().also { it.update(bytes) }.value
-                    if (!force && currentChecksum == lastFileChecksum) {
-                        return Result.success("1С без изменений")
-                    }
-                    val tempFile = File.createTempFile("1c_debt_", ".xls")
-                    tempFile.writeBytes(bytes)
-                    addLog("🔔 Дебиторка в 1С изменилась! Обновляем лист «Импорт» в Google Sheets...")
-                    return try {
-                        processAndPublishFile(tempFile, url, currentChecksum)
-                    } finally {
-                        tempFile.delete()
-                    }
-                } else {
-                    logOnecErrorOnce("1С HTTP вернул код $code")
-                }
-            } catch (e: Exception) {
-                logOnecErrorOnce("1С HTTP недоступен: ${e.message}")
-                // Fallback to local file
-            }
-        }
-
-        // 2. Real-time Local File/Folder Monitoring
-        val targetFile = resolveTargetFile(path) ?: autoDiscoverOnecFile()
-        if (targetFile == null || !targetFile.exists()) {
-            val err = if (path.isBlank()) "Файл дебиторки 1С не найден (укажите путь в приложении)"
-                      else "Файл выгрузки 1С не найден по пути: $path"
-            logOnecErrorOnce(err)
-            return Result.failure(Exception(err))
-        }
-
-        loggedErrors.clear()
-        val currentChecksum = checksumOf(targetFile)
-        if (!force && currentChecksum == lastFileChecksum) {
-            return Result.success("Файл 1С без изменений")
-        }
-
-        addLog("🔔 Изменения в 1С (${targetFile.name})! Сверяем с Google Sheets и заносим отсутствующие накладные...")
-
-        val safeTempFile = try {
-            val temp = File.createTempFile("1c_watch_", ".${targetFile.extension}")
-            targetFile.inputStream().use { input ->
-                temp.outputStream().use { output ->
-                    input.copyTo(output)
-                }
-            }
-            temp
-        } catch (e: Exception) {
-            targetFile
-        }
-
-        val result = processAndPublishFile(safeTempFile, url, currentChecksum)
-        if (safeTempFile != targetFile && safeTempFile.exists()) {
-            safeTempFile.delete()
-        }
-        return result
+        return checkViaCom(onecConn, url, force)
     }
 
     private suspend fun checkViaCom(conn: String, url: String, force: Boolean): Result<String> {
@@ -322,51 +255,6 @@ class BackgroundSyncWorker(
                 addLog("❌ $msg", isError = true)
             }
         }
-    }
-
-    private fun resolveTargetFile(path: String): File? {
-        if (path.isBlank()) return null
-        val f = File(path)
-        if (f.isFile) return f
-        if (f.isDirectory) {
-            val excelFiles = f.listFiles { file ->
-                file.isFile && (file.extension.equals("xls", ignoreCase = true) || file.extension.equals("xlsx", ignoreCase = true))
-            }
-            return excelFiles?.maxByOrNull { it.lastModified() }
-        }
-        return null
-    }
-
-    private fun autoDiscoverOnecFile(): File? {
-        val userHome = System.getProperty("user.home") ?: "."
-        val candidateDirs = listOf(
-            File(userHome, "Documents"),
-            File(userHome, "Desktop"),
-            File(userHome, "Downloads"),
-            File(userHome, "AppData/Local/Temp"),
-            File(userHome, "AppData/Local/1C"),
-            File("C:/1C"),
-            File("C:/1C_Export"),
-            File(".")
-        )
-
-        for (dir in candidateDirs) {
-            if (dir.exists() && dir.isDirectory) {
-                val found = dir.listFiles { f ->
-                    f.isFile && (f.extension.equals("xls", ignoreCase = true) || f.extension.equals("xlsx", ignoreCase = true)) &&
-                            (f.name.contains("дебитор", ignoreCase = true) || f.name.contains("долг", ignoreCase = true) || f.name.contains("взаиморасчет", ignoreCase = true))
-                }?.maxByOrNull { it.lastModified() }
-
-                if (found != null) {
-                    if (found.absolutePath != lastDiscoveredPath) {
-                        lastDiscoveredPath = found.absolutePath
-                        addLog("🔍 Авто-обнаружен файл дебиторки 1С: ${found.absolutePath}")
-                    }
-                    return found
-                }
-            }
-        }
-        return null
     }
 
     private fun addLog(message: String, isError: Boolean = false) {

@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.vitazonebussinessautomation.data.AppRepository
@@ -39,7 +40,10 @@ fun ExcelImportScreen(
     var filePathInput by remember { mutableStateOf(syncState.monitoredPath) }
     var webAppUrlInput by remember { mutableStateOf(syncState.webAppUrl) }
     var onecApiInput by remember { mutableStateOf(syncState.onecHttpUrl) }
-    var onecConnInput by remember { mutableStateOf(syncState.onecConnectionString) }
+    var basePathInput by remember { mutableStateOf(connPart(syncState.onecConnectionString, "File")) }
+    var baseUserInput by remember { mutableStateOf(connPart(syncState.onecConnectionString, "Usr")) }
+    var basePwdInput by remember { mutableStateOf(connPart(syncState.onecConnectionString, "Pwd")) }
+    var baseError by remember { mutableStateOf("") }
     var selectedIntervalSeconds by remember { mutableStateOf(syncState.intervalSeconds) }
 
     var isManualSyncing by remember { mutableStateOf(false) }
@@ -52,13 +56,8 @@ fun ExcelImportScreen(
         if (onecApiInput.isBlank()) onecApiInput = syncState.onecHttpUrl
     }
 
-    val isFilePresent = remember(filePathInput) {
-        if (filePathInput.isBlank()) false
-        else {
-            val f = File(filePathInput)
-            f.exists()
-        }
-    }
+    // «Готово к работе» = указана база 1С
+    val isFilePresent = syncState.onecConnectionString.isNotBlank()
 
     Column(
         modifier = modifier
@@ -66,7 +65,7 @@ fun ExcelImportScreen(
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Warning Banner if file/path is not found
+        // Предупреждение, если база 1С не указана
         if (!isFilePresent) {
             Surface(
                 shape = RoundedCornerShape(8.dp),
@@ -77,53 +76,17 @@ fun ExcelImportScreen(
                 Row(
                     modifier = Modifier.padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            Icons.Default.Warning,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.size(24.dp)
+                    Icon(Icons.Default.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(24.dp))
+                    Column {
+                        Text("Не указана база 1С", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = MaterialTheme.colorScheme.error)
+                        Spacer(Modifier.height(2.dp))
+                        Text(
+                            "Укажите ниже папку базы 1С (где лежит файл 1Cv8.1CD, например D:\\1c база\\InfoBase) и нажмите «Подключить 1С».",
+                            fontSize = 12.sp,
+                            color = MaterialTheme.colorScheme.onErrorContainer
                         )
-                        Column {
-                            Text(
-                                "Внимание: Файл выгрузки 1С не найден или путь не указан!",
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 14.sp,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                            Spacer(Modifier.height(2.dp))
-                            Text(
-                                "Укажите путь к файлу или папке выгрузки из 1С на компьютере бухгалтера, чтобы система начала автоматическое отслеживание.",
-                                fontSize = 12.sp,
-                                color = MaterialTheme.colorScheme.onErrorContainer
-                            )
-                        }
-                    }
-
-                    Button(
-                        onClick = {
-                            val chooser = JFileChooser()
-                            chooser.fileSelectionMode = JFileChooser.FILES_AND_DIRECTORIES
-                            chooser.fileFilter = FileNameExtensionFilter("Excel 1C (*.xls, *.xlsx)", "xls", "xlsx")
-                            val ret = chooser.showOpenDialog(null)
-                            if (ret == JFileChooser.APPROVE_OPTION) {
-                                val selectedPath = chooser.selectedFile.absolutePath
-                                filePathInput = selectedPath
-                                syncWorker.startBackgroundSync(selectedPath, webAppUrlInput, onecApiInput, selectedIntervalSeconds)
-                            }
-                        },
-                        shape = RoundedCornerShape(6.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                    ) {
-                        Icon(Icons.Default.FolderOpen, contentDescription = null, modifier = Modifier.size(16.dp))
-                        Spacer(Modifier.width(6.dp))
-                        Text("Указать путь 1С", fontSize = 13.sp)
                     }
                 }
             }
@@ -158,7 +121,7 @@ fun ExcelImportScreen(
                                 color = if (syncState.isRunning && isFilePresent) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant
                             ) {
                                 Text(
-                                    text = if (syncState.isRunning && isFilePresent) "🟢 ФОНОВАЯ СЛУЖБА АКТИВНА" else "⚪ В ОЖИДАНИИ ПУТИ 1С",
+                                    text = if (syncState.isRunning && isFilePresent) "🟢 ФОНОВАЯ СЛУЖБА АКТИВНА" else "⚪ БАЗА 1С НЕ УКАЗАНА",
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -210,87 +173,88 @@ fun ExcelImportScreen(
                     )
                 }
 
-                // 1C Monitored File/Folder Path Row
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    OutlinedTextField(
-                        value = filePathInput,
-                        onValueChange = {
-                            filePathInput = it
-                            if (syncState.isRunning) {
-                                syncWorker.startBackgroundSync(it, webAppUrlInput, onecApiInput, selectedIntervalSeconds)
-                            }
-                        },
-                        placeholder = { Text("Введите путь к файлу/папке выгрузки из 1С (например, C:\\1C_Export\\)...") },
-                        modifier = Modifier.weight(1f),
-                        singleLine = true,
-                        shape = RoundedCornerShape(6.dp),
-                        textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
-                    )
-
-                    Button(
-                        onClick = {
-                            val chooser = JFileChooser()
-                            chooser.fileSelectionMode = JFileChooser.FILES_AND_DIRECTORIES
-                            chooser.fileFilter = FileNameExtensionFilter("Excel 1C (*.xls, *.xlsx)", "xls", "xlsx")
-                            val ret = chooser.showOpenDialog(null)
-                            if (ret == JFileChooser.APPROVE_OPTION) {
-                                val selectedPath = chooser.selectedFile.absolutePath
-                                filePathInput = selectedPath
-                                syncWorker.startBackgroundSync(selectedPath, webAppUrlInput, onecApiInput, selectedIntervalSeconds)
-                            }
-                        },
-                        shape = RoundedCornerShape(6.dp)
+                // База 1С: данные читаются напрямую из базы каждую минуту
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(Icons.Default.FolderOpen, contentDescription = null, modifier = Modifier.size(16.dp))
-                        Spacer(Modifier.width(6.dp))
-                        Text("Указать путь 1С", fontSize = 13.sp)
+                        OutlinedTextField(
+                            value = basePathInput,
+                            onValueChange = { basePathInput = it; baseError = "" },
+                            label = { Text("Папка базы 1С", fontSize = 12.sp) },
+                            placeholder = { Text("D:\\1c база\\InfoBase") },
+                            modifier = Modifier.weight(1f),
+                            singleLine = true,
+                            shape = RoundedCornerShape(6.dp),
+                            textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
+                        )
+                        OutlinedButton(
+                            onClick = {
+                                val chooser = JFileChooser()
+                                chooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
+                                if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                                    basePathInput = chooser.selectedFile.absolutePath
+                                    baseError = ""
+                                }
+                            },
+                            shape = RoundedCornerShape(6.dp)
+                        ) {
+                            Icon(Icons.Default.FolderOpen, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(Modifier.width(6.dp))
+                            Text("Выбрать папку", fontSize = 13.sp)
+                        }
                     }
-                }
-
-                // Optional 1C HTTP REST API URL Row
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    OutlinedTextField(
-                        value = onecApiInput,
-                        onValueChange = {
-                            onecApiInput = it
-                            if (syncState.isRunning) {
-                                syncWorker.startBackgroundSync(filePathInput, webAppUrlInput, it, selectedIntervalSeconds)
-                            }
-                        },
-                        placeholder = { Text("Опционально: URL HTTP-сервиса 1С (например, http://localhost:8080/vita/hs/sverka/debt)") },
-                        modifier = Modifier.weight(1f),
-                        singleLine = true,
-                        shape = RoundedCornerShape(6.dp),
-                        textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
-                    )
-                }
-
-                // Прямое подключение к базе 1С (COM) — данные всегда актуальные, без выгрузки файлов
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    OutlinedTextField(
-                        value = onecConnInput,
-                        onValueChange = { onecConnInput = it },
-                        label = { Text("Подключение к базе 1С (COM)", fontSize = 12.sp) },
-                        placeholder = { Text("File=\"C:\\Базы\\Optom\";Usr=\"Имя\";Pwd=\"пароль\"   или   Srvr=\"сервер\";Ref=\"optom\";Usr=\"Имя\";Pwd=\"пароль\"") },
-                        modifier = Modifier.weight(1f),
-                        singleLine = true,
-                        shape = RoundedCornerShape(6.dp),
-                        textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
-                    )
-                    Button(onClick = { syncWorker.setOnecConnection(onecConnInput) }) {
-                        Text(if (syncState.onecConnectionString.isBlank()) "Подключить 1С" else "Сохранить", fontSize = 13.sp)
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        OutlinedTextField(
+                            value = baseUserInput,
+                            onValueChange = { baseUserInput = it },
+                            label = { Text("Пользователь 1С — только если 1С спрашивает при входе", fontSize = 12.sp) },
+                            modifier = Modifier.weight(1f),
+                            singleLine = true,
+                            shape = RoundedCornerShape(6.dp),
+                            textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
+                        )
+                        OutlinedTextField(
+                            value = basePwdInput,
+                            onValueChange = { basePwdInput = it },
+                            label = { Text("Пароль (если есть)", fontSize = 12.sp) },
+                            visualTransformation = PasswordVisualTransformation(),
+                            modifier = Modifier.weight(0.6f),
+                            singleLine = true,
+                            shape = RoundedCornerShape(6.dp),
+                            textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
+                        )
+                        Button(
+                            onClick = {
+                                val path = basePathInput.trim().trimEnd('\\', '/')
+                                baseError = when {
+                                    path.isBlank() -> "Укажите папку базы 1С"
+                                    !File(path, "1Cv8.1CD").exists() -> "В этой папке нет файла 1Cv8.1CD — это не папка базы 1С"
+                                    else -> ""
+                                }
+                                if (baseError.isBlank()) {
+                                    syncWorker.setOnecConnection(buildOnecConnection(path, baseUserInput, basePwdInput))
+                                }
+                            },
+                            shape = RoundedCornerShape(6.dp)
+                        ) {
+                            Text(if (syncState.onecConnectionString.isBlank()) "Подключить 1С" else "Сохранить", fontSize = 13.sp)
+                        }
+                    }
+                    if (baseError.isNotBlank()) {
+                        Text(baseError, fontSize = 12.sp, color = MaterialTheme.colorScheme.error)
+                    } else {
+                        Text(
+                            "Пользователь и пароль — это вход в саму 1С (окно выбора пользователя при запуске), не интернет. Если 1С открывается без выбора пользователя, оставьте оба поля пустыми.",
+                            fontSize = 11.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 }
 
@@ -375,7 +339,7 @@ fun ExcelImportScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            MetricCard("Статус фоновой службы", if (syncState.isRunning && isFilePresent) "АКТИВНА" else "ОЖИДАЕТ ПУТЬ 1С", Modifier.weight(1f))
+            MetricCard("Статус фоновой службы", if (syncState.isRunning && isFilePresent) "АКТИВНА" else "БАЗА 1С НЕ УКАЗАНА", Modifier.weight(1f))
             MetricCard("Последняя авто-выгрузка", syncState.lastSyncTime, Modifier.weight(1.2f))
             MetricCard("Занесено отгрузок", "${syncState.lastPublishedShipments}", Modifier.weight(1f))
             MetricCard("Занесено оплат", "${syncState.lastPublishedPayments}", Modifier.weight(1f))
@@ -634,3 +598,16 @@ function doPost(e) {
         }
     )
 }
+
+/** Строка подключения 1С к файловой базе: File="путь"[;Usr="имя";Pwd="пароль"]. */
+internal fun buildOnecConnection(path: String, user: String, pwd: String): String {
+    fun q(v: String) = v.replace("\"", "\"\"")
+    val p = path.trim().trimEnd('\\', '/')
+    if (p.isBlank()) return ""
+    val sb = StringBuilder("File=\"").append(q(p)).append("\"")
+    if (user.isNotBlank()) sb.append(";Usr=\"").append(q(user.trim())).append("\";Pwd=\"").append(q(pwd)).append("\"")
+    return sb.toString()
+}
+
+private fun connPart(conn: String, key: String): String =
+    Regex("(?i)$key=\"((?:[^\"]|\"\")*)\"").find(conn)?.groupValues?.get(1)?.replace("\"\"", "\"") ?: ""
