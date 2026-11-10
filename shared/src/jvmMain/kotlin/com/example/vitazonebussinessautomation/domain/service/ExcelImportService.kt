@@ -4,10 +4,7 @@ import com.example.vitazonebussinessautomation.domain.models.Payment
 import com.example.vitazonebussinessautomation.domain.models.PaymentStatus
 import com.example.vitazonebussinessautomation.domain.models.Shipment
 import com.example.vitazonebussinessautomation.domain.models.ShipmentStatus
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.todayIn
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.DateUtil
@@ -32,7 +29,7 @@ class ExcelImportService {
         val shipments = mutableListOf<Shipment>()
         val payments = mutableListOf<Payment>()
         val errors = mutableListOf<String>()
-        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+        val today = java.time.LocalDate.now().let { LocalDate(it.year, it.monthValue, it.dayOfMonth) }
 
         if (!file.exists()) {
             return ExcelImportResult(emptyList(), emptyList(), 0, 0.0, 0.0, 0.0, listOf("Файл не найден: ${file.absolutePath}"))
