@@ -200,7 +200,19 @@ class BackgroundSyncWorker(
         val checksum = CRC32().also { it.update(res.rows.toString().toByteArray(Charsets.UTF_8)) }.value
         if (!force && checksum == lastFileChecksum) return Result.success("1С без изменений")
 
-        val (rows, salesAreOut) = comBridge.toReportRows(res.rows)
+        addLog("🔎 1С: ${comBridge.diagnostics(res.rows)}")
+        // Берём тот ресурс регистра, в котором реально есть долги
+        val (rowsSum, outSum) = comBridge.toReportRows(res.rows, useFin = false)
+        val (rowsFin, outFin) = comBridge.toReportRows(res.rows, useFin = true)
+        val useFin = rowsFin.size > rowsSum.size
+        val rows = if (useFin) rowsFin else rowsSum
+        val salesAreOut = if (useFin) outFin else outSum
+        addLog("ℹ️ Долг берётся из ресурса «${if (useFin) "Сум финанс" else "Задолженность сум"}» (договоров с долгом: ${rows.size})")
+        if (rows.isEmpty()) {
+            lastFileChecksum = checksum  // не повторять диагностику, пока данные в 1С не изменятся
+            logOnecErrorOnce("В регистре «Дебиторка» нет договоров с ненулевым долгом — пришлите строку 🔎 из лога")
+            return Result.failure(Exception("0 договоров с долгом"))
+        }
         if (lastSalesConvention != salesAreOut) {
             lastSalesConvention = salesAreOut
             addLog("ℹ️ В регистре «Дебиторка» продажи записаны как «${if (salesAreOut) "Расход" else "Приход"}» — знак долга учтён")

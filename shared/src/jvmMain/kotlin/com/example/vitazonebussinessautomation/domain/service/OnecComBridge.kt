@@ -17,7 +17,12 @@ data class OnecComRow(
     val inAll: Double = 0.0,
     val outAll: Double = 0.0,
     val inSale: Double = 0.0,
-    val outSale: Double = 0.0
+    val outSale: Double = 0.0,
+    val inFin: Double = 0.0,
+    val outFin: Double = 0.0,
+    val inSaleFin: Double = 0.0,
+    val outSaleFin: Double = 0.0,
+    val cnt: Int = 0
 )
 
 @Serializable
@@ -132,14 +137,28 @@ class OnecComBridge(private val log: (String) -> Unit) {
      * документы «Продажа» увеличивают долг, поэтому их вид движения показывает, как в регистре записан долг.
      * Закрытые договоры (долг = 0) не выводятся, как и в отчёте 1С.
      */
-    fun toReportRows(rows: List<OnecComRow>): Pair<List<DebtReportRow>, Boolean> {
-        val salesAreOut = rows.sumOf { it.outSale } >= rows.sumOf { it.inSale }
+    fun toReportRows(rows: List<OnecComRow>, useFin: Boolean = false): Pair<List<DebtReportRow>, Boolean> {
+        // выбранный ресурс регистра: «Задолженность сум» или «Сум финанс»
+        fun inA(r: OnecComRow) = if (useFin) r.inFin else r.inAll
+        fun outA(r: OnecComRow) = if (useFin) r.outFin else r.outAll
+        fun inS(r: OnecComRow) = if (useFin) r.inSaleFin else r.inSale
+        fun outS(r: OnecComRow) = if (useFin) r.outSaleFin else r.outSale
+
+        val salesAreOut = rows.sumOf { outS(it) } >= rows.sumOf { inS(it) }
         val out = rows.map { r ->
-            val sale = if (salesAreOut) r.outSale - r.inSale else r.inSale - r.outSale
-            val debt = if (salesAreOut) r.inAll - r.outAll else r.outAll - r.inAll
+            val sale = if (salesAreOut) outS(r) - inS(r) else inS(r) - outS(r)
+            val debt = if (salesAreOut) inA(r) - outA(r) else outA(r) - inA(r)
             DebtReportRow(r.mp, r.doc, r.date, r.kontr, r.note, paid = debt + sale, sale = sale, debt = debt)
         }.filter { abs(it.debt) >= 0.005 }
         return out to salesAreOut
+    }
+
+    /** Сводка для лога: сколько записей и сумм по каждому ресурсу пришло из регистра. */
+    fun diagnostics(rows: List<OnecComRow>): String {
+        fun f(v: Double) = String.format(java.util.Locale.US, "%,.0f", v).replace(',', ' ')
+        return "записей в регистре: ${rows.sumOf { it.cnt }}, групп: ${rows.size}; " +
+            "«Задолженность сум»: приход ${f(rows.sumOf { it.inAll })}, расход ${f(rows.sumOf { it.outAll })}; " +
+            "«Сум финанс»: приход ${f(rows.sumOf { it.inFin })}, расход ${f(rows.sumOf { it.outFin })}"
     }
 
     /** Пишет строки в xlsx того же вида, что отчёт 1С «Дебиторка» (Приход / Продажа / Долг). */
