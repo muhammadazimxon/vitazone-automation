@@ -24,7 +24,7 @@ data class BackgroundSyncState(
     val isRunning: Boolean = false,
     val monitoredPath: String = "",
     val onecHttpUrl: String = "",
-    val webAppUrl: String = "https://script.google.com/macros/s/AKfycbyX3Ap2t7fNkahgYp0xTUJ3na-Zi0Z9uvT7u7Qm3mO3M3IjUu5zwBE1BcRTpbBKPHdY7A/exec",
+    val webAppUrl: String = "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec",
     val intervalSeconds: Int = 3,
     val lastSyncTime: String = "—",
     val lastPublishedShipments: Int = 0,
@@ -64,7 +64,7 @@ class BackgroundSyncWorker(
         val savedConfig = configStorage.loadConfig()
         val defaultPath = "/Users/macbookpro/AndroidStudioProjects/VitazoneBussinessAutomation/дебиторка 25.10.2026.xls"
         val activePath = savedConfig.monitoredPath.ifBlank { defaultPath }
-        val defaultUrl = "https://script.google.com/macros/s/AKfycbyX3Ap2t7fNkahgYp0xTUJ3na-Zi0Z9uvT7u7Qm3mO3M3IjUu5zwBE1BcRTpbBKPHdY7A/exec"
+        val defaultUrl = "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec"
         val activeUrl = savedConfig.webAppUrl.ifBlank { defaultUrl }
 
         _state.value = _state.value.copy(
@@ -89,7 +89,7 @@ class BackgroundSyncWorker(
             stopBackgroundSync()
         }
 
-        val activeUrl = webAppUrl.ifBlank { "https://script.google.com/macros/s/AKfycbyX3Ap2t7fNkahgYp0xTUJ3na-Zi0Z9uvT7u7Qm3mO3M3IjUu5zwBE1BcRTpbBKPHdY7A/exec" }
+        val activeUrl = webAppUrl.ifBlank { "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec" }
 
         val configToSave = AppConfig(
             monitoredPath = filePathOrFolder,
@@ -136,7 +136,7 @@ class BackgroundSyncWorker(
 
     private suspend fun performSyncCheck(force: Boolean = false): Result<String> {
         val path = _state.value.monitoredPath.trim()
-        val url = _state.value.webAppUrl.trim().ifBlank { "https://script.google.com/macros/s/AKfycbyX3Ap2t7fNkahgYp0xTUJ3na-Zi0Z9uvT7u7Qm3mO3M3IjUu5zwBE1BcRTpbBKPHdY7A/exec" }
+        val url = _state.value.webAppUrl.trim().ifBlank { "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec" }
         val onecApi = _state.value.onecHttpUrl.trim()
 
         if (path.isBlank() && onecApi.isBlank()) {

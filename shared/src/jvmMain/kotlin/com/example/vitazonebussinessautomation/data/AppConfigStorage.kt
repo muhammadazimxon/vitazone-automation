@@ -6,7 +6,7 @@ import java.io.File
 
 @Serializable
 data class AppConfig(
-    val webAppUrl: String = "https://script.google.com/macros/s/AKfycbyX3Ap2t7fNkahgYp0xTUJ3na-Zi0Z9uvT7u7Qm3mO3M3IjUu5zwBE1BcRTpbBKPHdY7A/exec",
+    val webAppUrl: String = "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec",
     val monitoredPath: String = "",
     val onecHttpUrl: String = "",
     val autoStartOnLaunch: Boolean = true,
@@ -32,7 +32,7 @@ class AppConfigStorage {
                 val content = configFile.readText()
                 val config = json.decodeFromString<AppConfig>(content)
                 if (config.webAppUrl.isBlank()) {
-                    config.copy(webAppUrl = "https://script.google.com/macros/s/AKfycbyX3Ap2t7fNkahgYp0xTUJ3na-Zi0Z9uvT7u7Qm3mO3M3IjUu5zwBE1BcRTpbBKPHdY7A/exec")
+                    config.copy(webAppUrl = "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec")
                 } else config
             } else {
                 AppConfig()
