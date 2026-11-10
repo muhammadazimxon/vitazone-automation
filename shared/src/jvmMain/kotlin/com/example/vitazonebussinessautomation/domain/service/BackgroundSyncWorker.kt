@@ -24,7 +24,7 @@ data class BackgroundSyncState(
     val isRunning: Boolean = false,
     val monitoredPath: String = "",
     val onecHttpUrl: String = "",
-    val webAppUrl: String = "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec",
+    val webAppUrl: String = "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec",
     val intervalSeconds: Int = 3,
     val lastSyncTime: String = "—",
     val lastPublishedShipments: Int = 0,
@@ -44,11 +44,12 @@ class BackgroundSyncWorker(
     val state: StateFlow<BackgroundSyncState> = _state.asStateFlow()
 
     private var lastFileChecksum: Long = 0L
-    private var lastOnecError: String = ""
+    private val loggedErrors = mutableSetOf<String>()
+    private var lastDiscoveredPath: String = ""
+    private var lastPublishError: String = ""
 
     private fun logOnecErrorOnce(msg: String) {
-        if (msg != lastOnecError) {
-            lastOnecError = msg
+        if (loggedErrors.add(msg)) {
             addLog("⚠️ $msg", isError = true)
         }
     }
@@ -62,9 +63,9 @@ class BackgroundSyncWorker(
 
     init {
         val savedConfig = configStorage.loadConfig()
-        val defaultPath = "/Users/macbookpro/AndroidStudioProjects/VitazoneBussinessAutomation/дебиторка 25.10.2026.xls"
+        val defaultPath = ""  // пусто = авто-поиск файла «дебиторка» в Документах/Рабочем столе/Загрузках
         val activePath = savedConfig.monitoredPath.ifBlank { defaultPath }
-        val defaultUrl = "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec"
+        val defaultUrl = "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec"
         val activeUrl = savedConfig.webAppUrl.ifBlank { defaultUrl }
 
         _state.value = _state.value.copy(
@@ -89,7 +90,7 @@ class BackgroundSyncWorker(
             stopBackgroundSync()
         }
 
-        val activeUrl = webAppUrl.ifBlank { "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec" }
+        val activeUrl = webAppUrl.ifBlank { "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec" }
 
         val configToSave = AppConfig(
             monitoredPath = filePathOrFolder,
@@ -118,7 +119,9 @@ class BackgroundSyncWorker(
             // STEP 2: CONTINUOUS WATCHER FOR ACCOUNTANT ACTIONS IN 1C
             while (isActive) {
                 delay(intervalSeconds * 1000L)
-                performSyncCheck(force = false)
+                val r = performSyncCheck(force = false)
+                // при ошибке (нет файла, Google не отвечает) не долбим каждые 3 секунды
+                if (r.isFailure) delay(27_000L)
             }
         }
     }
@@ -136,14 +139,8 @@ class BackgroundSyncWorker(
 
     private suspend fun performSyncCheck(force: Boolean = false): Result<String> {
         val path = _state.value.monitoredPath.trim()
-        val url = _state.value.webAppUrl.trim().ifBlank { "https://script.google.com/macros/s/AKfycbxKbiy5HeOW9FpSPXQltq9H0j1T5IrLmkwnJnKDvELDPEtywNf5025MrMY21LcI0wjvYg/exec" }
+        val url = _state.value.webAppUrl.trim().ifBlank { "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec" }
         val onecApi = _state.value.onecHttpUrl.trim()
-
-        if (path.isBlank() && onecApi.isBlank()) {
-            val err = "Укажите путь к выгрузке 1С"
-            addLog("❌ $err", isError = true)
-            return Result.failure(Exception(err))
-        }
 
         if (url.isBlank()) {
             val err = "Укажите Google Apps Script Web App URL"
@@ -161,7 +158,7 @@ class BackgroundSyncWorker(
                 val code = conn.responseCode
                 if (code in 200..299) {
                     val bytes = conn.inputStream.readBytes()
-                    lastOnecError = ""
+                    loggedErrors.clear()
                     val currentChecksum = CRC32().also { it.update(bytes) }.value
                     if (!force && currentChecksum == lastFileChecksum) {
                         return Result.success("1С без изменений")
@@ -186,11 +183,13 @@ class BackgroundSyncWorker(
         // 2. Real-time Local File/Folder Monitoring
         val targetFile = resolveTargetFile(path) ?: autoDiscoverOnecFile()
         if (targetFile == null || !targetFile.exists()) {
-            val err = "Файл выгрузки 1С не найден по пути: $path"
-            addLog("⚠️ $err", isError = true)
+            val err = if (path.isBlank()) "Файл дебиторки 1С не найден (укажите путь в приложении)"
+                      else "Файл выгрузки 1С не найден по пути: $path"
+            logOnecErrorOnce(err)
             return Result.failure(Exception(err))
         }
 
+        loggedErrors.clear()
         val currentChecksum = checksumOf(targetFile)
         if (!force && currentChecksum == lastFileChecksum) {
             return Result.success("Файл 1С без изменений")
@@ -237,13 +236,14 @@ class BackgroundSyncWorker(
 
         addLog("🚀 Отправка 1С на проверку недостающих записей в Google Sheets...")
         val reportDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())
-        val importRows = excelImportService.readRawImportRows(targetFile, reportDate)
-        val publishResult = googleSyncService.sendBatchToGoogleSheets(webAppUrl, importResult, importRows)
+        val importRows = excelImportService.readRawImportRows(targetFile)
+        val publishResult = googleSyncService.sendBatchToGoogleSheets(webAppUrl, importResult, importRows, reportDate)
 
         val timeStr = SimpleDateFormat("HH:mm:ss dd.MM.yyyy", Locale.getDefault()).format(Date())
 
         return publishResult.onSuccess { details ->
             lastFileChecksum = currentChecksum
+            lastPublishError = ""
             _state.value = _state.value.copy(
                 lastSyncTime = timeStr,
                 lastPublishedShipments = importResult.shipments.size,
@@ -251,7 +251,11 @@ class BackgroundSyncWorker(
             )
             addLog("✅ Сверка и выгрузка завершена! Недостающие накладные занесены в Google Sheets. ($details)")
         }.onFailure { err ->
-            addLog("❌ Ошибка выгрузки в Google Sheets: ${err.message}", isError = true)
+            val msg = "Ошибка выгрузки в Google Sheets: ${err.message}"
+            if (msg != lastPublishError) {
+                lastPublishError = msg
+                addLog("❌ $msg", isError = true)
+            }
         }
     }
 
@@ -289,7 +293,10 @@ class BackgroundSyncWorker(
                 }?.maxByOrNull { it.lastModified() }
 
                 if (found != null) {
-                    addLog("🔍 Авто-обнаружен файл дебиторки 1С: ${found.absolutePath}")
+                    if (found.absolutePath != lastDiscoveredPath) {
+                        lastDiscoveredPath = found.absolutePath
+                        addLog("🔍 Авто-обнаружен файл дебиторки 1С: ${found.absolutePath}")
+                    }
                     return found
                 }
             }

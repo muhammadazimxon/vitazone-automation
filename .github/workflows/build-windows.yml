@@ -13,6 +13,9 @@ jobs:
           distribution: temurin
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
+      - name: Test debt statuses (build fails if broken)
+        run: ./gradlew.bat :shared:jvmTest --tests "*DebtStatusTest" --no-daemon
+        shell: cmd
       - run: ./gradlew.bat :desktopApp:packageMsi --no-daemon
         shell: cmd
       - uses: actions/upload-artifact@v4

@@ -20,11 +20,12 @@ private object TrayIconPainter : Painter() {
     }
 }
 
-fun main() = application {
+fun main(args: Array<String>) = application {
     // Создание воркера запускает фоновую слежку за 1С сразу при старте приложения
     remember { SyncWorkerHolder.worker }
 
-    var visible by remember { mutableStateOf(true) }
+    // при автозапуске Windows стартуем свёрнутыми в трей (--background)
+    var visible by remember { mutableStateOf(!args.contains("--background")) }
     var autostart by remember { mutableStateOf(Autostart.enableOnFirstRun()) }
 
     Tray(

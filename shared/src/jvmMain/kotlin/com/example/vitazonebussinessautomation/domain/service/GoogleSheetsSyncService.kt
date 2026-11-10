@@ -14,7 +14,8 @@ import java.net.URL
 data class GoogleSheetBatchPayload(
     val shipments: List<GoogleSheetShipmentRow>,
     val payments: List<GoogleSheetPaymentRow> = emptyList(),
-    val importRows: List<List<String>> = emptyList()
+    val importRows: List<List<String>> = emptyList(),
+    val reportDate: String = ""
 )
 
 @Serializable
@@ -46,6 +47,7 @@ data class SyncResponse(
     val success: Boolean,
     val added: Int? = null,
     val addedPayments: Int? = null,
+    val imported: Int? = null,
     val error: String? = null
 )
 
@@ -55,7 +57,8 @@ class GoogleSheetsSyncService {
     suspend fun sendBatchToGoogleSheets(
         webAppUrl: String,
         importResult: ExcelImportResult,
-        importRows: List<List<String>> = emptyList()
+        importRows: List<List<String>> = emptyList(),
+        reportDate: String = ""
     ): Result<String> = withContext(Dispatchers.IO) {
         val urlStr = webAppUrl.trim()
         if (urlStr.isBlank()) {
@@ -89,7 +92,7 @@ class GoogleSheetsSyncService {
                 )
             }
 
-            val payload = GoogleSheetBatchPayload(shipments = shipmentRows, payments = paymentRows, importRows = importRows)
+            val payload = GoogleSheetBatchPayload(shipments = shipmentRows, payments = paymentRows, importRows = importRows, reportDate = reportDate)
             val bodyJson = json.encodeToString(payload)
 
             val initialUrl = URL(urlStr)
@@ -143,7 +146,11 @@ class GoogleSheetsSyncService {
             }
 
             if (responseText.isBlank()) {
-                return@withContext Result.success("Отгрузок: ${shipmentRows.size}, Поступлений: ${paymentRows.size}")
+                return@withContext if (importRows.isNotEmpty()) {
+                    Result.failure(Exception("Пустой ответ скрипта Google: проверьте URL и версию развертывания Apps Script."))
+                } else {
+                    Result.success("Отгрузок: ${shipmentRows.size}, Поступлений: ${paymentRows.size}")
+                }
             }
 
             if (responseText.trim().startsWith("<!DOCTYPE") || responseText.trim().startsWith("<html")) {
@@ -154,15 +161,26 @@ class GoogleSheetsSyncService {
 
             return@withContext try {
                 val res = json.decodeFromString<SyncResponse>(responseText)
-                if (res.success) {
+                if (res.success && importRows.isNotEmpty() && res.imported == null) {
+                    Result.failure(
+                        Exception(
+                            "Скрипт Google не обработал лист «Импорт» (в ответе нет imported). " +
+                                "Вставьте актуальный код Apps Script и создайте НОВУЮ версию развертывания."
+                        )
+                    )
+                } else if (res.success) {
                     val shipCount = res.added ?: shipmentRows.size
                     val payCount = res.addedPayments ?: paymentRows.size
-                    Result.success("Отгрузок: $shipCount, Поступлений: $payCount")
+                    Result.success("Импорт: ${res.imported ?: 0} строк, Отгрузок: $shipCount, Поступлений: $payCount")
                 } else {
                     Result.failure(Exception(res.error ?: "Ошибка Google Sheets"))
                 }
             } catch (e: Exception) {
-                Result.success("Отгрузок: ${shipmentRows.size}, Поступлений: ${paymentRows.size}")
+                if (importRows.isNotEmpty()) {
+                    Result.failure(Exception("Неожиданный ответ скрипта Google: ${responseText.trim().take(120)}"))
+                } else {
+                    Result.success("Отгрузок: ${shipmentRows.size}, Поступлений: ${paymentRows.size}")
+                }
             }
         } catch (e: Exception) {
             Result.failure(e)

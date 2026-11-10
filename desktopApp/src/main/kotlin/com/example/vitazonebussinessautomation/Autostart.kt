@@ -20,7 +20,7 @@ object Autostart {
         if (!isWindows) return
         if (enabled) {
             val exe = exePath() ?: return
-            run("reg", "add", KEY, "/v", NAME, "/t", "REG_SZ", "/d", "\"$exe\"", "/f")
+            run("reg", "add", KEY, "/v", NAME, "/t", "REG_SZ", "/d", "\"$exe\" --background", "/f")
         } else {
             run("reg", "delete", KEY, "/v", NAME, "/f")
         }
