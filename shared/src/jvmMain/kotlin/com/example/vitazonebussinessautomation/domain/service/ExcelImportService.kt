@@ -90,8 +90,12 @@ class ExcelImportService {
                     inn = extractedInn
                 }
 
+                // В отчёте 1С долг отрицательный (остаток = оплачено − отгрузка), поэтому
+                // сумма, которую клиент ещё должен, это -debtAmt. Раньше отрицательный остаток
+                // считался «нет долга», и все отгрузки получали статус «Оплачено».
+                val remainingDebt = -debtAmt
                 val calculatedStatus = when {
-                    debtAmt <= 0.01 && shipmentAmt > 0 -> ShipmentStatus.PAID
+                    remainingDebt <= 0.01 && shipmentAmt > 0 -> ShipmentStatus.PAID
                     paidAmt > 0.01 -> ShipmentStatus.PARTIALLY_PAID
                     else -> ShipmentStatus.AWAITING_PAYMENT
                 }
