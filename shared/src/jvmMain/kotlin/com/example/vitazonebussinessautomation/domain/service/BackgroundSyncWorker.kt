@@ -24,6 +24,7 @@ data class BackgroundSyncState(
     val isRunning: Boolean = false,
     val monitoredPath: String = "",
     val onecHttpUrl: String = "",
+    val onecConnectionString: String = "",
     val webAppUrl: String = "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec",
     val intervalSeconds: Int = 3,
     val lastSyncTime: String = "—",
@@ -47,6 +48,8 @@ class BackgroundSyncWorker(
     private val loggedErrors = mutableSetOf<String>()
     private var lastDiscoveredPath: String = ""
     private var lastPublishError: String = ""
+    private var lastSalesConvention: Boolean? = null
+    private val comBridge = OnecComBridge { addLog(it) }
 
     private fun logOnecErrorOnce(msg: String) {
         if (loggedErrors.add(msg)) {
@@ -72,6 +75,7 @@ class BackgroundSyncWorker(
             monitoredPath = activePath,
             webAppUrl = activeUrl,
             onecHttpUrl = savedConfig.onecHttpUrl,
+            onecConnectionString = savedConfig.onecConnectionString,
             intervalSeconds = 3
         )
 
@@ -92,7 +96,8 @@ class BackgroundSyncWorker(
 
         val activeUrl = webAppUrl.ifBlank { "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec" }
 
-        val configToSave = AppConfig(
+        // copy(): не терять остальные настройки (в том числе подключение к 1С)
+        val configToSave = configStorage.loadConfig().copy(
             monitoredPath = filePathOrFolder,
             webAppUrl = activeUrl,
             onecHttpUrl = onecHttpUrl,
@@ -114,19 +119,31 @@ class BackgroundSyncWorker(
         syncJob = scope.launch {
             // STEP 1: INITIAL IMMEDIATE FULL SYNC ON STARTUP
             addLog("⚡ ПЕРВАЯ ВЫГРУЗКА ПРИ ЗАПУСКЕ: Проверка недостающих накладных 1С в Google Sheets...")
-            performSyncCheck(force = true)
+            safeSyncCheck(force = true)
 
             // STEP 2: CONTINUOUS WATCHER FOR ACCOUNTANT ACTIONS IN 1C
             while (isActive) {
                 delay(intervalSeconds * 1000L)
-                val r = performSyncCheck(force = false)
+                val r = safeSyncCheck(force = false)
                 // при ошибке (нет файла, Google не отвечает) не долбим каждые 3 секунды
                 if (r.isFailure) delay(27_000L)
             }
         }
     }
 
+    /** Сохранить строку подключения к 1С (COM) и сразу переподключиться. Пусто = отключить COM. */
+    fun setOnecConnection(connectionString: String) {
+        val conn = connectionString.trim()
+        configStorage.saveConfig(configStorage.loadConfig().copy(onecConnectionString = conn))
+        _state.value = _state.value.copy(onecConnectionString = conn)
+        comBridge.stop()
+        lastFileChecksum = 0L
+        loggedErrors.clear()
+        addLog(if (conn.isBlank()) "🔌 Прямое подключение к 1С отключено" else "🔌 Подключение к 1С сохранено, данные появятся в течение минуты")
+    }
+
     fun stopBackgroundSync() {
+        comBridge.stop()
         syncJob?.cancel()
         syncJob = null
         _state.value = _state.value.copy(isRunning = false)
@@ -134,7 +151,17 @@ class BackgroundSyncWorker(
     }
 
     suspend fun syncNow(): Result<String> {
-        return performSyncCheck(force = true)
+        return safeSyncCheck(force = true)
+    }
+
+    /** Любой сбой (в том числе java.lang.Error) логируется, а цикл слежки продолжает работать. */
+    private suspend fun safeSyncCheck(force: Boolean): Result<String> = try {
+        performSyncCheck(force)
+    } catch (e: CancellationException) {
+        throw e
+    } catch (t: Throwable) {
+        logOnecErrorOnce("Сбой синхронизации: ${t::class.simpleName}: ${t.message}")
+        Result.failure(t)
     }
 
     private suspend fun performSyncCheck(force: Boolean = false): Result<String> {
@@ -146,6 +173,12 @@ class BackgroundSyncWorker(
             val err = "Укажите Google Apps Script Web App URL"
             addLog("❌ $err", isError = true)
             return Result.failure(Exception(err))
+        }
+
+        // 0. Прямое подключение к базе 1С (COM) — основной режим: данные всегда актуальные
+        val onecConn = _state.value.onecConnectionString.trim()
+        if (onecConn.isNotBlank()) {
+            return checkViaCom(onecConn, url, force)
         }
 
         // 1. Try 1C HTTP REST API if specified
@@ -214,6 +247,38 @@ class BackgroundSyncWorker(
             safeTempFile.delete()
         }
         return result
+    }
+
+    private suspend fun checkViaCom(conn: String, url: String, force: Boolean): Result<String> {
+        if (!comBridge.isWindows) {
+            logOnecErrorOnce("Прямое подключение к 1С (COM) работает только на Windows")
+            return Result.failure(Exception("COM только на Windows"))
+        }
+        comBridge.ensureRunning(conn, 60)
+        val res = comBridge.read() ?: return Result.success("Ждём данные из 1С")
+        if (!res.ok) {
+            val err = res.error ?: "неизвестная ошибка"
+            if (comBridge.switchBitnessIfNeeded(err)) return Result.success("Пробуем другую разрядность COM")
+            logOnecErrorOnce("1С: $err")
+            return Result.failure(Exception(err))
+        }
+        loggedErrors.clear()
+
+        val checksum = CRC32().also { it.update(res.rows.toString().toByteArray(Charsets.UTF_8)) }.value
+        if (!force && checksum == lastFileChecksum) return Result.success("1С без изменений")
+
+        val (rows, salesAreOut) = comBridge.toReportRows(res.rows)
+        if (lastSalesConvention != salesAreOut) {
+            lastSalesConvention = salesAreOut
+            addLog("ℹ️ В регистре «Дебиторка» продажи записаны как «${if (salesAreOut) "Расход" else "Приход"}» — знак долга учтён")
+        }
+        addLog("🔔 Данные из базы 1С на ${res.ts ?: "сейчас"}: ${rows.size} договоров с долгом. Обновляем «Импорт»...")
+        val report = comBridge.writeReportFile(rows)
+        return try {
+            processAndPublishFile(report, url, checksum)
+        } finally {
+            report.delete()
+        }
     }
 
     private suspend fun processAndPublishFile(

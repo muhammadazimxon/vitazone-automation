@@ -39,6 +39,7 @@ fun ExcelImportScreen(
     var filePathInput by remember { mutableStateOf(syncState.monitoredPath) }
     var webAppUrlInput by remember { mutableStateOf(syncState.webAppUrl) }
     var onecApiInput by remember { mutableStateOf(syncState.onecHttpUrl) }
+    var onecConnInput by remember { mutableStateOf(syncState.onecConnectionString) }
     var selectedIntervalSeconds by remember { mutableStateOf(syncState.intervalSeconds) }
 
     var isManualSyncing by remember { mutableStateOf(false) }
@@ -270,6 +271,27 @@ fun ExcelImportScreen(
                         shape = RoundedCornerShape(6.dp),
                         textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
                     )
+                }
+
+                // Прямое подключение к базе 1С (COM) — данные всегда актуальные, без выгрузки файлов
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    OutlinedTextField(
+                        value = onecConnInput,
+                        onValueChange = { onecConnInput = it },
+                        label = { Text("Подключение к базе 1С (COM)", fontSize = 12.sp) },
+                        placeholder = { Text("File=\"C:\\Базы\\Optom\";Usr=\"Имя\";Pwd=\"пароль\"   или   Srvr=\"сервер\";Ref=\"optom\";Usr=\"Имя\";Pwd=\"пароль\"") },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true,
+                        shape = RoundedCornerShape(6.dp),
+                        textStyle = LocalTextStyle.current.copy(fontSize = 13.sp)
+                    )
+                    Button(onClick = { syncWorker.setOnecConnection(onecConnInput) }) {
+                        Text(if (syncState.onecConnectionString.isBlank()) "Подключить 1С" else "Сохранить", fontSize = 13.sp)
+                    }
                 }
 
                 // Background Sync Controls & Interval

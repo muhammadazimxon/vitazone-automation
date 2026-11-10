@@ -9,6 +9,8 @@ data class AppConfig(
     val webAppUrl: String = "https://script.google.com/macros/s/AKfycbyZL7c5orqIimJQYGX_vlZ5qHQFLfVyd8ex9twVkwaOsLayijlbVH9RvNLNeOkYxkDknw/exec",
     val monitoredPath: String = "",
     val onecHttpUrl: String = "",
+    /** Строка подключения к базе 1С для COM, например File="C:\\Base";Usr="Имя";Pwd="пароль" */
+    val onecConnectionString: String = "",
     val autoStartOnLaunch: Boolean = true,
     val checkIntervalSeconds: Int = 10,
     val lastSyncTimestamp: Long = 0L

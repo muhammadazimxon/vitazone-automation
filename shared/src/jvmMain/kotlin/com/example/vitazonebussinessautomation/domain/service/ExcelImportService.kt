@@ -182,7 +182,7 @@ class ExcelImportService {
 
         val date = find("дата составления", "дата").let { if (it < 0) 2 else it }
         val inn = find("инн")
-        val c4 = find("контрагент", "контрагенты").let {
+        val c4 = h.indexOfFirst { it.contains("контрагент") && !it.startsWith("док номер") }.let {
             if (it >= 0) it else if (h.getOrNull(date + 1).isNullOrBlank()) date + 1 else -1
         }
         val c5 = find("док номер.назначение", "док номер.статус", "назначение").let {

@@ -2,6 +2,8 @@ package com.example.vitazonebussinessautomation
 
 import com.example.vitazonebussinessautomation.domain.models.ShipmentStatus
 import com.example.vitazonebussinessautomation.domain.service.ExcelImportService
+import com.example.vitazonebussinessautomation.domain.service.OnecComBridge
+import com.example.vitazonebussinessautomation.domain.service.OnecComRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.File
 import java.io.FileOutputStream
@@ -116,5 +118,38 @@ class DebtStatusTest {
         assertEquals("ОПТОМ II", raw[0][3])
         assertEquals("Клиент А ИНН 305225561", raw[0][4])
         assertEquals(listOf("40", "100", "-60"), raw[1].subList(5, 8))
+    }
+
+    // Данные напрямую из регистра 1С: знак долга определяется по документам «Продажа»
+    @Test
+    fun com_rows_sign_is_calibrated_by_sales_both_ways() {
+        val bridge = OnecComBridge {}
+        // продажи записаны как Расход
+        val a = listOf(
+            OnecComRow(doc = "1", kontr = "ОПТОМ II", note = "Клиент", inAll = 40.0, outAll = 100.0, outSale = 100.0),
+            OnecComRow(doc = "2", kontr = "Закрыт", note = "Клиент 2", inAll = 50.0, outAll = 50.0, outSale = 50.0),
+        )
+        // те же операции, но продажи записаны как Приход
+        val b = listOf(
+            OnecComRow(doc = "1", kontr = "ОПТОМ II", note = "Клиент", inAll = 100.0, outAll = 40.0, inSale = 100.0),
+            OnecComRow(doc = "2", kontr = "Закрыт", note = "Клиент 2", inAll = 50.0, outAll = 50.0, inSale = 50.0),
+        )
+        for (rows in listOf(a, b)) {
+            val (out, _) = bridge.toReportRows(rows)
+            assertEquals(1, out.size)                 // закрытый договор (долг 0) не выводится
+            assertEquals(-60.0, out[0].debt, 0.001)   // долг отрицательный, как в отчёте 1С
+            assertEquals(100.0, out[0].sale, 0.001)
+            assertEquals(40.0, out[0].paid, 0.001)
+        }
+
+        // сквозная проверка: файл из 1С -> статусы и строки для «Импорт»
+        val file = bridge.writeReportFile(bridge.toReportRows(a).first)
+        val service = ExcelImportService()
+        val parsed = service.parseDebtorExcel(file)
+        val raw = service.readRawImportRows(file)
+        file.delete()
+        assertEquals(ShipmentStatus.PARTIALLY_PAID, parsed.shipments.single().status)
+        assertEquals("ОПТОМ II", raw.single()[3])
+        assertEquals(listOf("40", "100", "-60"), raw.single().subList(5, 8))
     }
 }
