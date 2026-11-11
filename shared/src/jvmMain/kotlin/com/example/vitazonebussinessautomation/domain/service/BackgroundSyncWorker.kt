@@ -49,6 +49,7 @@ class BackgroundSyncWorker(
     private var lastDiscoveredPath: String = ""
     private var lastPublishError: String = ""
     private var lastSalesConvention: Boolean? = null
+    private var lastHeartbeatMs = 0L
     private val comBridge = OnecComBridge { addLog(it) }
 
     private fun logOnecErrorOnce(msg: String) {
@@ -187,8 +188,18 @@ class BackgroundSyncWorker(
             logOnecErrorOnce("Прямое подключение к 1С (COM) работает только на Windows")
             return Result.failure(Exception("COM только на Windows"))
         }
-        comBridge.ensureRunning(conn, 60)
+        comBridge.ensureRunning(conn, ONEC_POLL_SECONDS)
         val res = comBridge.read() ?: return Result.success("Ждём данные из 1С")
+
+        // Если 1С давно не присылала свежие данные (процесс завис) — перезапускаем чтение
+        val ageSec = res.ts?.let {
+            runCatching { java.time.Duration.between(java.time.LocalDateTime.parse(it), java.time.LocalDateTime.now()).seconds }.getOrNull()
+        }
+        if (ageSec != null && ageSec > ONEC_POLL_SECONDS * 4 + 60) {
+            logOnecErrorOnce("1С не присылает новые данные уже ${ageSec / 60} мин — перезапускаем подключение")
+            comBridge.restart()
+            return Result.success("Перезапуск подключения к 1С")
+        }
         if (!res.ok) {
             val err = res.error ?: "неизвестная ошибка"
             if (comBridge.switchBitnessIfNeeded(err)) return Result.success("Пробуем другую разрядность COM")
@@ -198,7 +209,18 @@ class BackgroundSyncWorker(
         loggedErrors.clear()
 
         val checksum = CRC32().also { it.update(res.rows.toString().toByteArray(Charsets.UTF_8)) }.value
-        if (!force && checksum == lastFileChecksum) return Result.success("1С без изменений")
+        if (!force && checksum == lastFileChecksum) {
+            // раз в 10 минут показываем в логе, что слежение живо
+            val now = System.currentTimeMillis()
+            if (now - lastHeartbeatMs > 60_000) {
+                lastHeartbeatMs = now
+                val snap = comBridge.chooseReport(res.rows).rows
+                val total = String.format(Locale.US, "%,.0f", snap.sumOf { it.debt }).replace(',', ' ')
+                addLog("✅ 1С проверена (данные на ${res.ts?.substringAfter('T') ?: "—"}): договоров ${snap.size}, общий долг $total — изменений нет")
+            }
+            return Result.success("1С без изменений")
+        }
+        lastHeartbeatMs = System.currentTimeMillis()
 
         addLog("🔎 1С: ${comBridge.diagnostics(res.rows)}")
         val chosen = comBridge.chooseReport(res.rows)
@@ -282,3 +304,6 @@ class BackgroundSyncWorker(
 object SyncWorkerHolder {
     val worker: BackgroundSyncWorker by lazy { BackgroundSyncWorker() }
 }
+
+/** Как часто фоновый процесс опрашивает базу 1С (секунды). */
+private const val ONEC_POLL_SECONDS = 20

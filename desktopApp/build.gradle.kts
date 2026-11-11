@@ -28,7 +28,15 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.example.vitazonebussinessautomation"
-            packageVersion = "1.0.0"
+            // каждая сборка в GitHub Actions получает новую версию, иначе Windows не обновляет установленную программу
+            packageVersion = "1.0." + (System.getenv("GITHUB_RUN_NUMBER") ?: "0")
+
+            windows {
+                // постоянный UUID: новый .msi обновляет уже установленную версию, а не ставит рядом
+                upgradeUuid = "6f1d2b7a-4c3e-4b8f-9a2d-5e7c1f3b8a90"
+                menuGroup = "Vitazone"
+                shortcut = true
+            }
         }
     }
 }

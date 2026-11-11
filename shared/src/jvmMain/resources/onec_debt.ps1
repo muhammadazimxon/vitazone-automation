@@ -22,12 +22,12 @@ $queryText = @'
     ВЫРАЗИТЬ(Т.ДокНомер.Назначение КАК СТРОКА(300)) КАК Note,
     Т.InAll КАК InAll,
     Т.OutAll КАК OutAll,
-    Т.InSale КАК InSale,
-    Т.OutSale КАК OutSale,
+    Т.InYear КАК InYear,
+    Т.OutYear КАК OutYear,
     Т.InFin КАК InFin,
     Т.OutFin КАК OutFin,
-    Т.InSaleFin КАК InSaleFin,
-    Т.OutSaleFin КАК OutSaleFin,
+    Т.InYearFin КАК InYearFin,
+    Т.OutYearFin КАК OutYearFin,
     Т.Cnt КАК Cnt
 ИЗ
     (ВЫБРАТЬ
@@ -36,17 +36,18 @@ $queryText = @'
         Д.Контрагенты КАК Контрагенты,
         СУММА(ВЫБОР КОГДА Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Приход) ТОГДА Д.ЗадолженностьСум ИНАЧЕ 0 КОНЕЦ) КАК InAll,
         СУММА(ВЫБОР КОГДА Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход) ТОГДА Д.ЗадолженностьСум ИНАЧЕ 0 КОНЕЦ) КАК OutAll,
-        СУММА(ВЫБОР КОГДА Д.Регистратор ССЫЛКА Документ.Продажа И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Приход) ТОГДА Д.ЗадолженностьСум ИНАЧЕ 0 КОНЕЦ) КАК InSale,
-        СУММА(ВЫБОР КОГДА Д.Регистратор ССЫЛКА Документ.Продажа И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход) ТОГДА Д.ЗадолженностьСум ИНАЧЕ 0 КОНЕЦ) КАК OutSale,
+        СУММА(ВЫБОР КОГДА Д.Период >= &YearStart И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Приход) ТОГДА Д.ЗадолженностьСум ИНАЧЕ 0 КОНЕЦ) КАК InYear,
+        СУММА(ВЫБОР КОГДА Д.Период >= &YearStart И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход) ТОГДА Д.ЗадолженностьСум ИНАЧЕ 0 КОНЕЦ) КАК OutYear,
         СУММА(ВЫБОР КОГДА Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Приход) ТОГДА Д.СумФинанс ИНАЧЕ 0 КОНЕЦ) КАК InFin,
         СУММА(ВЫБОР КОГДА Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход) ТОГДА Д.СумФинанс ИНАЧЕ 0 КОНЕЦ) КАК OutFin,
-        СУММА(ВЫБОР КОГДА Д.Регистратор ССЫЛКА Документ.Продажа И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Приход) ТОГДА Д.СумФинанс ИНАЧЕ 0 КОНЕЦ) КАК InSaleFin,
-        СУММА(ВЫБОР КОГДА Д.Регистратор ССЫЛКА Документ.Продажа И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход) ТОГДА Д.СумФинанс ИНАЧЕ 0 КОНЕЦ) КАК OutSaleFin,
+        СУММА(ВЫБОР КОГДА Д.Период >= &YearStart И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Приход) ТОГДА Д.СумФинанс ИНАЧЕ 0 КОНЕЦ) КАК InYearFin,
+        СУММА(ВЫБОР КОГДА Д.Период >= &YearStart И Д.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход) ТОГДА Д.СумФинанс ИНАЧЕ 0 КОНЕЦ) КАК OutYearFin,
         КОЛИЧЕСТВО(*) КАК Cnt
     ИЗ
         РегистрНакопления.Дебиторка КАК Д
     ГДЕ
         Д.Активность
+        И Д.Статья.Наименование = "Продажа"
     СГРУППИРОВАТЬ ПО
         Д.МП,
         Д.ДокНомер,
@@ -89,6 +90,8 @@ while ($true) {
     }
     $q = $conn.NewObject("Query")
     $q.Text = $queryText
+    # Как в отчёте «Дебиторка»: Приход/Расход — обороты с начала текущего года, долг — итоговый остаток
+    $q.SetParameter("YearStart", (Get-Date -Month 1 -Day 1).Date)
     $sel = $q.Execute().Select()
     $rows = New-Object System.Collections.ArrayList
     while ($sel.Next()) {
@@ -99,9 +102,9 @@ while ($true) {
         mp = (To-Str (Get-Col $sel 0 "MP")); doc = (To-Str (Get-Col $sel 1 "Doc")); date = $ds
         kontr = (To-Str (Get-Col $sel 3 "Kontr")); note = (To-Str (Get-Col $sel 4 "Note"))
         inAll = (To-Num (Get-Col $sel 5 "InAll")); outAll = (To-Num (Get-Col $sel 6 "OutAll"))
-        inSale = (To-Num (Get-Col $sel 7 "InSale")); outSale = (To-Num (Get-Col $sel 8 "OutSale"))
+        inYear = (To-Num (Get-Col $sel 7 "InYear")); outYear = (To-Num (Get-Col $sel 8 "OutYear"))
         inFin = (To-Num (Get-Col $sel 9 "InFin")); outFin = (To-Num (Get-Col $sel 10 "OutFin"))
-        inSaleFin = (To-Num (Get-Col $sel 11 "InSaleFin")); outSaleFin = (To-Num (Get-Col $sel 12 "OutSaleFin"))
+        inYearFin = (To-Num (Get-Col $sel 11 "InYearFin")); outYearFin = (To-Num (Get-Col $sel 12 "OutYearFin"))
         cnt = [int](To-Num (Get-Col $sel 13 "Cnt"))
       })
     }

@@ -120,36 +120,30 @@ class DebtStatusTest {
         assertEquals(listOf("40", "100", "-60"), raw[1].subList(5, 8))
     }
 
-    // Данные напрямую из регистра 1С: знак долга определяется по документам «Продажа»
+    // Данные напрямую из регистра 1С, считаются как отчёт «Дебиторка»
     @Test
-    fun com_rows_sign_is_calibrated_by_sales_both_ways() {
+    fun com_rows_like_1c_report() {
         val bridge = OnecComBridge {}
-        // продажи записаны как Расход
-        val a = listOf(
-            OnecComRow(doc = "1", kontr = "ОПТОМ II", note = "Клиент", inAll = 40.0, outAll = 100.0, outSale = 100.0),
-            OnecComRow(doc = "2", kontr = "Закрыт", note = "Клиент 2", inAll = 50.0, outAll = 50.0, outSale = 50.0),
+        val rows = listOf(
+            // долг с прошлого года 10, в этом году продано 100, оплачено 40 -> на конец -70
+            OnecComRow(doc = "1", kontr = "ОПТОМ II", note = "Клиент", inAll = 40.0, outAll = 110.0, inYear = 40.0, outYear = 100.0),
+            OnecComRow(doc = "2", kontr = "Закрыт", note = "Клиент 2", inAll = 50.0, outAll = 50.0, inYear = 50.0, outYear = 50.0),
         )
-        // те же операции, но продажи записаны как Приход
-        val b = listOf(
-            OnecComRow(doc = "1", kontr = "ОПТОМ II", note = "Клиент", inAll = 100.0, outAll = 40.0, inSale = 100.0),
-            OnecComRow(doc = "2", kontr = "Закрыт", note = "Клиент 2", inAll = 50.0, outAll = 50.0, inSale = 50.0),
-        )
-        for (rows in listOf(a, b)) {
-            val (out, _) = bridge.toReportRows(rows)
-            assertEquals(1, out.size)                 // закрытый договор (долг 0) не выводится
-            assertEquals(-60.0, out[0].debt, 0.001)   // долг отрицательный, как в отчёте 1С
-            assertEquals(100.0, out[0].sale, 0.001)
-            assertEquals(40.0, out[0].paid, 0.001)
-        }
+        val chosen = bridge.chooseReport(rows)
+        assertEquals(1, chosen.rows.size)                 // закрытый договор не выводится
+        val r = chosen.rows.single()
+        assertEquals(-70.0, r.debt, 0.001)               // «На конец», минус = должен
+        assertEquals(100.0, r.sale, 0.001)               // «Расход» за год
+        assertEquals(40.0, r.paid, 0.001)                // «Приход» за год
 
-        // сквозная проверка: файл из 1С -> статусы и строки для «Импорт»
-        val file = bridge.writeReportFile(bridge.toReportRows(a).first)
+        // сквозная проверка: данные 1С -> статусы и строки для «Импорт»
+        val file = bridge.writeReportFile(chosen.rows)
         val service = ExcelImportService()
         val parsed = service.parseDebtorExcel(file)
         val raw = service.readRawImportRows(file)
         file.delete()
         assertEquals(ShipmentStatus.PARTIALLY_PAID, parsed.shipments.single().status)
         assertEquals("ОПТОМ II", raw.single()[3])
-        assertEquals(listOf("40", "100", "-60"), raw.single().subList(5, 8))
+        assertEquals(listOf("40", "100", "-70"), raw.single().subList(5, 8))
     }
 }
