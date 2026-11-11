@@ -12,6 +12,7 @@ $ErrorActionPreference = "Stop"
 $inv = [Globalization.CultureInfo]::InvariantCulture
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
+# Порядок полей важен: значения читаются по номеру колонки (0..13)
 $queryText = @'
 ВЫБРАТЬ
     Т.МП.Наименование КАК MP,
@@ -55,11 +56,26 @@ $queryText = @'
     DocDate
 '@
 
+# Значение колонки: сначала Get(номер), если пусто — по имени через IDispatch.
+function Get-Col($sel, [int]$i, [string]$name) {
+  $v = $null
+  try { $v = $sel.Get($i) } catch { $v = $null }
+  if ($null -eq $v) {
+    try { $v = [System.__ComObject].InvokeMember($name, [Reflection.BindingFlags]::GetProperty, $null, $sel, $null) } catch { $v = $null }
+  }
+  return $v
+}
+function To-Num($v) { if ($null -eq $v) { return 0.0 } try { return [double]$v } catch { return 0.0 } }
+function To-Str($v) { if ($null -eq $v) { return "" } return [string]$v }
+
+# Атомарная запись результата; если приложение в этот момент читает файл — несколько попыток.
 function Write-Result($obj) {
   $json = ConvertTo-Json -InputObject $obj -Depth 5 -Compress
   $tmp = "$OutFile.tmp"
   [IO.File]::WriteAllText($tmp, $json, $utf8)
-  Move-Item -LiteralPath $tmp -Destination $OutFile -Force
+  for ($k = 0; $k -lt 10; $k++) {
+    try { Move-Item -LiteralPath $tmp -Destination $OutFile -Force; return } catch { Start-Sleep -Milliseconds 300 }
+  }
 }
 
 $conn = $null
@@ -76,23 +92,24 @@ while ($true) {
     $sel = $q.Execute().Select()
     $rows = New-Object System.Collections.ArrayList
     while ($sel.Next()) {
-      $d = $sel.DocDate
+      $d = Get-Col $sel 2 "DocDate"
       $ds = ""
       if ($d -is [DateTime] -and $d.Year -gt 1900) { $ds = $d.ToString("dd.MM.yyyy", $inv) }
       [void]$rows.Add([ordered]@{
-        mp = [string]$sel.MP; doc = [string]$sel.Doc; date = $ds
-        kontr = [string]$sel.Kontr; note = [string]$sel.Note
-        inAll = [double]$sel.InAll; outAll = [double]$sel.OutAll
-        inSale = [double]$sel.InSale; outSale = [double]$sel.OutSale
-        inFin = [double]$sel.InFin; outFin = [double]$sel.OutFin
-        inSaleFin = [double]$sel.InSaleFin; outSaleFin = [double]$sel.OutSaleFin
-        cnt = [int]$sel.Cnt
+        mp = (To-Str (Get-Col $sel 0 "MP")); doc = (To-Str (Get-Col $sel 1 "Doc")); date = $ds
+        kontr = (To-Str (Get-Col $sel 3 "Kontr")); note = (To-Str (Get-Col $sel 4 "Note"))
+        inAll = (To-Num (Get-Col $sel 5 "InAll")); outAll = (To-Num (Get-Col $sel 6 "OutAll"))
+        inSale = (To-Num (Get-Col $sel 7 "InSale")); outSale = (To-Num (Get-Col $sel 8 "OutSale"))
+        inFin = (To-Num (Get-Col $sel 9 "InFin")); outFin = (To-Num (Get-Col $sel 10 "OutFin"))
+        inSaleFin = (To-Num (Get-Col $sel 11 "InSaleFin")); outSaleFin = (To-Num (Get-Col $sel 12 "OutSaleFin"))
+        cnt = [int](To-Num (Get-Col $sel 13 "Cnt"))
       })
     }
     Write-Result ([ordered]@{ ok = $true; ts = (Get-Date).ToString("s"); rows = @($rows) })
   } catch {
     $conn = $null
-    Write-Result ([ordered]@{ ok = $false; ts = (Get-Date).ToString("s"); error = $_.Exception.Message })
+    $msg = $_.Exception.Message
+    try { Write-Result ([ordered]@{ ok = $false; ts = (Get-Date).ToString("s"); error = $msg }) } catch { }
   }
   Start-Sleep -Seconds $IntervalSec
 }

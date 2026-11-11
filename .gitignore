@@ -25,3 +25,5 @@ node_modules/
 *.jpeg
 *.png.bak
 ОтчетПоКонфигурации.txt
+
+_fix_*

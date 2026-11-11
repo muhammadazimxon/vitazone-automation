@@ -201,13 +201,10 @@ class BackgroundSyncWorker(
         if (!force && checksum == lastFileChecksum) return Result.success("1С без изменений")
 
         addLog("🔎 1С: ${comBridge.diagnostics(res.rows)}")
-        // Берём тот ресурс регистра, в котором реально есть долги
-        val (rowsSum, outSum) = comBridge.toReportRows(res.rows, useFin = false)
-        val (rowsFin, outFin) = comBridge.toReportRows(res.rows, useFin = true)
-        val useFin = rowsFin.size > rowsSum.size
-        val rows = if (useFin) rowsFin else rowsSum
-        val salesAreOut = if (useFin) outFin else outSum
-        addLog("ℹ️ Долг берётся из ресурса «${if (useFin) "Сум финанс" else "Задолженность сум"}» (договоров с долгом: ${rows.size})")
+        val chosen = comBridge.chooseReport(res.rows)
+        val rows = chosen.rows
+        val salesAreOut = chosen.salesAreOut
+        addLog("ℹ️ ${chosen.explanation}; договоров с долгом: ${rows.size}")
         if (rows.isEmpty()) {
             lastFileChecksum = checksum  // не повторять диагностику, пока данные в 1С не изменятся
             logOnecErrorOnce("В регистре «Дебиторка» нет договоров с ненулевым долгом — пришлите строку 🔎 из лога")
@@ -239,14 +236,14 @@ class BackgroundSyncWorker(
             return Result.failure(Exception(errStr))
         }
 
-        if (importResult.shipments.isEmpty()) {
-            addLog("⚠️ В выгрузке 1С не найдено записей отгрузок.")
-            return Result.success("0 записей")
-        }
 
         addLog("🚀 Отправка 1С на проверку недостающих записей в Google Sheets...")
         val reportDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())
         val importRows = excelImportService.readRawImportRows(targetFile)
+        if (importRows.isEmpty() && importResult.shipments.isEmpty()) {
+            addLog("⚠️ Нет данных для отправки в Google Sheets")
+            return Result.success("0 записей")
+        }
         val publishResult = googleSyncService.sendBatchToGoogleSheets(webAppUrl, importResult, importRows, reportDate)
 
         val timeStr = SimpleDateFormat("HH:mm:ss dd.MM.yyyy", Locale.getDefault()).format(Date())

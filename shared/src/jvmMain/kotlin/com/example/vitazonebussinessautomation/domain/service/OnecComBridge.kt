@@ -39,10 +39,18 @@ data class DebtReportRow(
     val paid: Double, val sale: Double, val debt: Double
 )
 
+/** Итог выбора: какие строки отправлять и почему. */
+data class ChosenReport(
+    val rows: List<DebtReportRow>,
+    val useFin: Boolean,
+    val salesAreOut: Boolean,
+    val explanation: String
+)
+
 /**
  * Прямое чтение дебиторки из базы 1С через COM.
  * Запускает фоновый PowerShell (скрыто), который держит соединение с базой и раз в минуту
- * пишет остатки регистра «Дебиторка» в debt.json. Приложение читает этот файл.
+ * пишет обороты регистра «Дебиторка» в debt.json. Приложение читает этот файл.
  */
 class OnecComBridge(private val log: (String) -> Unit) {
     val isWindows = System.getProperty("os.name").orEmpty().lowercase().contains("win")
@@ -58,12 +66,11 @@ class OnecComBridge(private val log: (String) -> Unit) {
     private var triedBoth = false
     private var currentConn = ""
     private var currentInterval = 60
+    private var lastStartMs = 0L
 
     init {
         Runtime.getRuntime().addShutdownHook(Thread { stop() })
     }
-
-    private var lastStartMs = 0L
 
     /** Запускает (или перезапускает, если упал/сменились настройки) фоновый процесс чтения 1С. */
     @Synchronized
@@ -133,18 +140,17 @@ class OnecComBridge(private val log: (String) -> Unit) {
     }
 
     /**
-     * Перевод сумм регистра в колонки отчёта. Знак определяется по самим данным:
-     * документы «Продажа» увеличивают долг, поэтому их вид движения показывает, как в регистре записан долг.
+     * Перевод оборотов регистра в колонки отчёта по выбранному ресурсу.
+     * salesAreOut — продажи записаны в регистр как «Расход» (тогда долг = Приход − Расход).
      * Закрытые договоры (долг = 0) не выводятся, как и в отчёте 1С.
      */
-    fun toReportRows(rows: List<OnecComRow>, useFin: Boolean = false): Pair<List<DebtReportRow>, Boolean> {
-        // выбранный ресурс регистра: «Задолженность сум» или «Сум финанс»
+    fun toReportRows(rows: List<OnecComRow>, useFin: Boolean = false, salesAreOutOverride: Boolean? = null): Pair<List<DebtReportRow>, Boolean> {
         fun inA(r: OnecComRow) = if (useFin) r.inFin else r.inAll
         fun outA(r: OnecComRow) = if (useFin) r.outFin else r.outAll
         fun inS(r: OnecComRow) = if (useFin) r.inSaleFin else r.inSale
         fun outS(r: OnecComRow) = if (useFin) r.outSaleFin else r.outSale
 
-        val salesAreOut = rows.sumOf { outS(it) } >= rows.sumOf { inS(it) }
+        val salesAreOut = salesAreOutOverride ?: (rows.sumOf { outS(it) } >= rows.sumOf { inS(it) })
         val out = rows.map { r ->
             val sale = if (salesAreOut) outS(r) - inS(r) else inS(r) - outS(r)
             val debt = if (salesAreOut) inA(r) - outA(r) else outA(r) - inA(r)
@@ -153,12 +159,42 @@ class OnecComBridge(private val log: (String) -> Unit) {
         return out to salesAreOut
     }
 
+    /**
+     * Какой ресурс регистра считать долгом.
+     * Основной — «Задолженность сум». «Сум финанс» берётся, только если в «Задолженность сум» долгов нет совсем.
+     * Знак долга определяется по документам «Продажа»; если в выбранном ресурсе продаж нет,
+     * берётся знак из «Задолженность сум», а если и там нет — продажи считаются «Расходом».
+     */
+    fun chooseReport(rows: List<OnecComRow>): ChosenReport {
+        val saleIn = rows.sumOf { it.inSale }
+        val saleOut = rows.sumOf { it.outSale }
+        val baseConvention: Boolean? = if (saleIn == 0.0 && saleOut == 0.0) null else saleOut >= saleIn
+
+        val (sumRows, sumOut) = toReportRows(rows, useFin = false, salesAreOutOverride = baseConvention ?: true)
+        if (sumRows.isNotEmpty()) {
+            return ChosenReport(sumRows, useFin = false, salesAreOut = sumOut,
+                explanation = "долг из «Задолженность сум», продажи в регистре — «${if (sumOut) "Расход" else "Приход"}»" +
+                    if (baseConvention == null) " (знак по умолчанию: продаж в регистре не найдено)" else "")
+        }
+
+        val finSaleIn = rows.sumOf { it.inSaleFin }
+        val finSaleOut = rows.sumOf { it.outSaleFin }
+        val finConvention = if (finSaleIn == 0.0 && finSaleOut == 0.0) baseConvention ?: true else finSaleOut >= finSaleIn
+        val (finRows, finOut) = toReportRows(rows, useFin = true, salesAreOutOverride = finConvention)
+        return ChosenReport(finRows, useFin = true, salesAreOut = finOut,
+            explanation = "в «Задолженность сум» долгов нет, долг из «Сум финанс», продажи — «${if (finOut) "Расход" else "Приход"}»")
+    }
+
     /** Сводка для лога: сколько записей и сумм по каждому ресурсу пришло из регистра. */
     fun diagnostics(rows: List<OnecComRow>): String {
         fun f(v: Double) = String.format(java.util.Locale.US, "%,.0f", v).replace(',', ' ')
         return "записей в регистре: ${rows.sumOf { it.cnt }}, групп: ${rows.size}; " +
-            "«Задолженность сум»: приход ${f(rows.sumOf { it.inAll })}, расход ${f(rows.sumOf { it.outAll })}; " +
-            "«Сум финанс»: приход ${f(rows.sumOf { it.inFin })}, расход ${f(rows.sumOf { it.outFin })}"
+            "«Задолженность сум»: приход ${f(rows.sumOf { it.inAll })}, расход ${f(rows.sumOf { it.outAll })}, " +
+            "из них продажи: приход ${f(rows.sumOf { it.inSale })}, расход ${f(rows.sumOf { it.outSale })}; " +
+            "«Сум финанс»: приход ${f(rows.sumOf { it.inFin })}, расход ${f(rows.sumOf { it.outFin })}" +
+            (rows.firstOrNull { it.doc.isNotBlank() || it.kontr.isNotBlank() }
+                ?.let { "; пример: МП «${it.mp}», договор «${it.doc}», контрагент «${it.kontr}», дата ${it.date}" }
+                ?: "; ПРИМЕР ПУСТОЙ — значения полей из 1С не читаются")
     }
 
     /** Пишет строки в xlsx того же вида, что отчёт 1С «Дебиторка» (Приход / Продажа / Долг). */
