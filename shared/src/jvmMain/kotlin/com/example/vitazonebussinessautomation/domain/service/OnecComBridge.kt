@@ -75,8 +75,9 @@ class OnecComBridge(private val log: (String) -> Unit) {
         val p = process
         val same = conn == currentConn && intervalSec == currentInterval && variant == currentVariant
         val sinceStart = System.currentTimeMillis() - lastStartMs
-        // чтение ещё идёт; зависшее дольше 5 минут убиваем и запускаем заново
-        if (p != null && p.isAlive && same && sinceStart < 300_000) return
+        // чтение ещё идёт — не трогаем. Убиваем, только если висит втрое дольше интервала:
+        // большой отчёт может считаться дольше 5 минут, иначе его убивало бы на каждом круге.
+        if (p != null && p.isAlive && same && sinceStart < intervalSec * 3000L) return
         // следующий запуск — не раньше, чем через intervalSec
         if (same && sinceStart < intervalSec * 1000L) return
         if (conn != currentConn) { use32 = false; triedBoth = false; announced = false; outFile.delete() }
