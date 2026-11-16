@@ -16,7 +16,7 @@ param(
 )
 $ErrorActionPreference = "Stop"
 # Номер версии скрипта: видно в журнале приложения. Пусто в журнале = работает старая сборка.
-$ScriptVersion = "3"
+$ScriptVersion = "4"
 $inv = [Globalization.CultureInfo]::InvariantCulture
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
@@ -162,7 +162,7 @@ $fallbackQuery = @'
 function Register-Rows($c) {
   $q = $c.NewObject("Query")
   $q.Text = $fallbackQuery
-  $q.SetParameter("YearStart", (Get-Date -Month 1 -Day 1).Date)
+  [void]$q.SetParameter("YearStart", (Get-Date -Month 1 -Day 1).Date)
   $sel = $q.Execute().Select()
   $rows = New-Object System.Collections.ArrayList
   while ($sel.Next()) {
@@ -187,10 +187,13 @@ try {
   $warn = ""
   $res = $null
   try {
-    $res = Report-Rows $conn
+    # Функция может «протечь» лишними значениями (вызовы COM возвращают их в результат),
+    # тогда вместо записи приходит массив. Берём из результата именно запись.
+    $res = @(Report-Rows $conn) | Where-Object { $_ -is [System.Collections.Specialized.OrderedDictionary] } | Select-Object -Last 1
+    if ($null -eq $res) { throw "отчёт не вернул результат" }
   } catch {
     $warn = "отчёт не запустился (" + $_.Exception.Message + "), читаю регистр"
-    $res = Register-Rows $conn
+    $res = @(Register-Rows $conn) | Where-Object { $_ -is [System.Collections.Specialized.OrderedDictionary] } | Select-Object -Last 1
   }
   $res["ok"] = $true
   $res["ver"] = $ScriptVersion
