@@ -1,11 +1,18 @@
 # Vitazone: берёт дебиторку из 1С через COM (V83.COMConnector).
 #
-# Основной путь: запускает САМ отчёт «Дебиторка» (его схему компоновки) и отдаёт его результат
-# как есть — колонки «Приход», «Расход», «На конец» берутся из отчёта, ничего не пересчитывается.
-# Запасной путь: если отчёт запустить не удалось, читает регистр «Дебиторка» напрямую,
-# чтобы приложение не осталось совсем без данных (в ответе source = register).
+# Основной путь: запускает САМ отчёт «Дебиторка» (его схему компоновки) и отдаёт его строки как есть —
+# «Приход», «Расход», «На конец» берутся из отчёта, ничего не пересчитывается.
+# Запасной путь: если отчёт не запустился или не дал ни одной строки, читается регистр «Дебиторка»
+# тем же запросом, что работал раньше (в ответе source = register, причина — в warn).
 #
 # Один проход: приложение запускает скрипт заново для каждой проверки (свежее подключение к базе).
+#
+# ВАЖНО про PowerShell: функция, которая «возвращает» коллекцию (таблицу значений, список колонок и т.п.),
+# на самом деле выдаёт её ЭЛЕМЕНТЫ по одному. Пустая таблица превращается в $null, таблица из одной
+# строки — в саму строку, а несколько значений — в массив. Поэтому:
+#   * все обращения к COM возвращают значение через «return ,$x» (без разворачивания);
+#   * COM-объект в аргументы передаётся как (,$obj), а не @($obj);
+#   * результат не возвращается из функции, а кладётся в $script:Res и проверяется по типу.
 param(
   [Parameter(Mandatory=$true)][string]$ConnFile,
   [Parameter(Mandatory=$true)][string]$OutFile,
@@ -15,23 +22,35 @@ param(
   [string]$Variant = ""
 )
 $ErrorActionPreference = "Stop"
-# Номер версии скрипта: видно в журнале приложения. Пусто в журнале = работает старая сборка.
-$ScriptVersion = "4"
+# Номер версии скрипта: видно в журнале приложения (строка 🔎 1С: скрипт vN).
+$ScriptVersion = "5"
 $inv = [Globalization.CultureInfo]::InvariantCulture
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
-# --- обращение к COM-объектам 1С по имени ---
-function P($o, $n) { return [System.__ComObject].InvokeMember($n, [Reflection.BindingFlags]::GetProperty, $null, $o, $null) }
-function M($o, $n, $a) { return [System.__ComObject].InvokeMember($n, [Reflection.BindingFlags]::InvokeMethod, $null, $o, $a) }
-function NewObj($c, $en, $ru) { try { return $c.NewObject($en) } catch { return $c.NewObject($ru) } }
+# --- обращение к COM-объектам 1С по имени (без разворачивания коллекций) ---
+function P($o, $n) {
+  if ($null -eq $o) { throw "нет объекта для свойства $n" }
+  return ,([System.__ComObject].InvokeMember($n, [Reflection.BindingFlags]::GetProperty, $null, $o, $null))
+}
+function M($o, $n, [object[]]$a) {
+  if ($null -eq $o) { throw "нет объекта для метода $n" }
+  if ($null -eq $a) { $a = [object[]]@() }
+  return ,([System.__ComObject].InvokeMember($n, [Reflection.BindingFlags]::InvokeMethod, $null, $o, $a))
+}
+function NewObj($c, $en, $ru) {
+  try { return ,($c.NewObject($en)) } catch { return ,($c.NewObject($ru)) }
+}
 function To-Num($v) { if ($null -eq $v) { return 0.0 } try { return [double]$v } catch { return 0.0 } }
 function To-Str($v) { if ($null -eq $v) { return "" } return ([string]$v).Trim() }
 
+# Значение ячейки -> текст. Ссылки 1С (контрагент, документ, МП) приходят COM-объектами:
+# у них [string] даёт «System.__ComObject», поэтому берём представление через String() из 1С.
 function Cell-Str($c, $v) {
   if ($null -eq $v) { return "" }
   if ($v -is [DateTime]) { if ($v.Year -lt 1900) { return "" } else { return $v.ToString("dd.MM.yyyy", $inv) } }
   if ($v -is [bool]) { return "" }
-  try { return ([string]$v).Trim() } catch { }
+  if ($v -is [string]) { return $v.Trim() }
+  if ($v -is [ValueType]) { return ([string]$v).Trim() }
   try { return ([string]($c.String($v))).Trim() } catch { return "" }
 }
 
@@ -43,10 +62,70 @@ function Write-Result($obj) {
   for ($k = 0; $k -lt 10; $k++) {
     try { Move-Item -LiteralPath $tmp -Destination $OutFile -Force; return } catch { Start-Sleep -Milliseconds 300 }
   }
+  [IO.File]::WriteAllText($OutFile, $json, $utf8)
 }
 
 # --- Основной путь: сам отчёт «Дебиторка» ---
-function Report-Rows($c) {
+$script:Res = $null
+$script:Rows = $null
+$script:Ix = @{}
+
+function Col-Index($colNames, [string[]]$variants) {
+  foreach ($want in $variants) {
+    $w = $want.ToLower().Replace(" ", "")
+    for ($j = 0; $j -lt $colNames.Count; $j++) {
+      if ($colNames[$j].ToLower().Replace(" ", "") -eq $w) { return $j }
+    }
+  }
+  return -1
+}
+
+function Raw($r, [string]$key) {
+  $j = $script:Ix[$key]
+  if ($j -lt 0) { return ,$null }
+  return ,(M $r "Get" @($j))
+}
+
+# Обход дерева результата отчёта. Строки группировок (МП, контрагент) передают свои значения вниз;
+# строка, где впервые появился «Док номер», — это строка документа: её и берём, глубже не идём.
+function Walk($c, $coll, $inh) {
+  $n = M $coll "Count" @()
+  for ($i = 0; $i -lt $n; $i++) {
+    $r = M $coll "Get" @($i)
+    $h = $inh.Clone()
+    foreach ($k in @("mp", "kontr", "date", "note")) {
+      $s = Cell-Str $c (Raw $r $k)
+      if ($s -ne "") { $h[$k] = $s }
+    }
+    $docRaw = Raw $r "doc"
+    $doc = Cell-Str $c $docRaw
+    if ($doc -ne "") {
+      # Дата и назначение — если в отчёте нет таких колонок, берём из самого документа (справочника).
+      if ($h["date"] -eq "" -and $null -ne $docRaw -and -not ($docRaw -is [ValueType]) -and -not ($docRaw -is [string])) {
+        try { $h["date"] = Cell-Str $c (P $docRaw "ДатаСоставления") } catch { }
+      }
+      if ($h["note"] -eq "" -and $null -ne $docRaw -and -not ($docRaw -is [ValueType]) -and -not ($docRaw -is [string])) {
+        try { $h["note"] = Cell-Str $c (P $docRaw "Назначение") } catch { }
+      }
+      [void]$script:Rows.Add([ordered]@{
+        mp     = [string]$h["mp"]
+        doc    = $doc
+        date   = [string]$h["date"]
+        kontr  = [string]$h["kontr"]
+        note   = [string]$h["note"]
+        prihod = To-Num (Raw $r "in")
+        rashod = To-Num (Raw $r "out")
+        dolg   = To-Num (Raw $r "end")
+      })
+      continue
+    }
+    $kids = $null
+    try { $kids = P $r "Rows" } catch { $kids = $null }
+    if ($null -ne $kids) { Walk $c $kids $h }
+  }
+}
+
+function Run-Report($c) {
   $mgr = P (P $c "Reports") "Дебиторка"
   $rep = M $mgr "Create" @()
   $schema = M $rep "GetTemplate" @("ОсновнаяСхемаКомпоновкиДанных")
@@ -71,63 +150,67 @@ function Report-Rows($c) {
   } catch { }
   if ($null -eq $settings) { $settings = P $schema "DefaultSettings" }
 
+  # Параметры отчёта (период и т.п.) — только для журнала, ничего не меняем.
+  $params = New-Object System.Collections.ArrayList
+  try {
+    $items = P (P $settings "DataParameters") "Items"
+    $pc = M $items "Count" @()
+    for ($i = 0; $i -lt $pc; $i++) {
+      $it = M $items "Get" @($i)
+      $pn = Cell-Str $c (P $it "Parameter")
+      $pv = Cell-Str $c (P $it "Value")
+      $pu = $false
+      try { $pu = [bool](P $it "Use") } catch { }
+      [void]$params.Add("$pn=" + $(if ($pv -ne "") { $pv } else { "—" }) + $(if ($pu) { "" } else { " (выкл)" }))
+    }
+  } catch { }
+
   $composer = NewObj $c "DataCompositionTemplateComposer" "КомпоновщикМакетаКомпоновкиДанных"
-  $genType = $c.Type("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений")
+  $genType = $null
+  try { $genType = $c.Type("DataCompositionValueCollectionTemplateGenerator") } catch { $genType = $c.Type("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") }
   $template = M $composer "Execute" @($schema, $settings, $null, $null, $genType)
   $proc = NewObj $c "DataCompositionProcessor" "ПроцессорКомпоновкиДанных"
-  M $proc "Initialize" @($template, $null, $null) | Out-Null
-  $tz = NewObj $c "ValueTable" "ТаблицаЗначений"
+  [void](M $proc "Initialize" @($template, $null, $null))
+  # Дерево значений, а не таблица: отчёт с группировками (МП -> документ) в таблицу не выводится.
+  $tree = NewObj $c "ValueTree" "ДеревоЗначений"
   $outp = NewObj $c "DataCompositionResultValueCollectionOutputProcessor" "ПроцессорВыводаРезультатаКомпоновкиДанныхВКоллекциюЗначений"
-  M $outp "SetObject" @($tz) | Out-Null
-  M $outp "Output" @($proc) | Out-Null
+  [void](M $outp "SetObject" (,$tree))
+  [void](M $outp "Output" (,$proc))
 
-  # Колонки отчёта -> колонки листа «Импорт». Ищем по имени, лишние колонки игнорируем.
-  $cols = P $tz "Columns"
+  $cols = P $tree "Columns"
   $cc = M $cols "Count" @()
-  $colNames = @()
-  for ($j = 0; $j -lt $cc; $j++) { $colNames += (To-Str (P (M $cols "Get" @($j)) "Name")) }
+  $colNames = New-Object System.Collections.ArrayList
+  for ($j = 0; $j -lt $cc; $j++) { [void]$colNames.Add((To-Str (P (M $cols "Get" @($j)) "Name"))) }
 
-  function Idx($variants) {
-    foreach ($want in $variants) {
-      for ($j = 0; $j -lt $colNames.Length; $j++) {
-        if ($colNames[$j].ToLower().Replace(" ", "") -eq $want.ToLower().Replace(" ", "")) { return $j }
-      }
-    }
-    return -1
+  $script:Ix = @{
+    'mp'    = Col-Index $colNames @("МП")
+    'doc'   = Col-Index $colNames @("ДокНомер", "Док номер", "Договор")
+    'date'  = Col-Index $colNames @("ДатаСоставления", "Дата составления", "ДокНомерДатаСоставления", "ДокНомер.ДатаСоставления")
+    'kontr' = Col-Index $colNames @("Контрагенты", "Контрагент")
+    'note'  = Col-Index $colNames @("ДокНомерНазначение", "ДокНомер.Назначение", "Назначение", "ДокНомерСтатус", "ДокНомер.Статус")
+    'in'    = Col-Index $colNames @("Приход", "ПриходСум", "ЗадолженностьСумПриход")
+    'out'   = Col-Index $colNames @("Расход", "РасходСум", "ЗадолженностьСумРасход")
+    'end'   = Col-Index $colNames @("НаКонец", "На конец", "НаКонецСум", "Остаток", "ЗадолженностьСумКонечныйОстаток", "ЗадолженностьСумОстаток")
   }
-  $iMp     = Idx @("МП")
-  $iDoc    = Idx @("ДокНомер", "Док номер", "Договор")
-  $iDate   = Idx @("ДатаСоставления", "Дата составления", "ДокНомерДатаСоставления")
-  $iKontr  = Idx @("Контрагенты", "Контрагент")
-  $iNote   = Idx @("ДокНомерНазначение", "Док номер.Назначение", "Назначение", "ДокНомерСтатус", "Док номер.Статус")
-  $iIn     = Idx @("Приход", "ПриходСум", "Приход Сум")
-  $iOut    = Idx @("Расход", "РасходСум", "Расход Сум")
-  $iEnd    = Idx @("НаКонец", "На конец", "НаКонецСум", "Остаток")
-  if ($iDoc -lt 0 -or $iEnd -lt 0) {
-    throw "В отчёте нет колонок «Док номер»/«На конец». Колонки: " + ($colNames -join ", ")
+  if ($script:Ix["doc"] -lt 0 -or $script:Ix["end"] -lt 0) {
+    throw "в отчёте нет колонок «Док номер»/«На конец». Колонки отчёта: " + ($colNames -join ", ")
   }
 
-  $rows = New-Object System.Collections.ArrayList
-  $rc = M $tz "Count" @()
-  for ($i = 0; $i -lt $rc; $i++) {
-    $r = M $tz "Get" @($i)
-    $doc = Cell-Str $c (M $r "Get" @($iDoc))
-    if ($doc -eq "") { continue }   # строки группировок и итогов отчёта пропускаем
-    [void]$rows.Add([ordered]@{
-      mp     = if ($iMp   -ge 0) { Cell-Str $c (M $r "Get" @($iMp))   } else { "" }
-      doc    = $doc
-      date   = if ($iDate -ge 0) { Cell-Str $c (M $r "Get" @($iDate)) } else { "" }
-      kontr  = if ($iKontr -ge 0) { Cell-Str $c (M $r "Get" @($iKontr)) } else { "" }
-      note   = if ($iNote -ge 0) { Cell-Str $c (M $r "Get" @($iNote)) } else { "" }
-      prihod = if ($iIn   -ge 0) { To-Num (M $r "Get" @($iIn))  } else { 0.0 }
-      rashod = if ($iOut  -ge 0) { To-Num (M $r "Get" @($iOut)) } else { 0.0 }
-      dolg   = To-Num (M $r "Get" @($iEnd))
-    })
+  $script:Rows = New-Object System.Collections.ArrayList
+  Walk $c (P $tree "Rows") @{ mp = ""; kontr = ""; date = ""; note = "" }
+  if ($script:Rows.Count -eq 0) {
+    throw "отчёт выполнился, но не дал ни одной строки с номером документа. Колонки: " + ($colNames -join ", ") +
+      $(if ($params.Count -gt 0) { ". Параметры: " + ($params -join "; ") } else { "" })
   }
-  return [ordered]@{ source = "report"; variant = $usedVariant; variants = @($names); columns = @($colNames); rows = @($rows) }
+
+  $script:Res = [ordered]@{
+    source = "report"; variant = $usedVariant
+    variants = [object[]]$names.ToArray(); columns = [object[]]$colNames.ToArray(); params = [object[]]$params.ToArray()
+    rows = [object[]]$script:Rows.ToArray()
+  }
 }
 
-# --- Запасной путь: прямой запрос к регистру ---
+# --- Запасной путь: прямой запрос к регистру (так приложение работало до перехода на отчёт) ---
 $fallbackQuery = @'
 ВЫБРАТЬ
     Т.МП.Наименование КАК MP,
@@ -159,7 +242,7 @@ $fallbackQuery = @'
     DocDate
 '@
 
-function Register-Rows($c) {
+function Run-Register($c) {
   $q = $c.NewObject("Query")
   $q.Text = $fallbackQuery
   [void]$q.SetParameter("YearStart", (Get-Date -Month 1 -Day 1).Date)
@@ -175,7 +258,10 @@ function Register-Rows($c) {
       prihod = (To-Num $sel.Get(5)); rashod = (To-Num $sel.Get(6)); dolg = (To-Num $sel.Get(7))
     })
   }
-  return [ordered]@{ source = "register"; variant = ""; variants = @(); columns = @(); rows = @($rows) }
+  $script:Res = [ordered]@{
+    source = "register"; variant = ""; variants = [object[]]@(); columns = [object[]]@(); params = [object[]]@()
+    rows = [object[]]$rows.ToArray()
+  }
 }
 
 # --- Один проход ---
@@ -185,21 +271,25 @@ try {
   $conn = $connector.Connect($connStr)
 
   $warn = ""
-  $res = $null
+  $script:Res = $null
   try {
-    # Функция может «протечь» лишними значениями (вызовы COM возвращают их в результат),
-    # тогда вместо записи приходит массив. Берём из результата именно запись.
-    $res = @(Report-Rows $conn) | Where-Object { $_ -is [System.Collections.Specialized.OrderedDictionary] } | Select-Object -Last 1
-    if ($null -eq $res) { throw "отчёт не вернул результат" }
+    Run-Report $conn
+    if (-not ($script:Res -is [System.Collections.IDictionary])) { throw "отчёт не вернул результат" }
   } catch {
-    $warn = "отчёт не запустился (" + $_.Exception.Message + "), читаю регистр"
-    $res = @(Register-Rows $conn) | Where-Object { $_ -is [System.Collections.Specialized.OrderedDictionary] } | Select-Object -Last 1
+    $warn = "отчёт «Дебиторка» не дал данных (" + $_.Exception.Message + ") — данные взяты из регистра"
+    $script:Res = $null
+    Run-Register $conn
   }
-  $res["ok"] = $true
-  $res["ver"] = $ScriptVersion
-  $res["ts"] = (Get-Date).ToString("s")
-  if ($warn -ne "") { $res["warn"] = $warn }
-  Write-Result $res
+  if (-not ($script:Res -is [System.Collections.IDictionary])) { throw "не удалось получить данные ни из отчёта, ни из регистра" }
+
+  $out = $script:Res
+  $out["ok"] = $true
+  $out["ver"] = $ScriptVersion
+  $out["ts"] = (Get-Date).ToString("s", $inv)
+  if ($warn -ne "") { $out["warn"] = $warn }
+  Write-Result $out
 } catch {
-  try { Write-Result ([ordered]@{ ok = $false; ver = $ScriptVersion; ts = (Get-Date).ToString("s"); error = $_.Exception.Message }) } catch { }
+  $msg = $_.Exception.Message
+  if ($_.InvocationInfo -and $_.InvocationInfo.ScriptLineNumber) { $msg = "$msg (строка $($_.InvocationInfo.ScriptLineNumber))" }
+  try { Write-Result ([ordered]@{ ok = $false; ver = $ScriptVersion; ts = (Get-Date).ToString("s", $inv); error = $msg }) } catch { }
 }

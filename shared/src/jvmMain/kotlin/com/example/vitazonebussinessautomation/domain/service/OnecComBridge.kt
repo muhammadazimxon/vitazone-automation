@@ -31,6 +31,7 @@ data class OnecComResult(
     val variant: String = "",
     val variants: List<String> = emptyList(),
     val columns: List<String> = emptyList(),
+    val params: List<String> = emptyList(),   // параметры отчёта (период и т.п.) — для журнала
     val rows: List<OnecComRow> = emptyList()
 )
 
@@ -106,15 +107,17 @@ class OnecComBridge(private val log: (String) -> Unit) {
             if (use32) "SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe"
             else "System32\\WindowsPowerShell\\v1.0\\powershell.exe"
         )
-        process = ProcessBuilder(
+        val args = mutableListOf(
             ps.absolutePath, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-WindowStyle", "Hidden",
             "-File", script.absolutePath,
             "-ConnFile", connFile.absolutePath,
             "-OutFile", outFile.absolutePath,
             "-IntervalSec", currentInterval.toString(),
-            "-ParentPid", ProcessHandle.current().pid().toString(),
-            "-Variant", currentVariant
-        ).redirectErrorStream(true).redirectOutput(File(dir, "bridge.log")).start()
+            "-ParentPid", ProcessHandle.current().pid().toString()
+        )
+        // пустой аргумент Windows PowerShell 5.1 теряет («Missing an argument for parameter») — передаём только непустой
+        if (currentVariant.isNotBlank()) { args += "-Variant"; args += currentVariant }
+        process = ProcessBuilder(args).redirectErrorStream(true).redirectOutput(File(dir, "bridge.log")).start()
         if (!announced) {
             announced = true
             log("🔌 Подключаемся к базе 1С (${if (use32) "32" else "64"}-битный COM)...")
@@ -170,7 +173,8 @@ class OnecComBridge(private val log: (String) -> Unit) {
         return "скрипт v${res.ver.ifBlank { "?" }}; источник: $src$variant; строк ${res.rows.size}; " +
             "приход ${f(res.rows.sumOf { it.prihod })}, расход ${f(res.rows.sumOf { it.rashod })}, " +
             "долг ${f(res.rows.sumOf { it.dolg })}" +
-            (if (res.variants.isNotEmpty()) ". Варианты отчёта: ${res.variants.joinToString(", ")}" else "")
+            (if (res.variants.isNotEmpty()) ". Варианты отчёта: ${res.variants.joinToString(", ")}" else "") +
+            (if (res.params.isNotEmpty()) ". Параметры: ${res.params.joinToString("; ")}" else "")
     }
 
     /** Пишет строки в xlsx того же вида, что лист «Импорт» (Приход / Продажа / Долг). */
