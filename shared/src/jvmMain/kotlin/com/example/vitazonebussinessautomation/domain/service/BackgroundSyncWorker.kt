@@ -48,7 +48,6 @@ class BackgroundSyncWorker(
     private val loggedErrors = mutableSetOf<String>()
     private var lastDiscoveredPath: String = ""
     private var lastPublishError: String = ""
-    private var lastSalesConvention: Boolean? = null
     private var lastHeartbeatMs = 0L
     private var lastPublishMs = 0L
     private var lastBridgeRestartMs = 0L
@@ -216,7 +215,7 @@ class BackgroundSyncWorker(
             logOnecErrorOnce("Прямое подключение к 1С (COM) работает только на Windows")
             return Result.failure(Exception("COM только на Windows"))
         }
-        comBridge.ensureRunning(conn, ONEC_POLL_SECONDS)
+        comBridge.ensureRunning(conn, ONEC_POLL_SECONDS, configStorage.loadConfig().onecReportVariant)
         val res = comBridge.read() ?: return Result.success("Ждём данные из 1С")
 
         // Если 1С давно не присылала свежие данные (процесс завис) — перезапускаем чтение
@@ -248,30 +247,23 @@ class BackgroundSyncWorker(
             val now = System.currentTimeMillis()
             if (now - lastHeartbeatMs > 60_000) {
                 lastHeartbeatMs = now
-                val snap = comBridge.chooseReport(res.rows).rows
-                val total = String.format(Locale.US, "%,.0f", snap.sumOf { it.debt }).replace(',', ' ')
-                addLog("✅ 1С проверена (данные на ${res.ts?.substringAfter('T') ?: "—"}): договоров ${snap.size}, общий долг $total — изменений нет. Последняя выгрузка: ${_state.value.lastSyncTime}")
+                val total = String.format(Locale.US, "%,.0f", res.rows.sumOf { it.dolg }).replace(',', ' ')
+                addLog("✅ 1С проверена (данные на ${res.ts?.substringAfter('T') ?: "—"}): строк ${res.rows.size}, общий долг $total — изменений нет. Последняя выгрузка: ${_state.value.lastSyncTime}")
             }
             return Result.success("1С без изменений")
         }
         lastHeartbeatMs = System.currentTimeMillis()
 
-        addLog("🔎 1С: ${comBridge.diagnostics(res.rows)}")
-        val chosen = comBridge.chooseReport(res.rows)
-        val rows = chosen.rows
-        val salesAreOut = chosen.salesAreOut
-        addLog("ℹ️ ${chosen.explanation}; договоров с долгом: ${rows.size}")
+        addLog("🔎 1С: ${comBridge.diagnostics(res)}")
+        res.warn?.let { logOnecErrorOnce("1С: $it") }
+        val rows = comBridge.toReportRows(res.rows)
         if (rows.isEmpty()) {
             lastPublishMs = System.currentTimeMillis()
-            lastFileChecksum = checksum  // не повторять диагностику, пока данные в 1С не изменятся
-            logOnecErrorOnce("В регистре «Дебиторка» нет договоров с ненулевым долгом — пришлите строку 🔎 из лога")
-            return Result.failure(Exception("0 договоров с долгом"))
+            lastFileChecksum = checksum
+            logOnecErrorOnce("Отчёт «Дебиторка» вернул 0 строк — пришлите строку 🔎 из журнала")
+            return Result.failure(Exception("0 строк"))
         }
-        if (lastSalesConvention != salesAreOut) {
-            lastSalesConvention = salesAreOut
-            addLog("ℹ️ В регистре «Дебиторка» продажи записаны как «${if (salesAreOut) "Расход" else "Приход"}» — знак долга учтён")
-        }
-        addLog("🔔 Данные из базы 1С на ${res.ts ?: "сейчас"}: ${rows.size} договоров с долгом. Обновляем «Импорт»...")
+        addLog("🔔 Данные из 1С на ${res.ts ?: "сейчас"}: ${rows.size} строк. Обновляем «Импорт»...")
         val report = comBridge.writeReportFile(rows)
         return try {
             processAndPublishFile(report, url, checksum)
@@ -345,7 +337,7 @@ object SyncWorkerHolder {
 }
 
 /** Через сколько минут таблица обновляется принудительно, даже если изменений не видно. */
-private const val FORCED_REFRESH_MINUTES = 2L
+private const val FORCED_REFRESH_MINUTES = 5L
 
-/** Как часто фоновый процесс опрашивает базу 1С (секунды). */
-private const val ONEC_POLL_SECONDS = 45
+/** Как часто приложение заново опрашивает 1С (секунды). */
+private const val ONEC_POLL_SECONDS = 300

@@ -120,30 +120,28 @@ class DebtStatusTest {
         assertEquals(listOf("40", "100", "-60"), raw[1].subList(5, 8))
     }
 
-    // Данные напрямую из регистра 1С, считаются как отчёт «Дебиторка»
+    // Данные из отчёта «Дебиторка» уходят в «Импорт» как есть, без пересчёта
     @Test
-    fun com_rows_like_1c_report() {
+    fun report_rows_go_to_import_as_is() {
         val bridge = OnecComBridge {}
         val rows = listOf(
-            // долг с прошлого года 10, в этом году продано 100, оплачено 40 -> на конец -70
-            OnecComRow(doc = "1", kontr = "ОПТОМ II", note = "Клиент", inAll = 40.0, outAll = 110.0, inYear = 40.0, outYear = 100.0),
-            OnecComRow(doc = "2", kontr = "Закрыт", note = "Клиент 2", inAll = 50.0, outAll = 50.0, inYear = 50.0, outYear = 50.0),
+            OnecComRow(mp = "Нафиса офис", doc = "1", date = "28.06.2026", kontr = "ОПТОМ II",
+                note = "Клиент", prihod = 40.0, rashod = 100.0, dolg = -70.0),
+            OnecComRow(mp = "Зокир МП", doc = "2", date = "28.06.2026", kontr = "Закрыт",
+                note = "Клиент 2", prihod = 50.0, rashod = 50.0, dolg = 0.0),
         )
-        val chosen = bridge.chooseReport(rows)
-        assertEquals(1, chosen.rows.size)                 // закрытый договор не выводится
-        val r = chosen.rows.single()
-        assertEquals(-70.0, r.debt, 0.001)               // «На конец», минус = должен
-        assertEquals(100.0, r.sale, 0.001)               // «Расход» за год
-        assertEquals(40.0, r.paid, 0.001)                // «Приход» за год
+        val out = bridge.toReportRows(rows)
+        assertEquals(2, out.size)                 // ни одна строка отчёта не выбрасывается
+        assertEquals(-70.0, out[0].debt, 0.001)
+        assertEquals(100.0, out[0].sale, 0.001)
+        assertEquals(40.0, out[0].paid, 0.001)
 
-        // сквозная проверка: данные 1С -> статусы и строки для «Импорт»
-        val file = bridge.writeReportFile(chosen.rows)
-        val service = ExcelImportService()
-        val parsed = service.parseDebtorExcel(file)
-        val raw = service.readRawImportRows(file)
+        val file = bridge.writeReportFile(out)
+        val raw = ExcelImportService().readRawImportRows(file)
         file.delete()
-        assertEquals(ShipmentStatus.PARTIALLY_PAID, parsed.shipments.single().status)
-        assertEquals("ОПТОМ II", raw.single()[3])
-        assertEquals(listOf("40", "100", "-70"), raw.single().subList(5, 8))
+        assertEquals(2, raw.size)
+        assertEquals("Нафиса офис", raw[0][0])
+        assertEquals("ОПТОМ II", raw[0][3])
+        assertEquals(listOf("40", "100", "-70"), raw[0].subList(5, 8))
     }
 }

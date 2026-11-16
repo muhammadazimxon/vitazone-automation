@@ -11,6 +11,8 @@ data class AppConfig(
     val onecHttpUrl: String = "",
     /** Строка подключения к базе 1С для COM, например File="C:\\Base";Usr="Имя";Pwd="пароль" */
     val onecConnectionString: String = "",
+    /** Имя варианта отчёта «Дебиторка»; пусто — вариант по умолчанию. */
+    val onecReportVariant: String = "",
     val autoStartOnLaunch: Boolean = true,
     val checkIntervalSeconds: Int = 10,
     val lastSyncTimestamp: Long = 0L

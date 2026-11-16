@@ -7,6 +7,7 @@ import java.io.File
 import java.io.FileOutputStream
 import kotlin.math.abs
 
+/** Строка отчёта «Дебиторка» как её отдала 1С — ничего не пересчитывается. */
 @Serializable
 data class OnecComRow(
     val mp: String = "",
@@ -14,15 +15,9 @@ data class OnecComRow(
     val date: String = "",
     val kontr: String = "",
     val note: String = "",
-    val inAll: Double = 0.0,
-    val outAll: Double = 0.0,
-    val inYear: Double = 0.0,     // приход (оплаты) с начала года
-    val outYear: Double = 0.0,    // расход (продажи) с начала года
-    val inFin: Double = 0.0,
-    val outFin: Double = 0.0,
-    val inYearFin: Double = 0.0,
-    val outYearFin: Double = 0.0,
-    val cnt: Int = 0
+    val prihod: Double = 0.0,   // колонка отчёта «Приход»
+    val rashod: Double = 0.0,   // колонка отчёта «Расход»
+    val dolg: Double = 0.0      // колонка отчёта «На конец»
 )
 
 @Serializable
@@ -30,27 +25,26 @@ data class OnecComResult(
     val ok: Boolean = false,
     val ts: String? = null,
     val error: String? = null,
+    val warn: String? = null,
+    val source: String = "",            // report — сам отчёт, register — запасной запрос
+    val variant: String = "",
+    val variants: List<String> = emptyList(),
+    val columns: List<String> = emptyList(),
     val rows: List<OnecComRow> = emptyList()
 )
 
-/** Строка отчёта в терминах листа «Импорт»: Долг = Приход − Продажа (долг отрицательный). */
+/** Строка для листа «Импорт»: Приход | Продажа | Долг. */
 data class DebtReportRow(
     val mp: String, val doc: String, val date: String, val kontr: String, val note: String,
     val paid: Double, val sale: Double, val debt: Double
 )
 
-/** Итог выбора: какие строки отправлять и почему. */
-data class ChosenReport(
-    val rows: List<DebtReportRow>,
-    val useFin: Boolean,
-    val salesAreOut: Boolean,
-    val explanation: String
-)
-
 /**
- * Прямое чтение дебиторки из базы 1С через COM.
- * Запускает фоновый PowerShell (скрыто), который держит соединение с базой и раз в минуту
- * пишет обороты регистра «Дебиторка» в debt.json. Приложение читает этот файл.
+ * Чтение дебиторки из базы 1С через COM.
+ *
+ * Фоновый PowerShell запускает сам отчёт «Дебиторка» и пишет его результат в debt.json;
+ * приложение читает этот файл. Каждая проверка — новый запуск со свежим подключением к базе,
+ * иначе 1С может отдавать данные, устаревшие на момент подключения.
  */
 class OnecComBridge(private val log: (String) -> Unit) {
     val isWindows = System.getProperty("os.name").orEmpty().lowercase().contains("win")
@@ -65,7 +59,8 @@ class OnecComBridge(private val log: (String) -> Unit) {
     private var use32 = false
     private var triedBoth = false
     private var currentConn = ""
-    private var currentInterval = 60
+    private var currentInterval = 300
+    private var currentVariant = ""
     private var lastStartMs = 0L
     private var announced = false
 
@@ -73,20 +68,21 @@ class OnecComBridge(private val log: (String) -> Unit) {
         Runtime.getRuntime().addShutdownHook(Thread { stop() })
     }
 
-    /** Запускает (или перезапускает, если упал/сменились настройки) фоновый процесс чтения 1С. */
+    /** Запускает чтение 1С, если прошлый запуск закончился или устарел. */
     @Synchronized
-    fun ensureRunning(conn: String, intervalSec: Int) {
+    fun ensureRunning(conn: String, intervalSec: Int, variant: String) {
         if (!isWindows) return
         val p = process
-        val sameSettings = conn == currentConn && intervalSec == currentInterval
+        val same = conn == currentConn && intervalSec == currentInterval && variant == currentVariant
         val sinceStart = System.currentTimeMillis() - lastStartMs
-        // чтение ещё идёт; зависшее дольше 3 минут убиваем и запускаем заново
-        if (p != null && p.isAlive && sameSettings && sinceStart < 180_000) return
-        // каждая проверка — новый запуск со свежим подключением, не чаще раза в intervalSec
-        if (sameSettings && sinceStart < intervalSec * 1000L) return
+        // чтение ещё идёт; зависшее дольше 5 минут убиваем и запускаем заново
+        if (p != null && p.isAlive && same && sinceStart < 300_000) return
+        // следующий запуск — не раньше, чем через intervalSec
+        if (same && sinceStart < intervalSec * 1000L) return
         if (conn != currentConn) { use32 = false; triedBoth = false; announced = false; outFile.delete() }
         currentConn = conn
         currentInterval = intervalSec
+        currentVariant = variant
         start()
     }
 
@@ -95,19 +91,24 @@ class OnecComBridge(private val log: (String) -> Unit) {
         lastStartMs = System.currentTimeMillis()
         val text = javaClass.getResourceAsStream("/onec_debt.ps1")?.readBytes()?.toString(Charsets.UTF_8)
             ?: throw IllegalStateException("onec_debt.ps1 не найден в ресурсах приложения")
-        // BOM обязателен: без него Windows PowerShell 5.1 читает кириллицу запроса неверно
+        // BOM обязателен: без него Windows PowerShell 5.1 читает кириллицу неверно
         script.writeBytes(byteArrayOf(0xEF.toByte(), 0xBB.toByte(), 0xBF.toByte()) + text.toByteArray(Charsets.UTF_8))
         connFile.writeText(currentConn, Charsets.UTF_8)
 
         val winDir = System.getenv("WINDIR") ?: "C:\\Windows"
-        val ps = File(winDir, if (use32) "SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe" else "System32\\WindowsPowerShell\\v1.0\\powershell.exe")
+        val ps = File(
+            winDir,
+            if (use32) "SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe"
+            else "System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+        )
         process = ProcessBuilder(
             ps.absolutePath, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-WindowStyle", "Hidden",
             "-File", script.absolutePath,
             "-ConnFile", connFile.absolutePath,
             "-OutFile", outFile.absolutePath,
             "-IntervalSec", currentInterval.toString(),
-            "-ParentPid", ProcessHandle.current().pid().toString()
+            "-ParentPid", ProcessHandle.current().pid().toString(),
+            "-Variant", currentVariant
         ).redirectErrorStream(true).redirectOutput(File(dir, "bridge.log")).start()
         if (!announced) {
             announced = true
@@ -130,7 +131,7 @@ class OnecComBridge(private val log: (String) -> Unit) {
         return true
     }
 
-    /** Принудительный перезапуск фонового чтения (например, если процесс завис). */
+    /** Принудительный перезапуск чтения (например, если процесс завис). */
     @Synchronized
     fun restart() {
         if (currentConn.isNotBlank()) start()
@@ -152,49 +153,30 @@ class OnecComBridge(private val log: (String) -> Unit) {
         }
     }
 
-    /**
-     * Строки как в отчёте 1С «Дебиторка» (отбор Статья = «Продажа»):
-     * Приход = оплаты с начала года, Продажа = расход с начала года,
-     * Долг = итоговый остаток (приход − расход за всё время, минус = клиент должен).
-     * Закрытые договоры (долг = 0) не выводятся.
-     */
-    fun toReportRows(rows: List<OnecComRow>, useFin: Boolean = false): List<DebtReportRow> =
-        rows.map { r ->
-            val paid = if (useFin) r.inYearFin else r.inYear
-            val sale = if (useFin) r.outYearFin else r.outYear
-            val debt = if (useFin) r.inFin - r.outFin else r.inAll - r.outAll
-            DebtReportRow(r.mp, r.doc, r.date, r.kontr, r.note, paid = paid, sale = sale, debt = debt)
-        }.filter { abs(it.debt) >= 0.005 }
+    /** Строки отчёта как есть: Приход, Расход («Продажа»), На конец («Долг»). */
+    fun toReportRows(rows: List<OnecComRow>): List<DebtReportRow> =
+        rows.map { DebtReportRow(it.mp, it.doc, it.date, it.kontr, it.note, it.prihod, it.rashod, it.dolg) }
 
-    /** Основной ресурс — «Задолженность сум»; «Сум финанс» только если в первом нет ни одного долга. */
-    fun chooseReport(rows: List<OnecComRow>): ChosenReport {
-        val sumRows = toReportRows(rows, useFin = false)
-        if (sumRows.isNotEmpty() || rows.sumOf { it.inFin + it.outFin } == 0.0) {
-            return ChosenReport(sumRows, useFin = false, salesAreOut = true,
-                explanation = "как в отчёте «Дебиторка»: статья «Продажа», «Задолженность сум»")
-        }
-        return ChosenReport(toReportRows(rows, useFin = true), useFin = true, salesAreOut = true,
-            explanation = "как в отчёте «Дебиторка»: статья «Продажа», «Сум финанс» (в «Задолженность сум» долгов нет)")
-    }
-
-    /** Сводка для лога: сколько записей и сумм по каждому ресурсу пришло из регистра. */
-    fun diagnostics(rows: List<OnecComRow>): String {
+    /** Короткая сводка для журнала приложения. */
+    fun diagnostics(res: OnecComResult): String {
         fun f(v: Double) = String.format(java.util.Locale.US, "%,.0f", v).replace(',', ' ')
-        return "записей в регистре: ${rows.sumOf { it.cnt }}, групп: ${rows.size}; " +
-            "«Задолженность сум»: приход ${f(rows.sumOf { it.inAll })}, расход ${f(rows.sumOf { it.outAll })}, " +
-            "с начала года: приход ${f(rows.sumOf { it.inYear })}, расход ${f(rows.sumOf { it.outYear })}; " +
-            "«Сум финанс»: приход ${f(rows.sumOf { it.inFin })}, расход ${f(rows.sumOf { it.outFin })}" +
-            (rows.firstOrNull { it.doc.isNotBlank() || it.kontr.isNotBlank() }
-                ?.let { "; пример: МП «${it.mp}», договор «${it.doc}», контрагент «${it.kontr}», дата ${it.date}" }
-                ?: "; ПРИМЕР ПУСТОЙ — значения полей из 1С не читаются")
+        val src = if (res.source == "report") "отчёт «Дебиторка»" else "регистр (запасной путь)"
+        val variant = if (res.variant.isNotBlank()) ", вариант «${res.variant}»" else ""
+        return "источник: $src$variant; строк ${res.rows.size}; " +
+            "приход ${f(res.rows.sumOf { it.prihod })}, расход ${f(res.rows.sumOf { it.rashod })}, " +
+            "долг ${f(res.rows.sumOf { it.dolg })}" +
+            (if (res.variants.isNotEmpty()) ". Варианты отчёта: ${res.variants.joinToString(", ")}" else "")
     }
 
-    /** Пишет строки в xlsx того же вида, что отчёт 1С «Дебиторка» (Приход / Продажа / Долг). */
+    /** Пишет строки в xlsx того же вида, что лист «Импорт» (Приход / Продажа / Долг). */
     fun writeReportFile(rows: List<DebtReportRow>): File {
         val f = File.createTempFile("1c_com_", ".xlsx")
         XSSFWorkbook().use { wb ->
             val sh = wb.createSheet("TDSheet")
-            val header = listOf("МП", "Док номер", "Дата составления", "Тип / Контрагент", "Док номер.Статус", "Приход", "Продажа", "Долг")
+            val header = listOf(
+                "МП", "Док номер", "Дата составления", "Тип / Контрагент", "Док номер.Статус",
+                "Приход", "Продажа", "Долг"
+            )
             sh.createRow(0).let { h -> header.forEachIndexed { i, v -> h.createCell(i).setCellValue(v) } }
             rows.forEachIndexed { idx, r ->
                 val row = sh.createRow(idx + 1)
