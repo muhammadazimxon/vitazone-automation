@@ -23,7 +23,7 @@ param(
 )
 $ErrorActionPreference = "Stop"
 # Номер версии скрипта: видно в журнале приложения (строка 🔎 1С: скрипт vN).
-$ScriptVersion = "5"
+$ScriptVersion = "6"
 $inv = [Globalization.CultureInfo]::InvariantCulture
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
@@ -166,8 +166,11 @@ function Run-Report($c) {
   } catch { }
 
   $composer = NewObj $c "DataCompositionTemplateComposer" "КомпоновщикМакетаКомпоновкиДанных"
+  # В русской 1С метод может называться "Тип" вместо "Type" — пробуем оба варианта через InvokeMember.
   $genType = $null
-  try { $genType = $c.Type("DataCompositionValueCollectionTemplateGenerator") } catch { $genType = $c.Type("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") }
+  try { $genType = M $c "Type" @("DataCompositionValueCollectionTemplateGenerator") } catch { }
+  if ($null -eq $genType) { try { $genType = M $c "Type" @("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") } catch { } }
+  if ($null -eq $genType) { $genType = M $c "Тип" @("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") }
   $template = M $composer "Execute" @($schema, $settings, $null, $null, $genType)
   $proc = NewObj $c "DataCompositionProcessor" "ПроцессорКомпоновкиДанных"
   [void](M $proc "Initialize" @($template, $null, $null))
