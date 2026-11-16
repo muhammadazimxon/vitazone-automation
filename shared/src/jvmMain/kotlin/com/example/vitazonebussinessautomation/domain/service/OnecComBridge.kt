@@ -95,6 +95,9 @@ class OnecComBridge(private val log: (String) -> Unit) {
         // BOM обязателен: без него Windows PowerShell 5.1 читает кириллицу неверно
         script.writeBytes(byteArrayOf(0xEF.toByte(), 0xBB.toByte(), 0xBF.toByte()) + text.toByteArray(Charsets.UTF_8))
         connFile.writeText(currentConn, Charsets.UTF_8)
+        // старый результат удаляем: иначе приложение покажет данные или ошибку прошлого запуска,
+        // в том числе от предыдущей версии программы
+        outFile.delete()
 
         val winDir = System.getenv("WINDIR") ?: "C:\\Windows"
         val ps = File(
