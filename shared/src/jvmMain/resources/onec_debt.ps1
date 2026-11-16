@@ -190,9 +190,9 @@ try {
     $warn = "отчёт не запустился (" + $_.Exception.Message + "), читаю регистр"
     $res = Register-Rows $conn
   }
-  $res.Insert("ok", $true)
-  $res.Insert("ts", (Get-Date).ToString("s"))
-  if ($warn -ne "") { $res.Insert("warn", $warn) }
+  $res["ok"] = $true
+  $res["ts"] = (Get-Date).ToString("s")
+  if ($warn -ne "") { $res["warn"] = $warn }
   Write-Result $res
 } catch {
   try { Write-Result ([ordered]@{ ok = $false; ts = (Get-Date).ToString("s"); error = $_.Exception.Message }) } catch { }
