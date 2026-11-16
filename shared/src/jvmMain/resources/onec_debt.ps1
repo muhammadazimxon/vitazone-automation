@@ -23,7 +23,7 @@ param(
 )
 $ErrorActionPreference = "Stop"
 # Номер версии скрипта: видно в журнале приложения (строка 🔎 1С: скрипт vN).
-$ScriptVersion = "7"
+$ScriptVersion = "8"
 $inv = [Globalization.CultureInfo]::InvariantCulture
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
@@ -166,9 +166,20 @@ function Run-Report($c) {
   } catch { }
 
   $composer = NewObj $c "DataCompositionTemplateComposer" "КомпоновщикМакетаКомпоновкиДанных"
-  # Метод Type/Тип часто недоступен через COM — создаём генератор отчёта как объект.
-  $generator = NewObj $c "DataCompositionValueCollectionTemplateGenerator" "ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений"
-  $template = M $composer "Execute" @($schema, $settings, $null, $null, $generator)
+  # В разных версиях 1С/COM метод Type может отсутствовать, а NewObject для генератора — не работать.
+  # Пробуем несколько вариантов, включая Execute без явного генератора (по умолчанию — коллекция значений).
+  $template = $null
+  $genErr = ""
+  try {
+    $genType = $null
+    try { $genType = M $c "Type" @("DataCompositionValueCollectionTemplateGenerator") } catch { }
+    if ($null -eq $genType) { try { $genType = M $c "Type" @("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") } catch { } }
+    if ($null -eq $genType) { try { $genType = M $c "Тип" @("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") } catch { } }
+    if ($null -ne $genType) { $template = M $composer "Execute" @($schema, $settings, $null, $null, $genType) }
+  } catch { $genErr = $_.Exception.Message }
+  if ($null -eq $template) {
+    try { $template = M $composer "Execute" @($schema, $settings, $null, $null) } catch { throw "не удалось построить макет отчёта (Type: $genErr; Execute: " + $_.Exception.Message + ")" }
+  }
   $proc = NewObj $c "DataCompositionProcessor" "ПроцессорКомпоновкиДанных"
   [void](M $proc "Initialize" @($template, $null, $null))
   # Дерево значений, а не таблица: отчёт с группировками (МП -> документ) в таблицу не выводится.
