@@ -15,6 +15,8 @@ param(
   [string]$Variant = ""
 )
 $ErrorActionPreference = "Stop"
+# Номер версии скрипта: видно в журнале приложения. Пусто в журнале = работает старая сборка.
+$ScriptVersion = "3"
 $inv = [Globalization.CultureInfo]::InvariantCulture
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
@@ -191,9 +193,10 @@ try {
     $res = Register-Rows $conn
   }
   $res["ok"] = $true
+  $res["ver"] = $ScriptVersion
   $res["ts"] = (Get-Date).ToString("s")
   if ($warn -ne "") { $res["warn"] = $warn }
   Write-Result $res
 } catch {
-  try { Write-Result ([ordered]@{ ok = $false; ts = (Get-Date).ToString("s"); error = $_.Exception.Message }) } catch { }
+  try { Write-Result ([ordered]@{ ok = $false; ver = $ScriptVersion; ts = (Get-Date).ToString("s"); error = $_.Exception.Message }) } catch { }
 }

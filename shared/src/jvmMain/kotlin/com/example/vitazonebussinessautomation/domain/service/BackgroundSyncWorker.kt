@@ -233,7 +233,8 @@ class BackgroundSyncWorker(
         if (!res.ok) {
             val err = res.error ?: "неизвестная ошибка"
             if (comBridge.switchBitnessIfNeeded(err)) return Result.success("Пробуем другую разрядность COM")
-            logOnecErrorOnce("1С: $err")
+            val from = if (res.ver.isBlank()) " — ответ от СТАРОЙ версии программы, переустановите .msi" else " (скрипт v${res.ver})"
+            logOnecErrorOnce("1С: $err$from")
             return Result.failure(Exception(err))
         }
         loggedErrors.clear()

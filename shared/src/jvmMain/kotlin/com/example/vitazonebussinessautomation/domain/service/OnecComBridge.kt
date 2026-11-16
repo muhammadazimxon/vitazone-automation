@@ -26,6 +26,7 @@ data class OnecComResult(
     val ts: String? = null,
     val error: String? = null,
     val warn: String? = null,
+    val ver: String = "",
     val source: String = "",            // report — сам отчёт, register — запасной запрос
     val variant: String = "",
     val variants: List<String> = emptyList(),
@@ -166,7 +167,7 @@ class OnecComBridge(private val log: (String) -> Unit) {
         fun f(v: Double) = String.format(java.util.Locale.US, "%,.0f", v).replace(',', ' ')
         val src = if (res.source == "report") "отчёт «Дебиторка»" else "регистр (запасной путь)"
         val variant = if (res.variant.isNotBlank()) ", вариант «${res.variant}»" else ""
-        return "источник: $src$variant; строк ${res.rows.size}; " +
+        return "скрипт v${res.ver.ifBlank { "?" }}; источник: $src$variant; строк ${res.rows.size}; " +
             "приход ${f(res.rows.sumOf { it.prihod })}, расход ${f(res.rows.sumOf { it.rashod })}, " +
             "долг ${f(res.rows.sumOf { it.dolg })}" +
             (if (res.variants.isNotEmpty()) ". Варианты отчёта: ${res.variants.joinToString(", ")}" else "")
