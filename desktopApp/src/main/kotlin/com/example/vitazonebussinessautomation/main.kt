@@ -1,5 +1,6 @@
 package com.example.vitazonebussinessautomation
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -12,6 +13,8 @@ import androidx.compose.ui.window.Tray
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.vitazonebussinessautomation.domain.service.SyncWorkerHolder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 private object TrayIconPainter : Painter() {
     override val intrinsicSize = Size(64f, 64f)
@@ -26,7 +29,18 @@ fun main(args: Array<String>) = application {
 
     // при автозапуске Windows стартуем свёрнутыми в трей (--background)
     var visible by remember { mutableStateOf(!args.contains("--background")) }
-    var autostart by remember { mutableStateOf(Autostart.enableOnFirstRun()) }
+    var autostart by remember { mutableStateOf(Autostart.isEnabled()) }
+
+    // Проверяем автозапуск при каждом старте и чиним, если он пропал
+    LaunchedEffect(Unit) {
+        val ok = withContext(Dispatchers.IO) { Autostart.ensure() }
+        autostart = Autostart.isEnabled()
+        SyncWorkerHolder.worker.note(
+            if (ok) "🟢 Автозапуск при входе в Windows включён"
+            else "⚠️ Автозапуск не включён — после перезагрузки программу придётся открыть вручную",
+            isError = !ok
+        )
+    }
 
     Tray(
         icon = TrayIconPainter,

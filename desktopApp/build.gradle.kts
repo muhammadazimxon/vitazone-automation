@@ -35,6 +35,8 @@ compose.desktop {
                 // постоянный UUID: новый .msi обновляет уже установленную версию, а не ставит рядом
                 upgradeUuid = "6f1d2b7a-4c3e-4b8f-9a2d-5e7c1f3b8a90"
                 menuGroup = "Vitazone"
+                // установщик спрашивает папку (можно ставить в C:\Vitazone)
+                dirChooser = true
                 shortcut = true
             }
         }

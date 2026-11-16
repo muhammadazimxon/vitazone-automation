@@ -67,6 +67,7 @@ class OnecComBridge(private val log: (String) -> Unit) {
     private var currentConn = ""
     private var currentInterval = 60
     private var lastStartMs = 0L
+    private var announced = false
 
     init {
         Runtime.getRuntime().addShutdownHook(Thread { stop() })
@@ -78,10 +79,12 @@ class OnecComBridge(private val log: (String) -> Unit) {
         if (!isWindows) return
         val p = process
         val sameSettings = conn == currentConn && intervalSec == currentInterval
-        if (p != null && p.isAlive && sameSettings) return
-        // упавший процесс перезапускаем не чаще раза в 30 секунд
-        if (sameSettings && System.currentTimeMillis() - lastStartMs < 30_000) return
-        if (conn != currentConn) { use32 = false; triedBoth = false }
+        val sinceStart = System.currentTimeMillis() - lastStartMs
+        // чтение ещё идёт; зависшее дольше 3 минут убиваем и запускаем заново
+        if (p != null && p.isAlive && sameSettings && sinceStart < 180_000) return
+        // каждая проверка — новый запуск со свежим подключением, не чаще раза в intervalSec
+        if (sameSettings && sinceStart < intervalSec * 1000L) return
+        if (conn != currentConn) { use32 = false; triedBoth = false; announced = false; outFile.delete() }
         currentConn = conn
         currentInterval = intervalSec
         start()
@@ -95,7 +98,6 @@ class OnecComBridge(private val log: (String) -> Unit) {
         // BOM обязателен: без него Windows PowerShell 5.1 читает кириллицу запроса неверно
         script.writeBytes(byteArrayOf(0xEF.toByte(), 0xBB.toByte(), 0xBF.toByte()) + text.toByteArray(Charsets.UTF_8))
         connFile.writeText(currentConn, Charsets.UTF_8)
-        outFile.delete()
 
         val winDir = System.getenv("WINDIR") ?: "C:\\Windows"
         val ps = File(winDir, if (use32) "SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe" else "System32\\WindowsPowerShell\\v1.0\\powershell.exe")
@@ -107,7 +109,10 @@ class OnecComBridge(private val log: (String) -> Unit) {
             "-IntervalSec", currentInterval.toString(),
             "-ParentPid", ProcessHandle.current().pid().toString()
         ).redirectErrorStream(true).redirectOutput(File(dir, "bridge.log")).start()
-        log("🔌 Подключаемся к базе 1С (${if (use32) "32" else "64"}-битный COM)...")
+        if (!announced) {
+            announced = true
+            log("🔌 Подключаемся к базе 1С (${if (use32) "32" else "64"}-битный COM)...")
+        }
     }
 
     /** COM-класс не зарегистрирован для этой разрядности — один раз пробуем другую. */
@@ -119,6 +124,8 @@ class OnecComBridge(private val log: (String) -> Unit) {
         if (!notRegistered || triedBoth) return false
         triedBoth = true
         use32 = !use32
+        announced = false
+        outFile.delete()
         start()
         return true
     }

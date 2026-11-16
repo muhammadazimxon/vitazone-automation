@@ -114,5 +114,5 @@ while ($true) {
     $msg = $_.Exception.Message
     try { Write-Result ([ordered]@{ ok = $false; ts = (Get-Date).ToString("s"); error = $msg }) } catch { }
   }
-  Start-Sleep -Seconds $IntervalSec
+  break  # один проход: приложение запускает скрипт заново для каждой проверки (свежее подключение к базе)
 }

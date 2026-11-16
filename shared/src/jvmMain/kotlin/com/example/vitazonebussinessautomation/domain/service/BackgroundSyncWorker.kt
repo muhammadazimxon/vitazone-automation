@@ -50,6 +50,9 @@ class BackgroundSyncWorker(
     private var lastPublishError: String = ""
     private var lastSalesConvention: Boolean? = null
     private var lastHeartbeatMs = 0L
+    private var lastPublishMs = 0L
+    private var lastBridgeRestartMs = 0L
+    private var watchdogJob: Job? = null
     private val comBridge = OnecComBridge { addLog(it) }
 
     private fun logOnecErrorOnce(msg: String) {
@@ -80,8 +83,28 @@ class BackgroundSyncWorker(
             intervalSeconds = 3
         )
 
-        if (savedConfig.autoStartOnLaunch) {
+        if (savedConfig.autoStartOnLaunch || savedConfig.onecConnectionString.isNotBlank()) {
             startBackgroundSync(activePath, activeUrl, savedConfig.onecHttpUrl, 3)
+        }
+        startWatchdog()
+    }
+
+    /**
+     * Сторож: раз в 30 секунд проверяет, что цикл слежения жив.
+     * Если он почему-то остановился, а служба числится активной — поднимает его заново,
+     * чтобы обновление не прекращалось молча.
+     */
+    private fun startWatchdog() {
+        watchdogJob?.cancel()
+        watchdogJob = scope.launch {
+            while (isActive) {
+                delay(30_000L)
+                val st = _state.value
+                if (st.isRunning && syncJob?.isActive != true) {
+                    addLog("♻️ Фоновая служба остановилась — запускаем заново", isError = true)
+                    startBackgroundSync(st.monitoredPath, st.webAppUrl, st.onecHttpUrl, st.intervalSeconds)
+                }
+            }
         }
     }
 
@@ -141,9 +164,14 @@ class BackgroundSyncWorker(
         lastFileChecksum = 0L
         loggedErrors.clear()
         addLog(if (conn.isBlank()) "🔌 Прямое подключение к 1С отключено" else "🔌 Подключение к 1С сохранено, данные появятся в течение минуты")
+        // если фоновая служба была остановлена — запускаем её, чтобы обновление шло само
+        if (conn.isNotBlank() && !_state.value.isRunning) {
+            startBackgroundSync(_state.value.monitoredPath, _state.value.webAppUrl, _state.value.onecHttpUrl, 3)
+        }
     }
 
     fun stopBackgroundSync() {
+        configStorage.saveConfig(configStorage.loadConfig().copy(autoStartOnLaunch = false))
         comBridge.stop()
         syncJob?.cancel()
         syncJob = null
@@ -195,8 +223,11 @@ class BackgroundSyncWorker(
         val ageSec = res.ts?.let {
             runCatching { java.time.Duration.between(java.time.LocalDateTime.parse(it), java.time.LocalDateTime.now()).seconds }.getOrNull()
         }
-        if (ageSec != null && ageSec > ONEC_POLL_SECONDS * 4 + 60) {
-            logOnecErrorOnce("1С не присылает новые данные уже ${ageSec / 60} мин — перезапускаем подключение")
+        if (ageSec != null && ageSec > ONEC_POLL_SECONDS * 4 + 60 &&
+            System.currentTimeMillis() - lastBridgeRestartMs > 5 * 60_000
+        ) {
+            lastBridgeRestartMs = System.currentTimeMillis()
+            addLog("♻️ 1С не присылает новые данные уже ${ageSec / 60} мин — перезапускаем подключение", isError = true)
             comBridge.restart()
             return Result.success("Перезапуск подключения к 1С")
         }
@@ -209,14 +240,17 @@ class BackgroundSyncWorker(
         loggedErrors.clear()
 
         val checksum = CRC32().also { it.update(res.rows.toString().toByteArray(Charsets.UTF_8)) }.value
-        if (!force && checksum == lastFileChecksum) {
-            // раз в 10 минут показываем в логе, что слежение живо
+        // даже если изменений не видно, раз в FORCED_REFRESH_MINUTES минут обновляем таблицу принудительно,
+        // чтобы таблица не могла «застрять» из-за сбоя в определении изменений
+        val refreshDue = System.currentTimeMillis() - lastPublishMs > FORCED_REFRESH_MINUTES * 60_000
+        if (!force && checksum == lastFileChecksum && !refreshDue) {
+            // раз в минуту показываем в логе, что слежение живо
             val now = System.currentTimeMillis()
             if (now - lastHeartbeatMs > 60_000) {
                 lastHeartbeatMs = now
                 val snap = comBridge.chooseReport(res.rows).rows
                 val total = String.format(Locale.US, "%,.0f", snap.sumOf { it.debt }).replace(',', ' ')
-                addLog("✅ 1С проверена (данные на ${res.ts?.substringAfter('T') ?: "—"}): договоров ${snap.size}, общий долг $total — изменений нет")
+                addLog("✅ 1С проверена (данные на ${res.ts?.substringAfter('T') ?: "—"}): договоров ${snap.size}, общий долг $total — изменений нет. Последняя выгрузка: ${_state.value.lastSyncTime}")
             }
             return Result.success("1С без изменений")
         }
@@ -228,6 +262,7 @@ class BackgroundSyncWorker(
         val salesAreOut = chosen.salesAreOut
         addLog("ℹ️ ${chosen.explanation}; договоров с долгом: ${rows.size}")
         if (rows.isEmpty()) {
+            lastPublishMs = System.currentTimeMillis()
             lastFileChecksum = checksum  // не повторять диагностику, пока данные в 1С не изменятся
             logOnecErrorOnce("В регистре «Дебиторка» нет договоров с ненулевым долгом — пришлите строку 🔎 из лога")
             return Result.failure(Exception("0 договоров с долгом"))
@@ -272,6 +307,7 @@ class BackgroundSyncWorker(
 
         return publishResult.onSuccess { details ->
             lastFileChecksum = currentChecksum
+            lastPublishMs = System.currentTimeMillis()
             lastPublishError = ""
             _state.value = _state.value.copy(
                 lastSyncTime = timeStr,
@@ -287,6 +323,9 @@ class BackgroundSyncWorker(
             }
         }
     }
+
+    /** Строка в журнал приложения снаружи (например, о состоянии автозапуска). */
+    fun note(message: String, isError: Boolean = false) = addLog(message, isError)
 
     private fun addLog(message: String, isError: Boolean = false) {
         val timeStr = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
@@ -305,5 +344,8 @@ object SyncWorkerHolder {
     val worker: BackgroundSyncWorker by lazy { BackgroundSyncWorker() }
 }
 
+/** Через сколько минут таблица обновляется принудительно, даже если изменений не видно. */
+private const val FORCED_REFRESH_MINUTES = 2L
+
 /** Как часто фоновый процесс опрашивает базу 1С (секунды). */
-private const val ONEC_POLL_SECONDS = 20
+private const val ONEC_POLL_SECONDS = 45
