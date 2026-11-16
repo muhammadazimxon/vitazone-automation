@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.15">
+	<HTTPService uuid="609f4bdd-3d6d-4468-b6eb-d532e1345464">
+		<Properties>
+			<Name>ЗаказыОтМП</Name>
+			<Synonym>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заказы от МП</v8:content>
+				</v8:item>
+			</Synonym>
+			<Comment/>
+			<RootURL>zakaz</RootURL>
+			<ReuseSessions>AutoUse</ReuseSessions>
+			<SessionMaxAge>20</SessionMaxAge>
+		</Properties>
+		<ChildObjects>
+			<URLTemplate uuid="c49559da-14b6-4af6-9b33-2ea1492927e7">
+				<Properties>
+					<Name>ПринятьЗаказ</Name>
+					<Synonym>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Принять заказ</v8:content>
+						</v8:item>
+					</Synonym>
+					<Comment/>
+					<Template>/order</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="1b5b8f0a-2d71-4eba-abb6-e1ebe7349eb9">
+						<Properties>
+							<Name>БеремЗаказ</Name>
+							<Synonym>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Берем заказ</v8:content>
+								</v8:item>
+							</Synonym>
+							<Comment/>
+							<HTTPMethod>POST</HTTPMethod>
+							<Handler>ZakazOrderPOST</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+			<URLTemplate uuid="03cfb21a-5fd2-492f-81dc-7619c3a8f98e">
+				<Properties>
+					<Name>СтатусЗаказа</Name>
+					<Synonym>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статус заказа</v8:content>
+						</v8:item>
+					</Synonym>
+					<Comment/>
+					<Template>/ZakazStatusGET</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="f5a13ce4-1aab-4d80-9b39-54021a3ba9f3">
+						<Properties>
+							<Name>СтатусПроверим</Name>
+							<Synonym>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Статус проверим</v8:content>
+								</v8:item>
+							</Synonym>
+							<Comment/>
+							<HTTPMethod>GET</HTTPMethod>
+							<Handler>ZakazStatusGET</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+			<URLTemplate uuid="eb87f786-85eb-4795-866b-c45787faf365">
+				<Properties>
+					<Name>ПолучимНоменклатуры</Name>
+					<Synonym>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Получим номенклатуры</v8:content>
+						</v8:item>
+					</Synonym>
+					<Comment/>
+					<Template>/nomenclature</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="80058970-c511-47e8-9693-173966897ac4">
+						<Properties>
+							<Name>Номенклатура</Name>
+							<Synonym>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Номенклатура</v8:content>
+								</v8:item>
+							</Synonym>
+							<Comment/>
+							<HTTPMethod>GET</HTTPMethod>
+							<Handler>ZakazNomenclatureGET</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+			<URLTemplate uuid="f80e6d2a-eeeb-4521-b7c2-5e39f048bbfa">
+				<Properties>
+					<Name>Прайсы</Name>
+					<Synonym>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Прайсы</v8:content>
+						</v8:item>
+					</Synonym>
+					<Comment/>
+					<Template>/prices</Template>
+				</Properties>
+				<ChildObjects>
+					<Method uuid="60939ce7-6e04-41c1-97d7-29d16b49d236">
+						<Properties>
+							<Name>БеремПрайс</Name>
+							<Synonym>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Берем прайс</v8:content>
+								</v8:item>
+							</Synonym>
+							<Comment/>
+							<HTTPMethod>POST</HTTPMethod>
+							<Handler>pricesPOST</Handler>
+						</Properties>
+					</Method>
+				</ChildObjects>
+			</URLTemplate>
+		</ChildObjects>
+	</HTTPService>
+</MetaDataObject>

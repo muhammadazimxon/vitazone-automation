@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="35a7a9c8-af72-4e1a-a5bc-d936e846f5e7">
+		<Name>КредиторкаХуршида</Name>
+		<Code>000001000</Code>
+		<Description>Кредиторка хуршида</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="0d4b8dc5-37e7-422d-b47d-67ce68e23bd7">
+		<Name>Резервы</Name>
+		<Code>000000002</Code>
+		<Description>Резервы</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="8a9309f6-5eb4-47e7-a5c5-26038fe377d6">
+		<Name>Склад</Name>
+		<Code>000000999</Code>
+		<Description>Склад</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="3f64854d-2dc2-4a33-8ac8-73ea43e96e82">
+		<Name>Учредители</Name>
+		<Code>000000001</Code>
+		<Description>Учредители</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="4c3609e1-c097-4cfa-9ffa-3528516a9833">
+		<Name>Фойдадан</Name>
+		<Code>000000003</Code>
+		<Description>Фойдадан</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

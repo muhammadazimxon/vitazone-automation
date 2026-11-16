@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Продажи</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Контрагенты</dataPath>
+			<field>Контрагенты</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ИНН</dataPath>
+			<field>ИНН</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>МП</dataPath>
+			<field>МП</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПродажаКолВо</dataPath>
+			<field>ПродажаКолВо</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Продажа кол во</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПродажаЦена</dataPath>
+			<field>ПродажаЦена</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Продажа цена</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПродажаСумма</dataPath>
+			<field>ПродажаСумма</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Продажа сумма</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НомерДок</dataPath>
+			<field>НомерДок</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номер док</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Куратор</dataPath>
+			<field>Куратор</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	СравнениеПродажиТабдок.ИНН КАК ИНН,
+	СравнениеПродажиТабдок.Номенклатура КАК Номенклатура,
+	СравнениеПродажиТабдок.КолВо КАК ПродажаКолВо,
+	СравнениеПродажиТабдок.Цена КАК ПродажаЦена,
+	СравнениеПродажиТабдок.Сумма КАК ПродажаСумма,
+	СравнениеПродажиТабдок.МП КАК МП,
+	СравнениеПродажиТабдок.НомерДокС.Наименование КАК НомерДок,
+	СравнениеПродажиТабдок.Куратор КАК Куратор,
+	СравнениеПродажиТабдок.Контрагенты КАК Контрагенты
+ИЗ
+	Документ.СравнениеПродажи.Табдок КАК СравнениеПродажиТабдок
+ГДЕ
+	СравнениеПродажиТабдок.Ссылка = &amp;Ссылка</query>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Веб</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ИНН</dataPath>
+			<field>ИНН</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВебКолВо</dataPath>
+			<field>ВебКолВо</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Веб кол во</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВебЦена</dataPath>
+			<field>ВебЦена</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Веб цена</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВебСумма</dataPath>
+			<field>ВебСумма</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Веб сумма</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>МП</dataPath>
+			<field>МП</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Куратор</dataPath>
+			<field>Куратор</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Контрагенты</dataPath>
+			<field>Контрагенты</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НомерДок</dataPath>
+			<field>НомерДок</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номер док</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>                                         ВЫБРАТЬ
+	СравнениеПродажиТабдок.ИНН КАК ИНН,
+	СравнениеПродажиТабдок.Номенклатура КАК Номенклатура,
+	СравнениеПродажиТабдок.КолВо КАК ВебКолВо,
+	СравнениеПродажиТабдок.Цена КАК ВебЦена,
+	СравнениеПродажиТабдок.Сумма КАК ВебСумма,
+	СравнениеПродажиТабдок.МП КАК МП,
+	СравнениеПродажиТабдок.НомерДокС.Наименование КАК НомерДок,
+	СравнениеПродажиТабдок.Куратор КАК Куратор,
+	СравнениеПродажиТабдок.Контрагенты КАК Контрагенты
+ИЗ
+	Документ.СравнениеПродажи.Табдок1 КАК СравнениеПродажиТабдок
+ГДЕ
+	СравнениеПродажиТабдок.Ссылка = &amp;Ссылка</query>
+	</dataSet>
+	<dataSetLink>
+		<sourceDataSet>Продажи</sourceDataSet>
+		<destinationDataSet>Веб</destinationDataSet>
+		<sourceExpression>ИНН</sourceExpression>
+		<destinationExpression>ИНН</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>Продажи</sourceDataSet>
+		<destinationDataSet>Веб</destinationDataSet>
+		<sourceExpression>МП</sourceExpression>
+		<destinationExpression>МП</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>Продажи</sourceDataSet>
+		<destinationDataSet>Веб</destinationDataSet>
+		<sourceExpression>Номенклатура</sourceExpression>
+		<destinationExpression>Номенклатура</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>Продажи</sourceDataSet>
+		<destinationDataSet>Веб</destinationDataSet>
+		<sourceExpression>Куратор</sourceExpression>
+		<destinationExpression>Куратор</destinationExpression>
+	</dataSetLink>
+	<calculatedField>
+		<dataPath>СуммаРазница</dataPath>
+		<expression>ПродажаСумма-ВебСумма</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Сумма разница</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>15</v8:Digits>
+				<v8:FractionDigits>2</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>КолВоРазница</dataPath>
+		<expression>ПродажаКолВо-ВебКолВо</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Кол во разница</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>15</v8:Digits>
+				<v8:FractionDigits>2</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<totalField>
+		<dataPath>ПродажаКолВо</dataPath>
+		<expression>Сумма(ПродажаКолВо)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ПродажаСумма</dataPath>
+		<expression>Сумма(ПродажаСумма)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ПродажаЦена</dataPath>
+		<expression>Сумма(ПродажаЦена)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КолВоРазница</dataPath>
+		<expression>Сумма(КолВоРазница)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СуммаРазница</dataPath>
+		<expression>Сумма(СуммаРазница)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ВебКолВо</dataPath>
+		<expression>Сумма(ВебКолВо)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ВебСумма</dataPath>
+		<expression>Сумма(ВебСумма)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ВебЦена</dataPath>
+		<expression>Сумма(ВебЦена)</expression>
+	</totalField>
+	<parameter>
+		<name>Ссылка</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Ссылка</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:DocumentRef.СравнениеПродажи</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:userFields>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>ПользовательскиеПоля.Поле1</dcsset:dataPath>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>РазницаВСуммах</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:detailExpression>ПродажаСумма - ВебСумма</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>[Продажа сумма] - [Веб сумма]</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression>ПродажаСумма - ВебСумма</dcsset:totalExpression>
+					<dcsset:totalExpressionPresentation>[Продажа сумма] - [Веб сумма]</dcsset:totalExpressionPresentation>
+				</dcsset:item>
+			</dcsset:userFields>
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Контрагенты</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ИНН</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>МП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>НомерДок</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>НомерДокВеб.Наименование</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Номенклатура</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ВЕБКолВо</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПродажаКолВо</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>КолВоРазница</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ВЕБЦена</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПродажаЦена</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ВЕБСумма</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПродажаСумма</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СуммаРазница</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>Ссылка</dcscor:parameter>
+					<dcscor:value xsi:nil="true"/>
+					<dcsset:userSettingID>0c393e74-0b8c-4385-af26-6e8279f691dc</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:order>
+				<dcsset:item xsi:type="dcsset:OrderItemField">
+					<dcsset:field>Контрагенты</dcsset:field>
+					<dcsset:orderType>Asc</dcsset:orderType>
+				</dcsset:item>
+			</dcsset:order>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>ВЕБКолВо</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>ВЕБСумма</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>ВЕБЦена</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>ПродажаКолВо</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>ПродажаСумма</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>ПродажаЦена</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>КолВоРазница</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>СуммаРазница</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Формат</dcscor:parameter>
+							<dcscor:value xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ЧЦ=15; ЧДЦ=2</v8:content>
+								</v8:item>
+							</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ВыделятьОтрицательные</dcscor:parameter>
+							<dcscor:value xsi:type="xs:boolean">true</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Арктика</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Контрагенты</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

@@ -23,7 +23,7 @@ param(
 )
 $ErrorActionPreference = "Stop"
 # Номер версии скрипта: видно в журнале приложения (строка 🔎 1С: скрипт vN).
-$ScriptVersion = "6"
+$ScriptVersion = "7"
 $inv = [Globalization.CultureInfo]::InvariantCulture
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
@@ -166,12 +166,9 @@ function Run-Report($c) {
   } catch { }
 
   $composer = NewObj $c "DataCompositionTemplateComposer" "КомпоновщикМакетаКомпоновкиДанных"
-  # В русской 1С метод может называться "Тип" вместо "Type" — пробуем оба варианта через InvokeMember.
-  $genType = $null
-  try { $genType = M $c "Type" @("DataCompositionValueCollectionTemplateGenerator") } catch { }
-  if ($null -eq $genType) { try { $genType = M $c "Type" @("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") } catch { } }
-  if ($null -eq $genType) { $genType = M $c "Тип" @("ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений") }
-  $template = M $composer "Execute" @($schema, $settings, $null, $null, $genType)
+  # Метод Type/Тип часто недоступен через COM — создаём генератор отчёта как объект.
+  $generator = NewObj $c "DataCompositionValueCollectionTemplateGenerator" "ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений"
+  $template = M $composer "Execute" @($schema, $settings, $null, $null, $generator)
   $proc = NewObj $c "DataCompositionProcessor" "ПроцессорКомпоновкиДанных"
   [void](M $proc "Initialize" @($template, $null, $null))
   # Дерево значений, а не таблица: отчёт с группировками (МП -> документ) в таблицу не выводится.

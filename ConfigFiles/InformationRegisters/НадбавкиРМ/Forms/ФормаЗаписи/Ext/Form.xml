@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.15">
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<ChildItems>
+		<InputField name="Период" id="1">
+			<DataPath>Запись.Period</DataPath>
+			<ContextMenu name="ПериодКонтекстноеМеню" id="2"/>
+			<ExtendedTooltip name="ПериодРасширеннаяПодсказка" id="3"/>
+		</InputField>
+		<UsualGroup name="Группа1" id="52">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="53"/>
+			<ChildItems>
+				<InputField name="Первый" id="4">
+					<DataPath>Запись.Первый</DataPath>
+					<ContextMenu name="ПервыйКонтекстноеМеню" id="5"/>
+					<ExtendedTooltip name="ПервыйРасширеннаяПодсказка" id="6"/>
+				</InputField>
+				<InputField name="Кф1" id="28">
+					<DataPath>Запись.Кф1</DataPath>
+					<ContextMenu name="Кф1КонтекстноеМеню" id="29"/>
+					<ExtendedTooltip name="Кф1РасширеннаяПодсказка" id="30"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа2" id="54">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="55"/>
+			<ChildItems>
+				<InputField name="Второй" id="7">
+					<DataPath>Запись.Второй</DataPath>
+					<ContextMenu name="ВторойКонтекстноеМеню" id="8"/>
+					<ExtendedTooltip name="ВторойРасширеннаяПодсказка" id="9"/>
+				</InputField>
+				<InputField name="Кф2" id="31">
+					<DataPath>Запись.Кф2</DataPath>
+					<ContextMenu name="Кф2КонтекстноеМеню" id="32"/>
+					<ExtendedTooltip name="Кф2РасширеннаяПодсказка" id="33"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа3" id="56">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="57"/>
+			<ChildItems>
+				<InputField name="Третий" id="10">
+					<DataPath>Запись.Третий</DataPath>
+					<ContextMenu name="ТретийКонтекстноеМеню" id="11"/>
+					<ExtendedTooltip name="ТретийРасширеннаяПодсказка" id="12"/>
+				</InputField>
+				<InputField name="Кф3" id="34">
+					<DataPath>Запись.Кф3</DataPath>
+					<ContextMenu name="Кф3КонтекстноеМеню" id="35"/>
+					<ExtendedTooltip name="Кф3РасширеннаяПодсказка" id="36"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа4" id="58">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="59"/>
+			<ChildItems>
+				<InputField name="Четвертый" id="13">
+					<DataPath>Запись.Четвертый</DataPath>
+					<ContextMenu name="ЧетвертыйКонтекстноеМеню" id="14"/>
+					<ExtendedTooltip name="ЧетвертыйРасширеннаяПодсказка" id="15"/>
+				</InputField>
+				<InputField name="Кф4" id="37">
+					<DataPath>Запись.Кф4</DataPath>
+					<ContextMenu name="Кф4КонтекстноеМеню" id="38"/>
+					<ExtendedTooltip name="Кф4РасширеннаяПодсказка" id="39"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа5" id="60">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа5РасширеннаяПодсказка" id="61"/>
+			<ChildItems>
+				<InputField name="Пятый" id="16">
+					<DataPath>Запись.Пятый</DataPath>
+					<ContextMenu name="ПятыйКонтекстноеМеню" id="17"/>
+					<ExtendedTooltip name="ПятыйРасширеннаяПодсказка" id="18"/>
+				</InputField>
+				<InputField name="Кф5" id="40">
+					<DataPath>Запись.Кф5</DataPath>
+					<ContextMenu name="Кф5КонтекстноеМеню" id="41"/>
+					<ExtendedTooltip name="Кф5РасширеннаяПодсказка" id="42"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа6" id="62">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа6РасширеннаяПодсказка" id="63"/>
+			<ChildItems>
+				<InputField name="Шестой" id="19">
+					<DataPath>Запись.Шестой</DataPath>
+					<ContextMenu name="ШестойКонтекстноеМеню" id="20"/>
+					<ExtendedTooltip name="ШестойРасширеннаяПодсказка" id="21"/>
+				</InputField>
+				<InputField name="Кф6" id="43">
+					<DataPath>Запись.Кф6</DataPath>
+					<ContextMenu name="Кф6КонтекстноеМеню" id="44"/>
+					<ExtendedTooltip name="Кф6РасширеннаяПодсказка" id="45"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа7" id="64">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа7РасширеннаяПодсказка" id="65"/>
+			<ChildItems>
+				<InputField name="Седьмой" id="22">
+					<DataPath>Запись.Седьмой</DataPath>
+					<ContextMenu name="СедьмойКонтекстноеМеню" id="23"/>
+					<ExtendedTooltip name="СедьмойРасширеннаяПодсказка" id="24"/>
+				</InputField>
+				<InputField name="Кф7" id="46">
+					<DataPath>Запись.Кф7</DataPath>
+					<ContextMenu name="Кф7КонтекстноеМеню" id="47"/>
+					<ExtendedTooltip name="Кф7РасширеннаяПодсказка" id="48"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа8" id="66">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа8РасширеннаяПодсказка" id="67"/>
+			<ChildItems>
+				<InputField name="Восьмой" id="25">
+					<DataPath>Запись.Восьмой</DataPath>
+					<ContextMenu name="ВосьмойКонтекстноеМеню" id="26"/>
+					<ExtendedTooltip name="ВосьмойРасширеннаяПодсказка" id="27"/>
+				</InputField>
+				<InputField name="Кф8" id="49">
+					<DataPath>Запись.Кф8</DataPath>
+					<ContextMenu name="Кф8КонтекстноеМеню" id="50"/>
+					<ExtendedTooltip name="Кф8РасширеннаяПодсказка" id="51"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Запись" id="1">
+			<Type>
+				<v8:Type>cfg:InformationRegisterRecordManager.НадбавкиРМ</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+		</Attribute>
+	</Attributes>
+</Form>

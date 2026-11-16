@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="c3ee4943-9d85-452f-afcd-1d265056b5a3">
+		<Name>НеКонтрагенты</Name>
+		<Code>000000001</Code>
+		<Description>Не контрагенты</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="af2d1f5d-d8ce-4055-9401-285975d15128">
+		<Name>ПрочиеОперации</Name>
+		<Code>000001785</Code>
+		<Description>Прочие операции</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

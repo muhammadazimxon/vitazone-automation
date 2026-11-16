@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="2a75aac6-a802-46ef-845f-bf7202148eff">
+		<Name>АкушерГинеколог</Name>
+		<Code>000000008</Code>
+		<Description>Акушер гинеколог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="ea02bd9d-2cca-4468-a789-b1dd80f7e11d">
+		<Name>АнестезиологРеаниматолог</Name>
+		<Code>000000009</Code>
+		<Description>Анестезиолог реаниматолог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="1e96ed82-43e0-42d8-9616-2813b0fa3472">
+		<Name>ВрачОбщейПрактики</Name>
+		<Code>000000007</Code>
+		<Description>Врач общей практики</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="e4093d67-8973-412c-b29f-a44ca96611d0">
+		<Name>ВрачУльтразвуковойДиагностики</Name>
+		<Code>000000011</Code>
+		<Description>Врач ультразвуковой диагн</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="eba4230e-1db5-4490-82e0-581df81f4e64">
+		<Name>Диетолог</Name>
+		<Code>000000013</Code>
+		<Description>Диетолог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="3200f5d8-a4c9-4256-99e6-66455acb4721">
+		<Name>Инфекционист</Name>
+		<Code>000000012</Code>
+		<Description>Инфекционист</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="39839af6-4c84-4d14-a004-3063de505d0d">
+		<Name>Невролог</Name>
+		<Code>000000004</Code>
+		<Description>Невролог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="5c60c0e8-6573-49b5-bd15-91b0babb2194">
+		<Name>Онколог</Name>
+		<Code>000000006</Code>
+		<Description>Онколог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="02d07361-f8f9-4e6a-b9c6-b7bf5a871dfb">
+		<Name>Офтальмолог</Name>
+		<Code>000000003</Code>
+		<Description>Офтальмолог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="5a2deea6-55df-4fca-9ea1-95c9d7bf594b">
+		<Name>Педиатр</Name>
+		<Code>000000002</Code>
+		<Description>Педиатр</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="60688eab-aa4a-4cfe-8836-b9f33a464252">
+		<Name>Стоматолог</Name>
+		<Code>000000005</Code>
+		<Description>Стоматолог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="4cfcba38-f690-41ff-aaf5-b2b49d46f2c0">
+		<Name>Терапевт</Name>
+		<Code>000000001</Code>
+		<Description>Терапевт</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="98eb49cf-9ede-4f04-9067-60430cb797c8">
+		<Name>Травматолог</Name>
+		<Code>000000010</Code>
+		<Description>Травматолог</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

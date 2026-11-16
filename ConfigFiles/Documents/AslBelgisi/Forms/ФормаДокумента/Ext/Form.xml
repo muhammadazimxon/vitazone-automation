@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.15">
+	<AutoTime>CurrentOrLast</AutoTime>
+	<UsePostingMode>Auto</UsePostingMode>
+	<RepostOnWrite>true</RepostOnWrite>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<Events>
+		<Event name="BeforeWrite">ПередЗаписью</Event>
+	</Events>
+	<ChildItems>
+		<InputField name="Номер" id="1">
+			<DataPath>Объект.Number</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="НомерКонтекстноеМеню" id="2"/>
+			<ExtendedTooltip name="НомерРасширеннаяПодсказка" id="3"/>
+		</InputField>
+		<InputField name="Дата" id="4">
+			<DataPath>Объект.Date</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="ДатаКонтекстноеМеню" id="5"/>
+			<ExtendedTooltip name="ДатаРасширеннаяПодсказка" id="6"/>
+		</InputField>
+		<Button name="ПолучитьСтатусыAslBelgisi" id="29">
+			<Type>UsualButton</Type>
+			<DefaultButton>true</DefaultButton>
+			<CommandName>Form.Command.ПолучитьСтатусыAslBelgisi</CommandName>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получить статусы</v8:content>
+				</v8:item>
+			</Title>
+			<ExtendedTooltip name="ПолучитьСтатусыAslBelgisiРасширеннаяПодсказка" id="30"/>
+		</Button>
+		<Table name="Табдок1" id="31">
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>Объект.Табдок</DataPath>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="Табдок1КонтекстноеМеню" id="32"/>
+			<AutoCommandBar name="Табдок1КоманднаяПанель" id="33"/>
+			<ExtendedTooltip name="Табдок1РасширеннаяПодсказка" id="34"/>
+			<SearchStringAddition name="Табдок1СтрокаПоиска" id="35">
+				<AdditionSource>
+					<Item>Табдок1</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="Табдок1СтрокаПоискаКонтекстноеМеню" id="36"/>
+				<ExtendedTooltip name="Табдок1СтрокаПоискаРасширеннаяПодсказка" id="37"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="Табдок1СостояниеПросмотра" id="38">
+				<AdditionSource>
+					<Item>Табдок1</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="Табдок1СостояниеПросмотраКонтекстноеМеню" id="39"/>
+				<ExtendedTooltip name="Табдок1СостояниеПросмотраРасширеннаяПодсказка" id="40"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="Табдок1УправлениеПоиском" id="41">
+				<AdditionSource>
+					<Item>Табдок1</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="Табдок1УправлениеПоискомКонтекстноеМеню" id="42"/>
+				<ExtendedTooltip name="Табдок1УправлениеПоискомРасширеннаяПодсказка" id="43"/>
+			</SearchControlAddition>
+			<ChildItems>
+				<LabelField name="Табдок1НомерСтроки" id="44">
+					<DataPath>Объект.Табдок.LineNumber</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="Табдок1НомерСтрокиКонтекстноеМеню" id="45"/>
+					<ExtendedTooltip name="Табдок1НомерСтрокиРасширеннаяПодсказка" id="46"/>
+				</LabelField>
+				<InputField name="Табдок1Маркировки" id="47">
+					<DataPath>Объект.Табдок.Маркировки</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="Табдок1МаркировкиКонтекстноеМеню" id="48"/>
+					<ExtendedTooltip name="Табдок1МаркировкиРасширеннаяПодсказка" id="49"/>
+				</InputField>
+				<InputField name="Табдок1Статус" id="50">
+					<DataPath>Объект.Табдок.Статус</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="Табдок1СтатусКонтекстноеМеню" id="51"/>
+					<ExtendedTooltip name="Табдок1СтатусРасширеннаяПодсказка" id="52"/>
+				</InputField>
+				<InputField name="Табдок1Владелец" id="53">
+					<DataPath>Объект.Табдок.Владелец</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="Табдок1ВладелецКонтекстноеМеню" id="54"/>
+					<ExtendedTooltip name="Табдок1ВладелецРасширеннаяПодсказка" id="55"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DocumentObject.AslBelgisi</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+			<UseAlways>
+				<Field>Объект.RegisterRecords</Field>
+			</UseAlways>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ПолучитьСтатусыAslBelgisi" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получить статусы asl belgisi</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получить статусы asl belgisi</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПолучитьСтатусыAslBelgisi</Action>
+		</Command>
+	</Commands>
+</Form>

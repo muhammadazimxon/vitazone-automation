@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="7b708560-13ab-4b00-945e-965c63d473cc">
+		<Name>ЗаказОбработан</Name>
+		<Code>000000004</Code>
+		<Description>Заказ обработан</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="f6082bc5-01ff-4983-8601-95bba1335695">
+		<Name>ЗаказОдобрен</Name>
+		<Code>000000002</Code>
+		<Description>Заказ одобрен</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="c139883e-e803-48d7-9ca7-e12550536721">
+		<Name>ЗаказОтклонен</Name>
+		<Code>000000003</Code>
+		<Description>Заказ отклонен</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="986cd8cb-92fa-4694-a596-83c5da6fa0d5">
+		<Name>ЗаказОтправлен</Name>
+		<Code>000000001</Code>
+		<Description>Заказ отправлен</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

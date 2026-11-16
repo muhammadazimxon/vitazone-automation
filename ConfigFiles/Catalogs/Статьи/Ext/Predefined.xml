@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="5e6dcca2-a38b-4564-9109-1d8684d7ae87">
+		<Name>Бонусы</Name>
+		<Code>000000052</Code>
+		<Description>Бонусы</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="e809f4b8-32f7-487b-b205-ddee6aef1dfb">
+		<Name>Впути</Name>
+		<Code>000000055</Code>
+		<Description>В пути</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="7eb55b9d-3b47-4772-9563-054e5d4af96a">
+		<Name>Зарплата</Name>
+		<Code>000000051</Code>
+		<Description>Зарплата</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="b03e7086-e4d1-4914-afd1-532d3d8773a8">
+		<Name>МенежерларБиланХисоб</Name>
+		<Code>000000054</Code>
+		<Description>Менежерлар билан хисоб</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="c7a65fa0-a8d9-42c6-b034-b8c7f9d464a2">
+		<Name>НДС</Name>
+		<Code>000000056</Code>
+		<Description>НДС</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="699963e8-a112-448d-8a2f-fe2f389a451c">
+		<Name>Продажа</Name>
+		<Code>000000050</Code>
+		<Description>Продажа</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

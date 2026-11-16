@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.15">
+	<AutoTime>CurrentOrLast</AutoTime>
+	<UsePostingMode>Auto</UsePostingMode>
+	<RepostOnWrite>true</RepostOnWrite>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<ChildItems>
+		<UsualGroup name="Группа2" id="49">
+			<Group>AlwaysHorizontal</Group>
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="50"/>
+			<ChildItems>
+				<UsualGroup name="Группа1" id="47">
+					<Group>Vertical</Group>
+					<Behavior>Usual</Behavior>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="48"/>
+					<ChildItems>
+						<InputField name="Номер" id="1">
+							<DataPath>Объект.Number</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="НомерКонтекстноеМеню" id="2"/>
+							<ExtendedTooltip name="НомерРасширеннаяПодсказка" id="3"/>
+						</InputField>
+						<InputField name="Дата" id="4">
+							<DataPath>Объект.Date</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ДатаКонтекстноеМеню" id="5"/>
+							<ExtendedTooltip name="ДатаРасширеннаяПодсказка" id="6"/>
+							<Events>
+								<Event name="OnChange">ДатаПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="Наименование" id="7">
+							<DataPath>Объект.Наименование</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="НаименованиеКонтекстноеМеню" id="8"/>
+							<ExtendedTooltip name="НаименованиеРасширеннаяПодсказка" id="9"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="Группа3" id="51">
+					<Group>Vertical</Group>
+					<Behavior>Usual</Behavior>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="52"/>
+					<ChildItems>
+						<InputField name="КолВо" id="10">
+							<DataPath>Объект.КолВо</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="КолВоКонтекстноеМеню" id="11"/>
+							<ExtendedTooltip name="КолВоРасширеннаяПодсказка" id="12"/>
+							<Events>
+								<Event name="OnChange">КолВоПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="Себестоимость" id="13">
+							<DataPath>Объект.Себестоимость</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="СебестоимостьКонтекстноеМеню" id="14"/>
+							<ExtendedTooltip name="СебестоимостьРасширеннаяПодсказка" id="15"/>
+						</InputField>
+						<InputField name="Расходы" id="16">
+							<DataPath>Объект.Расходы</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="РасходыКонтекстноеМеню" id="17"/>
+							<ExtendedTooltip name="РасходыРасширеннаяПодсказка" id="18"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="Группа4" id="53">
+					<Behavior>Usual</Behavior>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="54"/>
+					<ChildItems>
+						<InputField name="примечание" id="19">
+							<DataPath>Объект.примечание</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="примечаниеКонтекстноеМеню" id="20"/>
+							<ExtendedTooltip name="примечаниеРасширеннаяПодсказка" id="21"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа5" id="61">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа5РасширеннаяПодсказка" id="62"/>
+			<ChildItems>
+				<InputField name="Валюта" id="55">
+					<DataPath>Объект.Валюта</DataPath>
+					<ContextMenu name="ВалютаКонтекстноеМеню" id="56"/>
+					<ExtendedTooltip name="ВалютаРасширеннаяПодсказка" id="57"/>
+				</InputField>
+				<InputField name="Курс" id="58">
+					<DataPath>Объект.Курс</DataPath>
+					<ContextMenu name="КурсКонтекстноеМеню" id="59"/>
+					<ExtendedTooltip name="КурсРасширеннаяПодсказка" id="60"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<Table name="ТабДок" id="22">
+			<Representation>List</Representation>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>Объект.ТабДок</DataPath>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="ТабДокКонтекстноеМеню" id="23"/>
+			<AutoCommandBar name="ТабДокКоманднаяПанель" id="24"/>
+			<ExtendedTooltip name="ТабДокРасширеннаяПодсказка" id="25"/>
+			<SearchStringAddition name="ТабДокСтрокаПоиска" id="26">
+				<AdditionSource>
+					<Item>ТабДок</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТабДокСтрокаПоискаКонтекстноеМеню" id="27"/>
+				<ExtendedTooltip name="ТабДокСтрокаПоискаРасширеннаяПодсказка" id="28"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ТабДокСостояниеПросмотра" id="29">
+				<AdditionSource>
+					<Item>ТабДок</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТабДокСостояниеПросмотраКонтекстноеМеню" id="30"/>
+				<ExtendedTooltip name="ТабДокСостояниеПросмотраРасширеннаяПодсказка" id="31"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ТабДокУправлениеПоиском" id="32">
+				<AdditionSource>
+					<Item>ТабДок</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ТабДокУправлениеПоискомКонтекстноеМеню" id="33"/>
+				<ExtendedTooltip name="ТабДокУправлениеПоискомРасширеннаяПодсказка" id="34"/>
+			</SearchControlAddition>
+			<ChildItems>
+				<LabelField name="ТабДокНомерСтроки" id="35">
+					<DataPath>Объект.ТабДок.LineNumber</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ТабДокНомерСтрокиКонтекстноеМеню" id="36"/>
+					<ExtendedTooltip name="ТабДокНомерСтрокиРасширеннаяПодсказка" id="37"/>
+				</LabelField>
+				<InputField name="ТабДокПримечание" id="38">
+					<DataPath>Объект.ТабДок.Примечание</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ТабДокПримечаниеКонтекстноеМеню" id="39"/>
+					<ExtendedTooltip name="ТабДокПримечаниеРасширеннаяПодсказка" id="40"/>
+				</InputField>
+				<InputField name="ТабДокСтатья" id="41">
+					<DataPath>Объект.ТабДок.Статья</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ТабДокСтатьяКонтекстноеМеню" id="42"/>
+					<ExtendedTooltip name="ТабДокСтатьяРасширеннаяПодсказка" id="43"/>
+				</InputField>
+				<InputField name="ТабДокСумма" id="44">
+					<DataPath>Объект.ТабДок.Сумма</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ТабДокСуммаКонтекстноеМеню" id="45"/>
+					<ExtendedTooltip name="ТабДокСуммаРасширеннаяПодсказка" id="46"/>
+					<Events>
+						<Event name="OnChange">ТабДокСуммаПриИзменении</Event>
+					</Events>
+				</InputField>
+				<InputField name="ТабДокВалюта" id="63">
+					<DataPath>Объект.ТабДок.Валюта</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ТабДокВалютаКонтекстноеМеню" id="64"/>
+					<ExtendedTooltip name="ТабДокВалютаРасширеннаяПодсказка" id="65"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DocumentObject.ВПути</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+			<UseAlways>
+				<Field>Объект.RegisterRecords</Field>
+			</UseAlways>
+			<Columns>
+				<AdditionalColumns table="Объект.ТабДок"/>
+			</Columns>
+		</Attribute>
+	</Attributes>
+</Form>

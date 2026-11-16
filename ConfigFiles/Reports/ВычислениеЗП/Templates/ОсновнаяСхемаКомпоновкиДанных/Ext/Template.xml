@@ -1,0 +1,1335 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetUnion">
+		<name>НаборДанных2</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Куратор</dataPath>
+			<field>Куратор</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>МП</dataPath>
+			<field>МП</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Реализация</dataPath>
+			<field>Реализация</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЗПМП</dataPath>
+			<field>ЗПМП</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ЗПМП</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Коэф</dataPath>
+			<field>Коэф</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Коэф</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЗПК</dataPath>
+			<field>ЗПК</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ЗПК</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Удержание</dataPath>
+			<field>Удержание</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Прибавление</dataPath>
+			<field>Прибавление</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Статья</dataPath>
+			<field>Статья</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Док</dataPath>
+			<field>Док</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Док</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Комментарии</dataPath>
+			<field>Комментарии</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Сеть</dataPath>
+			<field>Сеть</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СетьСумма</dataPath>
+			<field>СетьСумма</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сеть сумма</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СетьКолВо</dataPath>
+			<field>СетьКолВо</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сеть кол во</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СетьБонус</dataPath>
+			<field>СетьБонус</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сеть бонус</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СетьЦена</dataPath>
+			<field>СетьЦена</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сеть цена</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СетьЗарплата</dataPath>
+			<field>СетьЗарплата</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сеть зарплата</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Торговые</dataPath>
+			<field>Торговые</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Торговые</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Ходимларга</dataPath>
+			<field>Ходимларга</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Ходимларга</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ОфисАренда</dataPath>
+			<field>ОфисАренда</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Офис аренда</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>МПлар</dataPath>
+			<field>МПлар</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>М плар</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Ссылка</dataPath>
+			<field>Ссылка</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>БонусОстаток</dataPath>
+			<field>БонусОстаток</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>БонусКушимча</dataPath>
+			<field>БонусКушимча</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Бонус кушимча</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>БонусМинус</dataPath>
+			<field>БонусМинус</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Бонус минус</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>БонусЁпилди</dataPath>
+			<field>БонусЁпилди</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Бонус ёпилди</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<item xsi:type="DataSetQuery">
+			<name>МП</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Куратор</dataPath>
+				<field>Куратор</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>МП</dataPath>
+				<field>МП</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Реализация</dataPath>
+				<field>Реализация</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ЗПМП</dataPath>
+				<field>ЗПМП</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЗПМП</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Коэф</dataPath>
+				<field>Коэф</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Коэф</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Док</dataPath>
+				<field>Док</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Док</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	ВычиляемЗПиБонусТабдок2.Куратор КАК Куратор,
+	ВычиляемЗПиБонусТабдок2.МП КАК МП,
+	ВычиляемЗПиБонусТабдок2.Реализация КАК Реализация,
+	ВычиляемЗПиБонусТабдок2.ЗП КАК ЗПМП,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок2.Реализация &lt;&gt; 0
+			ТОГДА ВычиляемЗПиБонусТабдок2.ЗП / ВычиляемЗПиБонусТабдок2.Реализация * 100
+		ИНАЧЕ 0
+	КОНЕЦ КАК Коэф,
+	ВычиляемЗПиБонусТабдок2.Ссылка КАК Док
+ИЗ
+	Документ.ВычиляемЗПиБонус.Табдок2 КАК ВычиляемЗПиБонусТабдок2
+ГДЕ
+	ВычиляемЗПиБонусТабдок2.Ссылка.Проведен = ИСТИНА
+	И ВычиляемЗПиБонусТабдок2.Ссылка.Начало &gt;= &amp;Начало
+	И ВычиляемЗПиБонусТабдок2.Ссылка.Конец &lt;= &amp;Конец</query>
+		</item>
+		<item xsi:type="DataSetQuery">
+			<name>НаборДанных1</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Куратор</dataPath>
+				<field>Куратор</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ЗПК</dataPath>
+				<field>ЗПК</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЗПК</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Коэф</dataPath>
+				<field>Коэф</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Коэф</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Док</dataPath>
+				<field>Док</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Док</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>БонусОстаток</dataPath>
+				<field>БонусОстаток</field>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	ВычиляемЗПиБонусТабдок2.Куратор КАК Куратор,
+	                             ВычиляемЗПиБонусТабдок2.БонусОстаток КАК БонусОстаток,
+	ВычиляемЗПиБонусТабдок2.ЗП КАК ЗПК,
+	ВычиляемЗПиБонусТабдок2.Ссылка КАК Док,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок2.ЗП / ВычиляемЗПиБонусТабдок2.Реализация &lt;&gt; 0
+			ТОГДА (ВычиляемЗПиБонусТабдок2.ЗП / ВычиляемЗПиБонусТабдок2.Реализация)*100
+	КОНЕЦ КАК Коэф
+ИЗ
+	Документ.ВычиляемЗПиБонус.Табдок3 КАК ВычиляемЗПиБонусТабдок2
+ГДЕ
+	ВычиляемЗПиБонусТабдок2.Ссылка.Проведен = ИСТИНА
+	И ВычиляемЗПиБонусТабдок2.Ссылка.Начало &gt;= &amp;Начало
+	И ВычиляемЗПиБонусТабдок2.Ссылка.Конец &lt;= &amp;Конец</query>
+		</item>
+		<item xsi:type="DataSetQuery">
+			<name>НаборДанных1</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Удержание</dataPath>
+				<field>Удержание</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Прибавление</dataPath>
+				<field>Прибавление</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Статья</dataPath>
+				<field>Статья</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Куратор</dataPath>
+				<field>Куратор</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Комментарии</dataPath>
+				<field>Комментарии</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Док</dataPath>
+				<field>Док</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Док</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Торговые</dataPath>
+				<field>Торговые</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Торговые</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Ходимларга</dataPath>
+				<field>Ходимларга</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Ходимларга</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ОфисАренда</dataPath>
+				<field>ОфисАренда</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Офис аренда</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>БонусКушимча</dataPath>
+				<field>БонусКушимча</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Бонус кушимча</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>БонусМинус</dataPath>
+				<field>БонусМинус</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Бонус минус</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>БонусЁпилди</dataPath>
+				<field>БонусЁпилди</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Бонус ёпилди</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	ВычиляемЗПиБонусТабдок4.Статья КАК Статья,
+	ВычиляемЗПиБонусТабдок4.Куратор КАК Куратор,
+	ВычиляемЗПиБонусТабдок4.Комментарии КАК Комментарии,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок4.Прибавление &lt;&gt; 0
+				И ВычиляемЗПиБонусТабдок4.Статья.Наименование = "торговые"
+			ТОГДА ВычиляемЗПиБонусТабдок4.Прибавление
+	КОНЕЦ КАК Торговые,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок4.Удержание &lt;&gt; 0
+				И ВычиляемЗПиБонусТабдок4.Статья.Наименование = "Бонус ёпилди"
+			ТОГДА ВычиляемЗПиБонусТабдок4.Удержание
+	КОНЕЦ КАК БонусЁпилди,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок4.Прибавление &lt;&gt; 0
+				И ВычиляемЗПиБонусТабдок4.Статья.Наименование = "регион офис"
+			ТОГДА ВычиляемЗПиБонусТабдок4.Прибавление
+	КОНЕЦ КАК ОфисАренда,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок4.Прибавление &lt;&gt; 0
+				И ВычиляемЗПиБонусТабдок4.Статья.Наименование = "Регион зарплата"
+			ТОГДА ВычиляемЗПиБонусТабдок4.Прибавление
+	КОНЕЦ КАК Ходимларга,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок4.Прибавление &lt;&gt; 0
+				И ВычиляемЗПиБонусТабдок4.Статья.Наименование = "Бонусы"
+			ТОГДА ВычиляемЗПиБонусТабдок4.Прибавление
+	КОНЕЦ КАК БонусКушимча,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок4.Удержание &lt;&gt; 0
+				И ВычиляемЗПиБонусТабдок4.Статья.Наименование = "Пред.инв"
+			ТОГДА ВычиляемЗПиБонусТабдок4.Удержание
+	КОНЕЦ КАК БонусМинус,
+	ВычиляемЗПиБонусТабдок4.Прибавление КАК Прибавление,
+	ВЫБОР
+		КОГДА ВычиляемЗПиБонусТабдок4.Удержание &lt;&gt; 0
+				И НЕ ВычиляемЗПиБонусТабдок4.Статья.Наименование В ("Бонус ёпилди", "Пред.инв")
+			ТОГДА ВычиляемЗПиБонусТабдок4.Удержание
+	КОНЕЦ КАК Удержание,
+	ВычиляемЗПиБонусТабдок4.Ссылка КАК Док
+ИЗ
+	Документ.ВычиляемЗПиБонус.Табдок4 КАК ВычиляемЗПиБонусТабдок4
+ГДЕ
+	ВычиляемЗПиБонусТабдок4.Ссылка.Проведен = ИСТИНА
+	И ВычиляемЗПиБонусТабдок4.Ссылка.Начало &gt;= &amp;Начало
+	И ВычиляемЗПиБонусТабдок4.Ссылка.Конец &lt;= &amp;Конец</query>
+		</item>
+		<item xsi:type="DataSetQuery">
+			<name>сеть</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Сеть</dataPath>
+				<field>Сеть</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Номенклатура</dataPath>
+				<field>Номенклатура</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Куратор</dataPath>
+				<field>Куратор</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Куратор</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СетьСумма</dataPath>
+				<field>СетьСумма</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сеть сумма</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СетьКолВо</dataPath>
+				<field>СетьКолВо</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сеть кол во</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СетьБонус</dataPath>
+				<field>СетьБонус</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сеть бонус</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СетьЦена</dataPath>
+				<field>СетьЦена</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сеть цена</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СетьЗарплата</dataPath>
+				<field>СетьЗарплата</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сеть зарплата</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>МПлар</dataPath>
+				<field>МПлар</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>М плар</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Ссылка</dataPath>
+				<field>Ссылка</field>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	СЕТИТабдок.Ссылка.Ссылка КАК Ссылка,
+	СЕТИТабдок.Сеть КАК Сеть,
+	СЕТИТабдок.Номенклатура КАК Номенклатура,
+	СЕТИТабдок.МП КАК МПлар,
+	СЕТИТабдок.МП.Куратор КАК Куратор,
+	СЕТИТабдок.Цена КАК СетьЦена,
+	СЕТИТабдок.КолВо КАК СетьКолВо,
+	СЕТИТабдок.Бонус КАК СетьБонус,
+	СЕТИТабдок.Сумма КАК СетьСумма,
+	СЕТИТабдок.Зарплата КАК СетьЗарплата
+ИЗ
+	Документ.СЕТИ.Табдок КАК СЕТИТабдок
+ГДЕ
+	СЕТИТабдок.Ссылка.Дата МЕЖДУ &amp;Начало И &amp;Конец
+	И СЕТИТабдок.Ссылка.Проведен = ИСТИНА</query>
+		</item>
+	</dataSet>
+	<calculatedField>
+		<dataPath>Вариант2Отчет</dataPath>
+		<expression>ЕстьNull(Удержание, 0)-ЕстьNull(БонусМинус, 0)</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Вариант2 отчет</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>20</v8:Digits>
+				<v8:FractionDigits>2</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<totalField>
+		<dataPath>ЗПК</dataPath>
+		<expression>Сумма(ЗПК)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ЗПМП</dataPath>
+		<expression>Сумма(ЗПМП)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Коэф</dataPath>
+		<expression>Среднее(Коэф)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Реализация</dataPath>
+		<expression>Сумма(Реализация)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Прибавление</dataPath>
+		<expression>Сумма(Прибавление)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Удержание</dataPath>
+		<expression>Сумма(Удержание)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СетьБонус</dataPath>
+		<expression>Сумма(СетьБонус)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СетьЗарплата</dataPath>
+		<expression>Сумма(СетьЗарплата)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СетьКолВо</dataPath>
+		<expression>Сумма(СетьКолВо)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СетьСумма</dataPath>
+		<expression>Сумма(СетьСумма)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СетьЦена</dataPath>
+		<expression>Сумма(СетьЦена)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Торговые</dataPath>
+		<expression>Сумма(Торговые)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Ходимларга</dataPath>
+		<expression>Сумма(Ходимларга)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ОфисАренда</dataPath>
+		<expression>Сумма(ОфисАренда)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>БонусОстаток</dataPath>
+		<expression>Сумма(БонусОстаток)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>БонусКушимча</dataPath>
+		<expression>Сумма(БонусКушимча)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>БонусМинус</dataPath>
+		<expression>Сумма(БонусМинус)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>БонусЁпилди</dataPath>
+		<expression>Сумма(БонусЁпилди)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Вариант2Отчет</dataPath>
+		<expression>Сумма(Вариант2Отчет)</expression>
+	</totalField>
+	<parameter>
+		<name>Конец</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Конец</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+		<expression>&amp;Период.ДатаОкончания</expression>
+	</parameter>
+	<parameter>
+		<name>Начало</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+		<expression>&amp;Период.ДатаНачала</expression>
+	</parameter>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>v8:StandardPeriod</v8:Type>
+		</valueType>
+		<value xsi:type="v8:StandardPeriod">
+			<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+			<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+			<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+		</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:userFields>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>ПользовательскиеПоля.Поле1</dcsset:dataPath>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>БонусОстаткаси</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:detailExpression>ЕстьNull(БонусОстаток, 0) - ЕстьNull(БонусМинус, 0) + ЕстьNull(БонусКушимча, 0) - ЕстьNull(БонусЁпилди, 0)</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>ЕстьNull([Бонус остаток], 0) - ЕстьNull([Бонус минус], 0) + ЕстьNull([Бонус кушимча], 0) - ЕстьNull([Бонус ёпилди], 0)</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression>ЕстьNull(БонусОстаток, 0) - ЕстьNull(БонусМинус, 0) + ЕстьNull(БонусКушимча, 0) - ЕстьNull(БонусЁпилди, 0)</dcsset:totalExpression>
+					<dcsset:totalExpressionPresentation>ЕстьNull([Бонус остаток], 0) - ЕстьNull([Бонус минус], 0) + ЕстьNull([Бонус кушимча], 0) - ЕстьNull([Бонус ёпилди], 0)</dcsset:totalExpressionPresentation>
+				</dcsset:item>
+			</dcsset:userFields>
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Куратор</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>МП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Реализация</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ЗПМП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ЗПК</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Коэф</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>БонусОстаток</dcsset:field>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>БонусНачисление</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>БонусКушимча</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>БонусМинус</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>БонусЁпилди</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Комментарии</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Куратор</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>ff62403b-509d-4e08-9a94-a5a4db73a147</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">МП</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>96c5922d-b001-4bdf-b551-eddffdf4a503</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>Период</dcscor:parameter>
+					<dcscor:value xsi:type="v8:StandardPeriod">
+						<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+						<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+						<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+					</dcscor:value>
+					<dcsset:userSettingID>e8fa9584-bcfb-4311-a1ac-cc6370c7e6cc</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Коэф</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Формат</dcscor:parameter>
+							<dcscor:value xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ЧЦ=4; ЧДЦ=1</v8:content>
+								</v8:item>
+							</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Арктика</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Куратор</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+	<settingsVariant>
+		<dcsset:name>Основной1</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Расходлари билан</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:userFields>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>ПользовательскиеПоля.Поле1</dcsset:dataPath>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>К получению</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:detailExpression>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:totalExpression>
+					<dcsset:totalExpressionPresentation>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:totalExpressionPresentation>
+				</dcsset:item>
+			</dcsset:userFields>
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Куратор</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>МП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Статья</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Комментарии</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Прибавление</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Удержание</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+					</dcsset:item>
+					<dcsset:placement>SpecialColumn</dcsset:placement>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Реализация</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ЗПМП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ЗПК</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Коэф</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Куратор</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>ff62403b-509d-4e08-9a94-a5a4db73a147</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">МП</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>96c5922d-b001-4bdf-b551-eddffdf4a503</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>Период</dcscor:parameter>
+					<dcscor:value xsi:type="v8:StandardPeriod">
+						<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+						<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+						<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+					</dcscor:value>
+					<dcsset:userSettingID>e8fa9584-bcfb-4311-a1ac-cc6370c7e6cc</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Коэф</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Формат</dcscor:parameter>
+							<dcscor:value xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ЧЦ=4; ЧДЦ=1</v8:content>
+								</v8:item>
+							</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Арктика</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Куратор</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+				</dcsset:item>
+			</dcsset:item>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Док</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Док</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>Прибавление</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>Удержание</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+						</dcsset:item>
+						<dcsset:placement>SpecialColumn</dcsset:placement>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Реализация</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ЗПМП</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ЗПК</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Коэф</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Куратор</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:item xsi:type="dcsset:StructureItemGroup">
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+					</dcsset:item>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+	<settingsVariant>
+		<dcsset:name>Основной2</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Расходлар + Сет+ Статья</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:userFields>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>ПользовательскиеПоля.Поле1</dcsset:dataPath>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>К получению</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:detailExpression>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(СетьЗарплата, 0) + ЕстьNull(СетьБонус, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull([Сеть зарплата], 0) + ЕстьNull([Сеть бонус], 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(СетьЗарплата, 0) + ЕстьNull(СетьБонус, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:totalExpression>
+					<dcsset:totalExpressionPresentation>Выбор
+	Когда ЕстьNull(Прибавление, 0) + ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull([Сеть зарплата], 0) + ЕстьNull([Сеть бонус], 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Прибавление, 0) - ЕстьNull(Удержание, 0)
+Конец</dcsset:totalExpressionPresentation>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>ПользовательскиеПоля.Поле2</dcsset:dataPath>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ИТОГО</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:detailExpression>Выбор
+	Когда ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull(ОфисАренда, 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull(СетьБонус, 0) + ЕстьNull(СетьЗарплата, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull(ОфисАренда, 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull(СетьБонус, 0) + ЕстьNull(СетьЗарплата, 0) - +ЕстьNull(Удержание, 0)
+Конец</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>Выбор
+	Когда ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull([Офис аренда], 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull([Сеть бонус], 0) + ЕстьNull([Сеть зарплата], 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull([Офис аренда], 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull([Сеть бонус], 0) + ЕстьNull([Сеть зарплата], 0) - +ЕстьNull(Удержание, 0)
+Конец</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression>Выбор
+	Когда ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull(ОфисАренда, 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull(СетьБонус, 0) + ЕстьNull(СетьЗарплата, 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull(ОфисАренда, 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull(СетьБонус, 0) + ЕстьNull(СетьЗарплата, 0) - +ЕстьNull(Удержание, 0)
+Конец</dcsset:totalExpression>
+					<dcsset:totalExpressionPresentation>Выбор
+	Когда ЕстьNull(Удержание, 0) = 0
+		Тогда ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull([Офис аренда], 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull([Сеть бонус], 0) + ЕстьNull([Сеть зарплата], 0)
+	Иначе ЕстьNull(ЗПМП, 0) + ЕстьNull(ЗПК, 0) + ЕстьNull(Торговые, 0) + ЕстьNull([Офис аренда], 0) + ЕстьNull(Ходимларга, 0) + ЕстьNull([Сеть бонус], 0) + ЕстьNull([Сеть зарплата], 0) - +ЕстьNull(Удержание, 0)
+Конец</dcsset:totalExpressionPresentation>
+				</dcsset:item>
+			</dcsset:userFields>
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Куратор</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>МПлар</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>Статья</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Комментарии</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>Прибавление</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+					</dcsset:item>
+					<dcsset:placement>SpecialColumn</dcsset:placement>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>Реализация</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ЗПМП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ЗПК</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>Коэф</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СетьБонус</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СетьЗарплата</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ОфисАренда</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Ходимларга</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Торговые</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПользовательскиеПоля.Поле2</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Удержание</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>Вариант2Отчет</dcsset:field>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Удержание</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Куратор</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>ff62403b-509d-4e08-9a94-a5a4db73a147</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">МП</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>96c5922d-b001-4bdf-b551-eddffdf4a503</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>Период</dcscor:parameter>
+					<dcscor:value xsi:type="v8:StandardPeriod">
+						<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+						<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+						<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+					</dcscor:value>
+					<dcsset:userSettingID>e8fa9584-bcfb-4311-a1ac-cc6370c7e6cc</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Коэф</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Формат</dcscor:parameter>
+							<dcscor:value xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ЧЦ=4; ЧДЦ=1</v8:content>
+								</v8:item>
+							</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Арктика</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Куратор</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Статья</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:item xsi:type="dcsset:StructureItemGroup">
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+					</dcsset:item>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

@@ -1,0 +1,1313 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetUnion">
+		<name>НаборДанных3</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>МП</dataPath>
+			<field>МП</field>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СуммаПродаж</dataPath>
+			<field>СуммаПродаж</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма продаж</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Выше</dataPath>
+			<field>Выше</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Статья</dataPath>
+			<field>Статья</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Ниже</dataPath>
+			<field>Ниже</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Порог</dataPath>
+			<field>Порог</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВышеПорога</dataPath>
+			<field>ВышеПорога</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кураторские</dataPath>
+			<field>Кураторские</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Куратор</dataPath>
+			<field>Куратор</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДокНомер</dataPath>
+			<field>ДокНомер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СуммаПродажГруппы</dataPath>
+			<field>СуммаПродажГруппы</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма продаж группы</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СуммаУдержаний</dataPath>
+			<field>СуммаУдержаний</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма удержаний</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф3</dataPath>
+			<field>Кф3</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Второй</dataPath>
+			<field>Второй</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Третий</dataPath>
+			<field>Третий</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Первый</dataPath>
+			<field>Первый</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Шестой</dataPath>
+			<field>Шестой</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Четвертый</dataPath>
+			<field>Четвертый</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Пятый</dataPath>
+			<field>Пятый</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Седьмой</dataPath>
+			<field>Седьмой</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф2</dataPath>
+			<field>Кф2</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Восьмой</dataPath>
+			<field>Восьмой</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф1</dataPath>
+			<field>Кф1</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф4</dataPath>
+			<field>Кф4</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф5</dataPath>
+			<field>Кф5</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф6</dataPath>
+			<field>Кф6</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф7</dataPath>
+			<field>Кф7</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Кф8</dataPath>
+			<field>Кф8</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СуммаБонусов</dataPath>
+			<field>СуммаБонусов</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма бонусов</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Месяц</dataPath>
+			<field>Месяц</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Год</dataPath>
+			<field>Год</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДокСсылка</dataPath>
+			<field>ДокСсылка</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Док ссылка</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ОжидаемаяЗП</dataPath>
+			<field>ОжидаемаяЗП</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Ожидаемая ЗП</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>МП1</dataPath>
+			<field>МП1</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Сумма</dataPath>
+			<field>Сумма</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Бонус</dataPath>
+			<field>Бонус</field>
+		</field>
+		<item xsi:type="DataSetQuery">
+			<name>НаборДанных1</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>МП</dataPath>
+				<field>МП</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СуммаПродаж</dataPath>
+				<field>СуммаПродаж</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сумма продаж</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Выше</dataPath>
+				<field>Выше</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Ниже</dataPath>
+				<field>Ниже</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Порог</dataPath>
+				<field>Порог</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ВышеПорога</dataPath>
+				<field>ВышеПорога</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кураторские</dataPath>
+				<field>Кураторские</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Куратор</dataPath>
+				<field>Куратор</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СуммаУдержаний</dataPath>
+				<field>СуммаУдержаний</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сумма удержаний</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СуммаБонусов</dataPath>
+				<field>СуммаБонусов</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сумма бонусов</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ДокСсылка</dataPath>
+				<field>ДокСсылка</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Док ссылка</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ОжидаемаяЗП</dataPath>
+				<field>ОжидаемаяЗП</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Ожидаемая ЗП</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>МП1</dataPath>
+				<field>МП1</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Сумма</dataPath>
+				<field>Сумма</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Бонус</dataPath>
+				<field>Бонус</field>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	Влож.МП КАК МП,
+	Влож.Куратор КАК Куратор,
+	СУММА(Влож.СуммаПродаж) КАК СуммаПродаж,
+	СУММА(Влож.СуммаБонусов) КАК СуммаБонусов,
+	СУММА(Влож.СуммаУдержаний) КАК СуммаУдержаний,
+	МАКСИМУМ(Влож.Выше) КАК Выше,
+	МАКСИМУМ(Влож.Ниже) КАК Ниже,
+	МАКСИМУМ(Влож.Порог) КАК Порог,
+	МАКСИМУМ(Влож.ВышеПорога) КАК ВышеПорога,
+	МАКСИМУМ(Влож.Кураторские) КАК Кураторские,
+	ВЫБОР
+		КОГДА ЕСТЬNULL(МАКСИМУМ(Влож.Порог), 0) &gt; 0
+				И СУММА(Влож.СуммаПродаж) &gt;= ЕСТЬNULL(МАКСИМУМ(Влож.Порог), 0)
+			ТОГДА СУММА(Влож.СуммаПродаж) * ЕСТЬNULL(МАКСИМУМ(Влож.ВышеПорога), 10) / 100
+		КОГДА СУММА(Влож.СуммаПродаж) &gt;= &amp;БазовыйПорог
+			ТОГДА СУММА(Влож.СуммаПродаж) * ЕСТЬNULL(МАКСИМУМ(Влож.Выше), 9) / 100
+		ИНАЧЕ СУММА(Влож.СуммаПродаж) * ЕСТЬNULL(МАКСИМУМ(Влож.Ниже), 8) / 100
+	КОНЕЦ КАК ОжидаемаяЗП
+ИЗ
+	(ВЫБРАТЬ
+		ВЫБОР
+			КОГДА СпрМП.Наименование &lt;&gt; "Аптеки СЕТЬ"
+				ТОГДА Т1.МП1
+		КОНЕЦ КАК МП,
+		СпрМП.Куратор КАК Куратор,
+		ВЫБОР
+			КОГДА Т1.Сумма &gt; 0
+				ТОГДА Т1.Сумма
+			ИНАЧЕ 0
+		КОНЕЦ КАК СуммаПродаж,
+		Т1.Бонус КАК СуммаБонусов,
+		0 КАК СуммаУдержаний,
+		Учет.Выше КАК Выше,
+		Учет.Ниже КАК Ниже,
+		Учет.Порог КАК Порог,
+		Учет.ВышеПорога КАК ВышеПорога,
+		Учет.Кураторские КАК Кураторские
+	ИЗ
+		(ВЫБРАТЬ
+			Табдок.МП1 КАК МП1,
+			Табдок.Сумма КАК Сумма,
+			Табдок.Бонус КАК Бонус,
+			Табдок.Ссылка КАК ДокСсылка
+		ИЗ
+			Документ.СЕТИ.Табдок КАК Табдок) КАК Т1
+			ЛЕВОЕ СОЕДИНЕНИЕ Документ.СЕТИ КАК ДокСЕТИ
+			ПО Т1.ДокСсылка = ДокСЕТИ.Ссылка
+			ЛЕВОЕ СОЕДИНЕНИЕ Справочник.Менеджер КАК СпрМП
+			ПО Т1.МП1 = СпрМП.Ссылка
+			ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.УчетЗПБонусов.СрезПоследних(&amp;ДатаСреза, ) КАК Учет
+			ПО (СпрМП.Куратор = Учет.Куратор)
+	ГДЕ
+		ДокСЕТИ.Проведен
+		И ДокСЕТИ.Дата МЕЖДУ &amp;НачалоПериода И &amp;КонецПериода
+		И СпрМП.Наименование &lt;&gt; "Аптеки СЕТЬ"
+	
+	ОБЪЕДИНИТЬ ВСЕ
+	
+	ВЫБРАТЬ
+		ВЫБОР
+			КОГДА СпрМП.Наименование &lt;&gt; "Аптеки СЕТЬ"
+				ТОГДА Продажи.МП
+		КОНЕЦ,
+		СпрМП.Куратор,
+		ВЫБОР
+			КОГДА Продажи.Сумма &gt; 0
+				ТОГДА Продажи.Сумма
+			ИНАЧЕ 0
+		КОНЕЦ,
+		0,
+		ВЫБОР
+			КОГДА Продажи.Сумма &lt; 0
+				ТОГДА -Продажи.Сумма
+			ИНАЧЕ 0
+		КОНЕЦ,
+		Учет.Выше,
+		Учет.Ниже,
+		Учет.Порог,
+		Учет.ВышеПорога,
+		Учет.Кураторские
+	ИЗ
+		РегистрНакопления.Остатки КАК Продажи
+			ЛЕВОЕ СОЕДИНЕНИЕ Справочник.Менеджер КАК СпрМП
+			ПО Продажи.МП = СпрМП.Ссылка
+			ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.УчетЗПБонусов.СрезПоследних(&amp;ДатаСреза, ) КАК Учет
+			ПО (СпрМП.Куратор = Учет.Куратор)
+	ГДЕ
+		Продажи.Период МЕЖДУ &amp;НачалоПериода И &amp;КонецПериода
+		И Продажи.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход)
+		И СпрМП.Наименование &lt;&gt; "Аптеки СЕТЬ") КАК Влож
+
+СГРУППИРОВАТЬ ПО
+	Влож.МП,
+	Влож.Куратор
+
+ИМЕЮЩИЕ
+	СУММА(Влож.СуммаПродаж) &gt; 0</query>
+		</item>
+		<item xsi:type="DataSetQuery">
+			<name>НаборДанных2</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>МП</dataPath>
+				<field>МП</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кураторские</dataPath>
+				<field>Кураторские</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Куратор</dataPath>
+				<field>Куратор</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СуммаПродажГруппы</dataPath>
+				<field>СуммаПродажГруппы</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сумма продаж группы</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф3</dataPath>
+				<field>Кф3</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Второй</dataPath>
+				<field>Второй</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Третий</dataPath>
+				<field>Третий</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Первый</dataPath>
+				<field>Первый</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Шестой</dataPath>
+				<field>Шестой</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Четвертый</dataPath>
+				<field>Четвертый</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Пятый</dataPath>
+				<field>Пятый</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Седьмой</dataPath>
+				<field>Седьмой</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф2</dataPath>
+				<field>Кф2</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Восьмой</dataPath>
+				<field>Восьмой</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф1</dataPath>
+				<field>Кф1</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф4</dataPath>
+				<field>Кф4</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф5</dataPath>
+				<field>Кф5</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф6</dataPath>
+				<field>Кф6</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф7</dataPath>
+				<field>Кф7</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Кф8</dataPath>
+				<field>Кф8</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СуммаПродаж</dataPath>
+				<field>СуммаПродаж</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сумма продаж</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>МП1</dataPath>
+				<field>МП1</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Сумма</dataPath>
+				<field>Сумма</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ДокСсылка</dataPath>
+				<field>ДокСсылка</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Док ссылка</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+    СпрМП.Куратор КАК Куратор,
+    СУММА(Влож.СуммаПродаж) КАК СуммаПродажГруппы,
+    УчетЗПБонусовСрезПоследних.Кураторские КАК Кураторские,
+    НадбавкиРМ.Первый КАК Первый,
+    НадбавкиРМ.Второй КАК Второй,
+    НадбавкиРМ.Третий КАК Третий,
+    НадбавкиРМ.Четвертый КАК Четвертый,
+    НадбавкиРМ.Пятый КАК Пятый,
+    НадбавкиРМ.Шестой КАК Шестой,
+    НадбавкиРМ.Седьмой КАК Седьмой,
+    НадбавкиРМ.Восьмой КАК Восьмой,
+    НадбавкиРМ.Кф1 КАК Кф1,
+    НадбавкиРМ.Кф2 КАК Кф2,
+    НадбавкиРМ.Кф3 КАК Кф3,
+    НадбавкиРМ.Кф4 КАК Кф4,
+    НадбавкиРМ.Кф5 КАК Кф5,
+    НадбавкиРМ.Кф6 КАК Кф6,
+    НадбавкиРМ.Кф7 КАК Кф7,
+    НадбавкиРМ.Кф8 КАК Кф8
+ИЗ
+(
+  //  /* ==================== 1. Продажи из документа СЕТИ ==================== */
+    ВЫБРАТЬ
+        Т1.МП1 КАК МП,
+        ВЫБОР
+            КОГДА Т1.Сумма &gt; 0
+                ТОГДА Т1.Сумма
+            ИНАЧЕ 0
+        КОНЕЦ КАК СуммаПродаж
+    ИЗ
+    (
+        ВЫБРАТЬ
+            Табдок.МП1 КАК МП1,
+            Табдок.Сумма КАК Сумма,
+            Табдок.Ссылка КАК ДокСсылка
+        ИЗ
+            Документ.СЕТИ.Табдок КАК Табдок
+    ) КАК Т1
+    ЛЕВОЕ СОЕДИНЕНИЕ Документ.СЕТИ КАК ДокСЕТИ
+        ПО Т1.ДокСсылка = ДокСЕТИ.Ссылка
+    ГДЕ
+        ДокСЕТИ.Проведен
+        И ДокСЕТИ.Дата МЕЖДУ &amp;НачалоПериода И &amp;КонецПериода
+
+    ОБЪЕДИНИТЬ ВСЕ
+
+   /// /* ==================== 2. Расходные движения из регистра Остатки ==================== */
+    ВЫБРАТЬ
+        Продажи.МП КАК МП,
+        ВЫБОР
+            КОГДА Продажи.Сумма &gt; 0
+                ТОГДА Продажи.Сумма
+            ИНАЧЕ 0
+        КОНЕЦ КАК СуммаПродаж
+    ИЗ
+        РегистрНакопления.Остатки КАК Продажи
+    ГДЕ
+        Продажи.Период МЕЖДУ &amp;НачалоПериода И &amp;КонецПериода
+        И Продажи.ВидДвижения = ЗНАЧЕНИЕ(ВидДвиженияНакопления.Расход)
+) КАК Влож
+
+ВНУТРЕННЕЕ СОЕДИНЕНИЕ Справочник.Менеджер КАК СпрМП
+    ПО Влож.МП = СпрМП.Ссылка
+
+ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.УчетЗПБонусов.СрезПоследних(&amp;ДатаСреза, ) КАК УчетЗПБонусовСрезПоследних
+    ПО (СпрМП.Куратор = УчетЗПБонусовСрезПоследних.Куратор)
+
+ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.НадбавкиРМ.СрезПоследних(&amp;ДатаСреза, ) КАК НадбавкиРМ
+    ПО (ИСТИНА)
+
+ГДЕ
+    СпрМП.Куратор &lt;&gt; ЗНАЧЕНИЕ(Справочник.Менеджер.ПустаяСсылка)
+    И СпрМП.Наименование &lt;&gt; "Аптеки СЕТЬ"
+
+СГРУППИРОВАТЬ ПО
+    СпрМП.Куратор,
+    УчетЗПБонусовСрезПоследних.Кураторские,
+    НадбавкиРМ.Первый,
+    НадбавкиРМ.Второй,
+    НадбавкиРМ.Третий,
+    НадбавкиРМ.Четвертый,
+    НадбавкиРМ.Пятый,
+    НадбавкиРМ.Шестой,
+    НадбавкиРМ.Седьмой,
+    НадбавкиРМ.Восьмой,
+    НадбавкиРМ.Кф1,
+    НадбавкиРМ.Кф2,
+    НадбавкиРМ.Кф3,
+    НадбавкиРМ.Кф4,
+    НадбавкиРМ.Кф5,
+    НадбавкиРМ.Кф6,
+    НадбавкиРМ.Кф7,
+    НадбавкиРМ.Кф8
+
+ИМЕЮЩИЕ
+    СУММА(Влож.СуммаПродаж) &gt; 0
+    И ЕСТЬNULL(УчетЗПБонусовСрезПоследних.Кураторские, 0) &gt; 0</query>
+		</item>
+		<item xsi:type="DataSetQuery">
+			<name>НаборДанных3</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>МП</dataPath>
+				<field>МП</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Куратор</dataPath>
+				<field>Куратор</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ДокНомер</dataPath>
+				<field>ДокНомер</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Статья</dataPath>
+				<field>Статья</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СуммаБонусов</dataPath>
+				<field>СуммаБонусов</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Сумма бонусов</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Номенклатура</dataPath>
+				<field>Номенклатура</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Месяц</dataPath>
+				<field>Месяц</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Год</dataPath>
+				<field>Год</field>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	ВЫБОР
+		КОГДА БонусыОбороты.МП.Наименование &lt;&gt; "Аптеки СЕТЬ"
+			ТОГДА БонусыОбороты.МП
+	КОНЕЦ КАК МП,
+	БонусыОбороты.МП.Куратор КАК Куратор,
+	СУММА(БонусыОбороты.СуммаПриход) КАК СуммаБонусов
+ИЗ
+	РегистрНакопления.Бонусы.Обороты(&amp;НачалоПериода, &amp;КонецПериода, , ) КАК БонусыОбороты
+ГДЕ
+	БонусыОбороты.МП.Наименование &lt;&gt; "Аптеки СЕТЬ"
+
+СГРУППИРОВАТЬ ПО
+	БонусыОбороты.МП,
+	БонусыОбороты.Куратор,
+	БонусыОбороты.МП.Куратор,
+	ВЫБОР
+		КОГДА БонусыОбороты.МП.Наименование &lt;&gt; "Аптеки СЕТЬ"
+			ТОГДА БонусыОбороты.МП
+	КОНЕЦ</query>
+		</item>
+	</dataSet>
+	<calculatedField>
+		<dataPath>ОжидаемаяЗП</dataPath>
+		<expression>ВЫБОР
+    КОГДА ЕСТЬNULL(Порог, 0) &gt; 0 И СуммаПродаж &gt;= Порог ТОГДА СуммаПродаж * ЕСТЬNULL(ВышеПорога, 10) / 100
+    КОГДА СуммаПродаж &gt;= &amp;БазовыйПорог ТОГДА СуммаПродаж * ЕСТЬNULL(Выше, 9) / 100
+    ИНАЧЕ СуммаПродаж * ЕСТЬNULL(Ниже, 8) / 100
+КОНЕЦ</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Ожидаемая ЗП МП</v8:content>
+			</v8:item>
+		</title>
+		<appearance>
+			<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+				<dcscor:parameter>Формат</dcscor:parameter>
+				<dcscor:value xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЧЦ=20; ЧДЦ=2</v8:content>
+					</v8:item>
+				</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>Процент</dataPath>
+		<expression>ВЫБОР
+    КОГДА ЕСТЬNULL(Порог, 0) &gt; 0 И СуммаПродаж &gt;= Порог ТОГДА ЕСТЬNULL(ВышеПорога, 10)
+    КОГДА СуммаПродаж &gt;= &amp;БазовыйПорог ТОГДА ЕСТЬNULL(Выше, 9)
+    ИНАЧЕ ЕСТЬNULL(Ниже, 8)
+КОНЕЦ</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Процент</v8:content>
+			</v8:item>
+		</title>
+		<appearance>
+			<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+				<dcscor:parameter>Формат</dcscor:parameter>
+				<dcscor:value xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЧЦ=20; ЧДЦ=2</v8:content>
+					</v8:item>
+				</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>КураторскийБонус</dataPath>
+		<expression>ЕСТЬNULL(СуммаПродажГруппы, 0) * ЕСТЬNULL(Кураторские, 0) / 100</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Кураторский бонус</v8:content>
+			</v8:item>
+		</title>
+		<appearance>
+			<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+				<dcscor:parameter>Формат</dcscor:parameter>
+				<dcscor:value xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЧЦ=20; ЧДЦ=2</v8:content>
+					</v8:item>
+				</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>ПроцентУдержаний</dataPath>
+		<expression>ВЫБОР
+    КОГДА ЕСТЬNULL(Порог, 0) &gt; 0 И СуммаУдержаний &gt;= Порог ТОГДА ЕСТЬNULL(ВышеПорога, 10)
+    КОГДА СуммаУдержаний &gt;= &amp;БазовыйПорог ТОГДА ЕСТЬNULL(Выше, 9)
+    ИНАЧЕ ЕСТЬNULL(Ниже, 8)
+КОНЕЦ</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Процент удержаний</v8:content>
+			</v8:item>
+		</title>
+		<appearance>
+			<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+				<dcscor:parameter>Формат</dcscor:parameter>
+				<dcscor:value xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЧЦ=20; ЧДЦ=2</v8:content>
+					</v8:item>
+				</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>Надбавка</dataPath>
+		<expression>ВЫБОР КОГДА СуммаПродажГруппы &lt;= Первый ТОГДА Кф1
+      КОГДА СуммаПродажГруппы &lt;= Второй ТОГДА Кф2
+      КОГДА СуммаПродажГруппы &lt;= Третий ТОГДА Кф3
+      КОГДА СуммаПродажГруппы &lt;= Четвертый ТОГДА Кф4
+      КОГДА СуммаПродажГруппы &lt;= Пятый ТОГДА Кф5
+      КОГДА СуммаПродажГруппы &lt;= Шестой ТОГДА Кф6
+      КОГДА СуммаПродажГруппы &lt;= Седьмой ТОГДА Кф7
+      КОГДА СуммаПродажГруппы &lt;= Восьмой ТОГДА Кф8
+      ИНАЧЕ 0  
+КОНЕЦ</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Надбавка</v8:content>
+			</v8:item>
+		</title>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>Всего</dataPath>
+		<expression>(ВЫБОР
+    КОГДА ЕСТЬNULL(Порог, 0) &gt; 0 И СуммаПродаж &gt;= Порог ТОГДА СуммаПродаж * ЕСТЬNULL(ВышеПорога, 10) / 100
+    КОГДА СуммаПродаж &gt;= &amp;БазовыйПорог ТОГДА СуммаПродаж * ЕСТЬNULL(Выше, 9) / 100
+    ИНАЧЕ СуммаПродаж * ЕСТЬNULL(Ниже, 8) / 100
+КОНЕЦ)+(ЕСТЬNULL(СуммаПродажГруппы, 0) * ЕСТЬNULL(Кураторские, 0) / 100)+(ВЫБОР КОГДА СуммаПродажГруппы &lt;= Первый ТОГДА Кф1
+      КОГДА СуммаПродажГруппы &lt;= Второй ТОГДА Кф2
+      КОГДА СуммаПродажГруппы &lt;= Третий ТОГДА Кф3
+      КОГДА СуммаПродажГруппы &lt;= Четвертый ТОГДА Кф4
+      КОГДА СуммаПродажГруппы &lt;= Пятый ТОГДА Кф5
+      КОГДА СуммаПродажГруппы &lt;= Шестой ТОГДА Кф6
+      КОГДА СуммаПродажГруппы &lt;= Седьмой ТОГДА Кф7
+      КОГДА СуммаПродажГруппы &lt;= Восьмой ТОГДА Кф8
+      ИНАЧЕ 0  
+КОНЕЦ)+СуммаБонусов</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Всего</v8:content>
+			</v8:item>
+		</title>
+		<appearance>
+			<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+				<dcscor:parameter>Формат</dcscor:parameter>
+				<dcscor:value xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЧЦ=15; ЧДЦ=2</v8:content>
+					</v8:item>
+				</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>Процент1</dataPath>
+		<expression>((ВЫБОР
+    КОГДА ЕСТЬNULL(Порог, 0) &gt; 0 И СуммаПродаж &gt;= Порог ТОГДА СуммаПродаж * ЕСТЬNULL(ВышеПорога, 10) / 100
+    КОГДА СуммаПродаж &gt;= &amp;БазовыйПорог ТОГДА СуммаПродаж * ЕСТЬNULL(Выше, 9) / 100
+    ИНАЧЕ СуммаПродаж * ЕСТЬNULL(Ниже, 8) / 100
+КОНЕЦ)/СуммаПродаж)*100</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Процент1</v8:content>
+			</v8:item>
+		</title>
+		<appearance>
+			<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+				<dcscor:parameter>Формат</dcscor:parameter>
+				<dcscor:value xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>ЧЦ=20; ЧДЦ=2</v8:content>
+					</v8:item>
+				</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<totalField>
+		<dataPath>Выше</dataPath>
+		<expression>Сумма(Выше)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ВышеПорога</dataPath>
+		<expression>Сумма(ВышеПорога)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Кураторские</dataPath>
+		<expression>Среднее(Кураторские)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Ниже</dataPath>
+		<expression>Сумма(Ниже)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ОжидаемаяЗП</dataPath>
+		<expression>Сумма(ОжидаемаяЗП)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Порог</dataPath>
+		<expression>Сумма(Порог)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Процент</dataPath>
+		<expression>Среднее(Процент)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СуммаПродаж</dataPath>
+		<expression>Сумма(СуммаПродаж)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КураторскийБонус</dataPath>
+		<expression>Сумма(КураторскийБонус)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ПроцентУдержаний</dataPath>
+		<expression>Сумма(ПроцентУдержаний)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СуммаУдержаний</dataPath>
+		<expression>Сумма(СуммаУдержаний)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Надбавка</dataPath>
+		<expression>Сумма(Надбавка)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СуммаБонусов</dataPath>
+		<expression>Сумма(СуммаБонусов)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Всего</dataPath>
+		<expression>Сумма(Всего)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Процент1</dataPath>
+		<expression>Среднее(Процент1)</expression>
+	</totalField>
+	<parameter>
+		<name>НачалоПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>КонецПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Конец периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ДатаСреза</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Дата среза</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>БазовыйПорог</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Базовый порог</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">0</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:userFields>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>ПользовательскиеПоля.Поле1</dcsset:dataPath>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Итого</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:detailExpression>ОжидаемаяЗП + Надбавка + СуммаБонусов + КураторскийБонус</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>[Ожидаемая ЗП МП] + Надбавка + [Сумма бонусов] + [Кураторский бонус]</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression>ОжидаемаяЗП + Надбавка + СуммаБонусов + КураторскийБонус</dcsset:totalExpression>
+					<dcsset:totalExpressionPresentation>[Ожидаемая ЗП МП] + Надбавка + [Сумма бонусов] + [Кураторский бонус]</dcsset:totalExpressionPresentation>
+				</dcsset:item>
+			</dcsset:userFields>
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Куратор</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>МП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СуммаПродаж</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СуммаУдержаний</dcsset:field>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сумма Возврат</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Процент1</dcsset:field>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Процент</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ОжидаемаяЗП</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Кураторские</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>КураторскийБонус</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>Выше</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>ВышеПорога</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>Ниже</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>Порог</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>ПроцентУдержаний</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Надбавка</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СуммаБонусов</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>Всего</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Куратор</dcsset:left>
+					<dcsset:comparisonType>NotEqual</dcsset:comparisonType>
+					<dcsset:userSettingID>3a3bb3c6-4b4e-47f1-bd57-ff8227f9dde8</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">МП</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>77feaf5d-a157-4ee6-9b7d-f22d2ce44e56</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>НачалоПериода</dcscor:parameter>
+					<dcscor:value xsi:type="xs:dateTime">0001-01-01T00:00:00</dcscor:value>
+					<dcsset:userSettingID>a17576ee-bede-4858-b359-4e7884b05b76</dcsset:userSettingID>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>КонецПериода</dcscor:parameter>
+					<dcscor:value xsi:type="xs:dateTime">0001-01-01T00:00:00</dcscor:value>
+					<dcsset:userSettingID>0ccdd32d-fa4b-4d3d-a4d9-2e634427cbab</dcsset:userSettingID>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>Период</dcscor:parameter>
+					<dcscor:value xsi:type="xs:dateTime">0001-01-01T00:00:00</dcscor:value>
+					<dcsset:userSettingID>4cd17603-2651-492f-863f-e34f885a50fa</dcsset:userSettingID>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>БазовыйПорог</dcscor:parameter>
+					<dcscor:value xsi:type="xs:decimal">0</dcscor:value>
+					<dcsset:userSettingID>f881a1e0-9169-4fe2-bb74-3df087aa1060</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>СуммаПродаж</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>ОжидаемаяЗП</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>Процент</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>Кураторские</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>Порог</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>СуммаБонусов</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>Всего</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Формат</dcscor:parameter>
+							<dcscor:value xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ЧЦ=20; ЧДЦ=2</v8:content>
+								</v8:item>
+							</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Море</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Куратор.ГруппыРМ.ФФМ</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Куратор.ГруппыРМ.ФФМ</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>СуммаПродаж</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>СуммаУдержаний</dcsset:field>
+						<dcsset:lwsTitle>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Сумма Возврат</v8:content>
+							</v8:item>
+						</dcsset:lwsTitle>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Процент1</dcsset:field>
+						<dcsset:lwsTitle>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Процент</v8:content>
+							</v8:item>
+						</dcsset:lwsTitle>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ОжидаемаяЗП</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Кураторские</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КураторскийБонус</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Надбавка</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>СуммаБонусов</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Куратор</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:item xsi:type="dcsset:StructureItemGroup">
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>МП</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+						<dcsset:item xsi:type="dcsset:StructureItemGroup">
+							<dcsset:order>
+								<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+							</dcsset:order>
+							<dcsset:selection>
+								<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+							</dcsset:selection>
+						</dcsset:item>
+					</dcsset:item>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

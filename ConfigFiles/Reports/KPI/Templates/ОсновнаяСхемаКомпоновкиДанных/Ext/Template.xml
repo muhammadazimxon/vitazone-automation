@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetUnion">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоэфРеализации</dataPath>
+			<field>КоэфРеализации</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Приход</dataPath>
+			<field>Приход</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Менеджер</dataPath>
+			<field>Менеджер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Ссылка</dataPath>
+			<field>Ссылка</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ОбщийKPI</dataPath>
+			<field>ОбщийKPI</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КонечныйОстаток</dataPath>
+			<field>КонечныйОстаток</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ОтсатокНаНачало</dataPath>
+			<field>ОтсатокНаНачало</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПросрочкаНаНачало</dataPath>
+			<field>ПросрочкаНаНачало</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Реализация</dataPath>
+			<field>Реализация</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПросрочкаНаКонец</dataPath>
+			<field>ПросрочкаНаКонец</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДоляПросрочки</dataPath>
+			<field>ДоляПросрочки</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТемпПросрочки</dataPath>
+			<field>ТемпПросрочки</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоэфПогашения</dataPath>
+			<field>КоэфПогашения</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СреднийДолг</dataPath>
+			<field>СреднийДолг</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоэфОборачиваемости</dataPath>
+			<field>КоэфОборачиваемости</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РегионМ</dataPath>
+			<field>РегионМ</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Регион М</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Регион</dataPath>
+			<field>Регион</field>
+		</field>
+		<item xsi:type="DataSetQuery">
+			<name>МП</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КоэфРеализации</dataPath>
+				<field>КоэфРеализации</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Приход</dataPath>
+				<field>Приход</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Менеджер</dataPath>
+				<field>Менеджер</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Ссылка</dataPath>
+				<field>Ссылка</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ОбщийKPI</dataPath>
+				<field>ОбщийKPI</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КонечныйОстаток</dataPath>
+				<field>КонечныйОстаток</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ОтсатокНаНачало</dataPath>
+				<field>ОтсатокНаНачало</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ПросрочкаНаНачало</dataPath>
+				<field>ПросрочкаНаНачало</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Реализация</dataPath>
+				<field>Реализация</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ПросрочкаНаКонец</dataPath>
+				<field>ПросрочкаНаКонец</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ДоляПросрочки</dataPath>
+				<field>ДоляПросрочки</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ТемпПросрочки</dataPath>
+				<field>ТемпПросрочки</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КоэфПогашения</dataPath>
+				<field>КоэфПогашения</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СреднийДолг</dataPath>
+				<field>СреднийДолг</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КоэфОборачиваемости</dataPath>
+				<field>КоэфОборачиваемости</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>РегионМ</dataPath>
+				<field>РегионМ</field>
+				<title xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Регион М</v8:content>
+					</v8:item>
+				</title>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	KPIОбрТабдок.Ссылка КАК Ссылка,
+	KPIОбрТабдок.Менеджер КАК Менеджер,
+	KPIОбрТабдок.ОтсатокНаНачало КАК ОтсатокНаНачало,
+	KPIОбрТабдок.ПросрочкаНаНачало КАК ПросрочкаНаНачало,
+	KPIОбрТабдок.Приход КАК Приход,
+	KPIОбрТабдок.Реализация КАК Реализация,
+	KPIОбрТабдок.КонечныйОстаток КАК КонечныйОстаток,
+	KPIОбрТабдок.ПросрочкаНаКонец КАК ПросрочкаНаКонец,
+	KPIОбрТабдок.ДоляПросрочки КАК ДоляПросрочки,
+	KPIОбрТабдок.ТемпПросрочки КАК ТемпПросрочки,
+	KPIОбрТабдок.КоэфПогашения КАК КоэфПогашения,
+	KPIОбрТабдок.КоэфРеализации КАК КоэфРеализации,
+	KPIОбрТабдок.СреднийДолг КАК СреднийДолг,
+	KPIОбрТабдок.КоэфОборачиваемости КАК КоэфОборачиваемости,
+	KPIОбрТабдок.ОбщийKPI КАК ОбщийKPI,
+	KPIОбрТабдок.Менеджер.Регион КАК РегионМ
+ИЗ
+	Документ.KPI.ОбрТабдок КАК KPIОбрТабдок
+ГДЕ
+	KPIОбрТабдок.Ссылка.Ссылка = &amp;Документ
+	И KPIОбрТабдок.Ссылка.Проведен = ИСТИНА</query>
+		</item>
+		<item xsi:type="DataSetQuery">
+			<name>Регион</name>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КоэфРеализации</dataPath>
+				<field>КоэфРеализации</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Приход</dataPath>
+				<field>Приход</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Ссылка</dataPath>
+				<field>Ссылка</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ОбщийKPI</dataPath>
+				<field>ОбщийKPI</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КонечныйОстаток</dataPath>
+				<field>КонечныйОстаток</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ОтсатокНаНачало</dataPath>
+				<field>ОтсатокНаНачало</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ПросрочкаНаНачало</dataPath>
+				<field>ПросрочкаНаНачало</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Реализация</dataPath>
+				<field>Реализация</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ПросрочкаНаКонец</dataPath>
+				<field>ПросрочкаНаКонец</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ДоляПросрочки</dataPath>
+				<field>ДоляПросрочки</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>ТемпПросрочки</dataPath>
+				<field>ТемпПросрочки</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КоэфПогашения</dataPath>
+				<field>КоэфПогашения</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>СреднийДолг</dataPath>
+				<field>СреднийДолг</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>КоэфОборачиваемости</dataPath>
+				<field>КоэфОборачиваемости</field>
+			</field>
+			<field xsi:type="DataSetFieldField">
+				<dataPath>Регион</dataPath>
+				<field>Регион</field>
+			</field>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query>ВЫБРАТЬ
+	KPIОбрТабдок2.Ссылка КАК Ссылка,
+	KPIОбрТабдок2.ОтсатокНаНачало КАК ОтсатокНаНачало,
+	KPIОбрТабдок2.ПросрочкаНаНачало КАК ПросрочкаНаНачало,
+	KPIОбрТабдок2.Приход КАК Приход,
+	KPIОбрТабдок2.Реализация КАК Реализация,
+	KPIОбрТабдок2.КонечныйОстаток КАК КонечныйОстаток,
+	KPIОбрТабдок2.ПросрочкаНаКонец КАК ПросрочкаНаКонец,
+	KPIОбрТабдок2.ДоляПросрочки КАК ДоляПросрочки,
+	KPIОбрТабдок2.ТемпПросрочки КАК ТемпПросрочки,
+	KPIОбрТабдок2.КоэфПогашения КАК КоэфПогашения,
+	KPIОбрТабдок2.КоэфРеализации КАК КоэфРеализации,
+	KPIОбрТабдок2.СреднийДолг КАК СреднийДолг,
+	KPIОбрТабдок2.КоэфОборачиваемости КАК КоэфОборачиваемости,
+	KPIОбрТабдок2.ОбщийKPI КАК ОбщийKPI,
+	KPIОбрТабдок2.Регион КАК Регион
+ИЗ
+	Документ.KPI.ОбрТабдок2 КАК KPIОбрТабдок2
+ГДЕ
+	KPIОбрТабдок2.Ссылка.Проведен = ИСТИНА
+	И KPIОбрТабдок2.Ссылка = &amp;Документ</query>
+		</item>
+		<item xsi:type="DataSetQuery">
+			<name>НаборДанных1</name>
+			<dataSource>ИсточникДанных1</dataSource>
+			<query/>
+		</item>
+	</dataSet>
+	<totalField>
+		<dataPath>ДоляПросрочки</dataPath>
+		<expression>Сумма(ДоляПросрочки)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КонечныйОстаток</dataPath>
+		<expression>Сумма(КонечныйОстаток)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КоэфОборачиваемости</dataPath>
+		<expression>Сумма(КоэфОборачиваемости)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КоэфПогашения</dataPath>
+		<expression>Сумма(КоэфПогашения)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КоэфРеализации</dataPath>
+		<expression>Сумма(КоэфРеализации)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ОбщийKPI</dataPath>
+		<expression>Сумма(ОбщийKPI)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ОтсатокНаНачало</dataPath>
+		<expression>Сумма(ОтсатокНаНачало)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Приход</dataPath>
+		<expression>Сумма(Приход)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ПросрочкаНаКонец</dataPath>
+		<expression>Сумма(ПросрочкаНаКонец)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ПросрочкаНаНачало</dataPath>
+		<expression>Сумма(ПросрочкаНаНачало)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>Реализация</dataPath>
+		<expression>Сумма(Реализация)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СреднийДолг</dataPath>
+		<expression>Сумма(СреднийДолг)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ТемпПросрочки</dataPath>
+		<expression>Сумма(ТемпПросрочки)</expression>
+	</totalField>
+	<parameter>
+		<name>Документ</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Документ</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:DocumentRef.KPI</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:userFields>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>ПользовательскиеПоля.Поле1</dcsset:dataPath>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Описание</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:detailExpression>Строка("
+ДОЛЯ ПРОСРОЧЕННОЙ ЗАДОЛЖЕННОСТИ 
+Это показатель показывает, какая часть задолженности на начало и конец периода является просроченной. Уменьшение этого показателя свидетельствует о хорошем управлении долгами.
+ДоляПросрочки = (СуммаПросрочки / ОбщаяЗадолженность) × 100
+
+КОЭФФИЦИЕНТ ОБОРАЧИВАЕМОСТИ ЗАДОЛЖЕННОСТИ
+Этот KPI показывает, как быстро задолженность оборачивается в рамках определенного периода. Чем выше оборачиваемость, тем лучше
+КоэффициентОборачиваемости = (СуммаРеализации / СредняяЗадолженность)
+
+ТЕМП РОСТА ПРОСРОЧЕННОЙ ЗАДОЛЖЕННОСТИ
+Показывает, насколько выросла или уменьшилась сумма просроченной задолженности за период. Это один из ключевых показателей управления долгами.
+ТемпРостаПросрочки = ((СуммаПросрочкиНаКонец - СуммаПросрочкиНаНачало) / СуммаПросрочкиНаНачало) × 100
+
+КОЭФФИЦИЕНТ ПОГАШЕНИЯ ЗАДОЛЖЕННОСТИ
+Этот показатель измеряет, какую часть задолженности удалось погасить за период.
+КоэффициентПогашения = (СуммаВсехПоступлений / НачальнаяЗадолженность) × 100
+
+КОЭФФИЦИЕНТ РЕАЛИЗАЦИИ
+Показывает, насколько успешным был регион в реализации продукции. Увеличение этого показателя при стабильной задолженности является позитивным знаком.
+КоэффициентРеализации = (СуммаРеализации / НачальнаяЗадолженность) × 100
+
+СИСТЕМА ОЦЕНКИ И ВЕСА KPI
+Чтобы учитывать нюансы (например, рост просрочки при увеличении реализации), можно установить весовые коэффициенты для каждого KPI. Например:
+
+Доля просроченной задолженности	30%
+Темп роста просроченной задолженности	20%
+Коэффициент погашения задолженности	30%
+Коэффициент реализации	20%
+
+Общий KPI=(ДоляПросрочки×0.2)+(ТемпРостаПросрочки×0.1)+(КоэффициентПогашения×0.4)+(КоэффициентРеализации×0.3)
+
+Как интерпретировать общий KPI?
+&gt; 80: Отличная работа.
+60–80: Хорошая работа, но есть области для улучшения.
+40–60: Удовлетворительно, требуется пересмотр стратегии.
+&lt; 40: Неудовлетворительно, необходимо срочное вмешательство.")</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>Строка("
+ДОЛЯ ПРОСРОЧЕННОЙ ЗАДОЛЖЕННОСТИ 
+Это показатель показывает, какая часть задолженности на начало и конец периода является просроченной. Уменьшение этого показателя свидетельствует о хорошем управлении долгами.
+ДоляПросрочки = (СуммаПросрочки / ОбщаяЗадолженность) × 100
+
+КОЭФФИЦИЕНТ ОБОРАЧИВАЕМОСТИ ЗАДОЛЖЕННОСТИ
+Этот KPI показывает, как быстро задолженность оборачивается в рамках определенного периода. Чем выше оборачиваемость, тем лучше
+КоэффициентОборачиваемости = (СуммаРеализации / СредняяЗадолженность)
+
+ТЕМП РОСТА ПРОСРОЧЕННОЙ ЗАДОЛЖЕННОСТИ
+Показывает, насколько выросла или уменьшилась сумма просроченной задолженности за период. Это один из ключевых показателей управления долгами.
+ТемпРостаПросрочки = ((СуммаПросрочкиНаКонец - СуммаПросрочкиНаНачало) / СуммаПросрочкиНаНачало) × 100
+
+КОЭФФИЦИЕНТ ПОГАШЕНИЯ ЗАДОЛЖЕННОСТИ
+Этот показатель измеряет, какую часть задолженности удалось погасить за период.
+КоэффициентПогашения = (СуммаВсехПоступлений / НачальнаяЗадолженность) × 100
+
+КОЭФФИЦИЕНТ РЕАЛИЗАЦИИ
+Показывает, насколько успешным был регион в реализации продукции. Увеличение этого показателя при стабильной задолженности является позитивным знаком.
+КоэффициентРеализации = (СуммаРеализации / НачальнаяЗадолженность) × 100
+
+СИСТЕМА ОЦЕНКИ И ВЕСА KPI
+Чтобы учитывать нюансы (например, рост просрочки при увеличении реализации), можно установить весовые коэффициенты для каждого KPI. Например:
+
+Доля просроченной задолженности	30%
+Темп роста просроченной задолженности	20%
+Коэффициент погашения задолженности	30%
+Коэффициент реализации	20%
+
+Общий KPI=(ДоляПросрочки×0.2)+(ТемпРостаПросрочки×0.1)+(КоэффициентПогашения×0.4)+(КоэффициентРеализации×0.3)
+
+Как интерпретировать общий KPI?
+&gt; 80: Отличная работа.
+60–80: Хорошая работа, но есть области для улучшения.
+40–60: Удовлетворительно, требуется пересмотр стратегии.
+&lt; 40: Неудовлетворительно, необходимо срочное вмешательство.")</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression/>
+					<dcsset:totalExpressionPresentation/>
+				</dcsset:item>
+			</dcsset:userFields>
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ДоляПросрочки</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>КонечныйОстаток</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>КоэфОборачиваемости</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>КоэфПогашения</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>КоэфРеализации</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Менеджер</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ОбщийKPI</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ОтсатокНаНачало</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Приход</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПросрочкаНаКонец</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПросрочкаНаНачало</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Реализация</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Регион</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СреднийДолг</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Ссылка</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ТемпПросрочки</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Менеджер</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>14058f6b-a827-4fb8-b6c5-4dc7d0c6e51a</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Регион</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>47cb14ba-f698-479b-bd89-63a4912153c6</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>Документ</dcscor:parameter>
+					<dcscor:value xsi:nil="true"/>
+					<dcsset:userSettingID>d0ba22db-ed85-45e6-861e-d07d73ec51c1</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>ОбщийKPI</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ОбщийKPI</dcsset:left>
+							<dcsset:comparisonType>LessOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">40</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:Tomato</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:useInGroup>DontUse</dcsset:useInGroup>
+					<dcsset:useInHierarchicalGroup>DontUse</dcsset:useInHierarchicalGroup>
+					<dcsset:useInOverall>DontUse</dcsset:useInOverall>
+					<dcsset:useInFieldsHeader>DontUse</dcsset:useInFieldsHeader>
+					<dcsset:useInHeader>DontUse</dcsset:useInHeader>
+					<dcsset:useInParameters>DontUse</dcsset:useInParameters>
+					<dcsset:useInFilter>DontUse</dcsset:useInFilter>
+					<dcsset:useInOverallHeader>DontUse</dcsset:useInOverallHeader>
+					<dcsset:useInOverallResourceFieldsHeader>DontUse</dcsset:useInOverallResourceFieldsHeader>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>ОбщийKPI</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ОбщийKPI</dcsset:left>
+							<dcsset:comparisonType>GreaterOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">40.01</dcsset:right>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ОбщийKPI</dcsset:left>
+							<dcsset:comparisonType>LessOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">60</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:Gold</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:useInGroup>DontUse</dcsset:useInGroup>
+					<dcsset:useInHierarchicalGroup>DontUse</dcsset:useInHierarchicalGroup>
+					<dcsset:useInOverall>DontUse</dcsset:useInOverall>
+					<dcsset:useInFieldsHeader>DontUse</dcsset:useInFieldsHeader>
+					<dcsset:useInHeader>DontUse</dcsset:useInHeader>
+					<dcsset:useInParameters>DontUse</dcsset:useInParameters>
+					<dcsset:useInFilter>DontUse</dcsset:useInFilter>
+					<dcsset:useInOverallHeader>DontUse</dcsset:useInOverallHeader>
+					<dcsset:useInOverallResourceFieldsHeader>DontUse</dcsset:useInOverallResourceFieldsHeader>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>ОбщийKPI</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ОбщийKPI</dcsset:left>
+							<dcsset:comparisonType>GreaterOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">60.01</dcsset:right>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ОбщийKPI</dcsset:left>
+							<dcsset:comparisonType>LessOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">79.99</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:LightSlateBlue</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:useInGroup>DontUse</dcsset:useInGroup>
+					<dcsset:useInHierarchicalGroup>DontUse</dcsset:useInHierarchicalGroup>
+					<dcsset:useInOverall>DontUse</dcsset:useInOverall>
+					<dcsset:useInFieldsHeader>DontUse</dcsset:useInFieldsHeader>
+					<dcsset:useInHeader>DontUse</dcsset:useInHeader>
+					<dcsset:useInParameters>DontUse</dcsset:useInParameters>
+					<dcsset:useInFilter>DontUse</dcsset:useInFilter>
+					<dcsset:useInOverallHeader>DontUse</dcsset:useInOverallHeader>
+					<dcsset:useInOverallResourceFieldsHeader>DontUse</dcsset:useInOverallResourceFieldsHeader>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>ОбщийKPI</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ОбщийKPI</dcsset:left>
+							<dcsset:comparisonType>GreaterOrEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">80</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:Lime</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:useInGroup>DontUse</dcsset:useInGroup>
+					<dcsset:useInHierarchicalGroup>DontUse</dcsset:useInHierarchicalGroup>
+					<dcsset:useInOverall>DontUse</dcsset:useInOverall>
+					<dcsset:useInFieldsHeader>DontUse</dcsset:useInFieldsHeader>
+					<dcsset:useInHeader>DontUse</dcsset:useInHeader>
+					<dcsset:useInParameters>DontUse</dcsset:useInParameters>
+					<dcsset:useInFilter>DontUse</dcsset:useInFilter>
+					<dcsset:useInResourceFieldsHeader>DontUse</dcsset:useInResourceFieldsHeader>
+					<dcsset:useInOverallHeader>DontUse</dcsset:useInOverallHeader>
+					<dcsset:useInOverallResourceFieldsHeader>DontUse</dcsset:useInOverallResourceFieldsHeader>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Арктика</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПользовательскиеПоля.Поле1</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ДоляПросрочки</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КонечныйОстаток</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КоэфОборачиваемости</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КоэфПогашения</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КоэфРеализации</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ОбщийKPI</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ОтсатокНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>Приход</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ПросрочкаНаКонец</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ПросрочкаНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>Реализация</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>СреднийДолг</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ТемпПросрочки</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+			</dcsset:item>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Регион</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemComparison">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:left xsi:type="dcscor:Field">Регион</dcsset:left>
+						<dcsset:comparisonType>Filled</dcsset:comparisonType>
+						<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ОтсатокНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПросрочкаНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Приход</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Реализация</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КонечныйОстаток</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>СреднийДолг</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПросрочкаНаКонец</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ДоляПросрочки</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоэфОборачиваемости</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоэфПогашения</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоэфРеализации</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Регион</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ТемпПросрочки</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ОбщийKPI</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+			</dcsset:item>
+			<dcsset:item xsi:type="dcsset:StructureItemChart">
+				<dcsset:point>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Регион</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Регион</dcsset:left>
+							<dcsset:comparisonType>Filled</dcsset:comparisonType>
+							<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemField">
+							<dcsset:field>ОбщийKPI</dcsset:field>
+							<dcsset:orderType>Desc</dcsset:orderType>
+						</dcsset:item>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>Регион</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+				</dcsset:point>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ДоляПросрочки</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КонечныйОстаток</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КоэфОборачиваемости</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КоэфПогашения</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>КоэфРеализации</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ОбщийKPI</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ОтсатокНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>Приход</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ПросрочкаНаКонец</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ПросрочкаНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>Реализация</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>СреднийДолг</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:field>ТемпПросрочки</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:outputParameters>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>ТипДиаграммы</dcscor:parameter>
+						<dcscor:value xsi:type="v8ui:ChartType">Bar</dcscor:value>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ТипДиаграммы.ВидПодписей</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:ChartLabelType">Value</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ТипДиаграммы.АвтоРаздвижениеСерий</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:AutoSeriesSeparation">All</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ТипДиаграммы.ОтображатьТаблицуДанных</dcscor:parameter>
+							<dcscor:value xsi:type="xs:boolean">true</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ТипДиаграммы.РежимСглаживания</dcscor:parameter>
+							<dcscor:value xmlns:d8p1="http://v8.1c.ru/8.2/data/chart" xsi:type="d8p1:ChartSplineMode">SmoothCurve</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ТипДиаграммы.ОписаниеПалитрыЦветов</dcscor:parameter>
+							<dcscor:value xmlns:d8p1="http://v8.1c.ru/8.2/data/chart" xsi:type="d8p1:ChartColorPaletteDescription">
+								<d8p1:colorPalette>Gradient</d8p1:colorPalette>
+								<d8p1:gradientPaletteStartColor>style:ActivityColor</d8p1:gradientPaletteStartColor>
+								<d8p1:gradientPaletteEndColor>style:FieldSelectionBackColor</d8p1:gradientPaletteEndColor>
+							</dcscor:value>
+						</dcscor:item>
+					</dcscor:item>
+				</dcsset:outputParameters>
+			</dcsset:item>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Менеджер</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>РегионМ</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemComparison">
+						<dcsset:use>false</dcsset:use>
+						<dcsset:left xsi:type="dcscor:Field">Менеджер</dcsset:left>
+						<dcsset:comparisonType>Filled</dcsset:comparisonType>
+						<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ОтсатокНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПросрочкаНаНачало</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Приход</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Реализация</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КонечныйОстаток</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>СреднийДолг</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ПросрочкаНаКонец</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ДоляПросрочки</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоэфОборачиваемости</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоэфПогашения</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоэфРеализации</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Менеджер</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ТемпПросрочки</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ОбщийKPI</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>РегионМ</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

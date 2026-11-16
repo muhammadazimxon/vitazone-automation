@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="2f158891-185c-4838-87b4-d70d643e7aec">
+		<Name>Счета</Name>
+		<Code>000000002</Code>
+		<Description>Счета</Description>
+		<IsFolder>true</IsFolder>
+		<ChildItems>
+			<Item id="75b3299f-7125-4075-a007-278f12e87de4">
+				<Name>Воздух</Name>
+				<Code>000000010</Code>
+				<Description>Воздух</Description>
+				<IsFolder>false</IsFolder>
+			</Item>
+		</ChildItems>
+	</Item>
+	<Item id="dc140f2c-a76d-4572-9c60-62a8b859103c">
+		<Name>ОсновнойСчет</Name>
+		<Code>000000001</Code>
+		<Description>Основной счет</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

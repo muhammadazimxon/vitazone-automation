@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CommandInterface xmlns="http://v8.1c.ru/8.3/xcf/extrnprops" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.15">
+	<SubsystemsVisibility>
+		<Subsystem name="Subsystem.KPI">
+			<Visibility>
+				<xr:Common>true</xr:Common>
+				<xr:Value name="Role.ТолькоОтчеты">false</xr:Value>
+			</Visibility>
+		</Subsystem>
+		<Subsystem name="Subsystem.Документы">
+			<Visibility>
+				<xr:Common>true</xr:Common>
+				<xr:Value name="Role.ТолькоОтчеты">true</xr:Value>
+			</Visibility>
+		</Subsystem>
+		<Subsystem name="Subsystem.Отчеты">
+			<Visibility>
+				<xr:Common>true</xr:Common>
+				<xr:Value name="Role.ТолькоОтчеты">true</xr:Value>
+			</Visibility>
+		</Subsystem>
+		<Subsystem name="Subsystem.Справочники">
+			<Visibility>
+				<xr:Common>true</xr:Common>
+				<xr:Value name="Role.ТолькоОтчеты">false</xr:Value>
+			</Visibility>
+		</Subsystem>
+		<Subsystem name="Subsystem.Цены">
+			<Visibility>
+				<xr:Common>true</xr:Common>
+				<xr:Value name="Role.ТолькоОтчеты">false</xr:Value>
+			</Visibility>
+		</Subsystem>
+	</SubsystemsVisibility>
+	<SubsystemsOrder>
+		<Subsystem>Subsystem.KPI</Subsystem>
+		<Subsystem>Subsystem.Документы</Subsystem>
+		<Subsystem>Subsystem.Сетлар</Subsystem>
+		<Subsystem>Subsystem.Отчеты</Subsystem>
+		<Subsystem>Subsystem.Справочники</Subsystem>
+		<Subsystem>Subsystem.Цены</Subsystem>
+		<Subsystem>Subsystem.Backup</Subsystem>
+	</SubsystemsOrder>
+</CommandInterface>

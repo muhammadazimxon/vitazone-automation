@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="2e051dd1-df9c-4fc3-a97d-3deb4da60028">
+		<Name>EUR</Name>
+		<Code>000000002</Code>
+		<Description>EUR</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="fa05de63-ab43-4fc6-a7c0-7dcc6742b050">
+		<Name>KZT</Name>
+		<Code>000000003</Code>
+		<Description>KZT</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="e8f53cd0-17dd-4dec-8b3a-4adb3acb4082">
+		<Name>RUB</Name>
+		<Code>000000004</Code>
+		<Description>RUB</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="8941b5aa-1891-45a6-b119-4a2b55af774e">
+		<Name>USD</Name>
+		<Code>000000001</Code>
+		<Description>USD</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="53671cc3-ecf6-4765-92ad-5c2da43b1b3d">
+		<Name>UZS</Name>
+		<Code>000000005</Code>
+		<Description>UZS</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

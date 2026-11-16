@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="9c33bbea-7645-48aa-8572-a8e2f429fb95">
+		<Name>Дониёрака</Name>
+		<Code>000000002</Code>
+		<Description>Дониёр ака</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="56762244-8239-47ff-8f61-6a34dbabc8cf">
+		<Name>Жамшидака</Name>
+		<Code>000000001</Code>
+		<Description>Жамшид ака</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="19dd837d-3a2b-4ecf-b39e-4dfbebbe5454">
+		<Name>Лазизака</Name>
+		<Code>000000003</Code>
+		<Description>Лазиз ака</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

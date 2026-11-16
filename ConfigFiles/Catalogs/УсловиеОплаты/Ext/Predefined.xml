@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<PredefinedData xmlns="http://v8.1c.ru/8.3/xcf/predef" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CatalogPredefinedItems" version="2.15">
+	<Item id="6133a1de-fbbb-44d9-a710-b761e41e2dd4">
+		<Name>ЮзФоиз</Name>
+		<Code>000000001</Code>
+		<Description>100 фоизлик</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="7827effb-ffb3-4285-bcf2-13c4f983f0e4">
+		<Name>ЭлликФоиз</Name>
+		<Code>000000003</Code>
+		<Description>50 фоиз</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+	<Item id="9ff90dd8-567f-4b72-871f-a1c2f5fe668d">
+		<Name>ЭлликБешФоиз</Name>
+		<Code>000000002</Code>
+		<Description>50 фоиз 5 дан кам</Description>
+		<IsFolder>false</IsFolder>
+	</Item>
+</PredefinedData>

@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.15">
+	<ScalingMode>Compact</ScalingMode>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="КнопкаПечатьКоманднаяПанель" id="63">
+				<Type>CommandBarButton</Type>
+				<TitleHeight>1</TitleHeight>
+				<SkipOnInput>false</SkipOnInput>
+				<Height>1</Height>
+				<CommandName>Form.Command.Печать</CommandName>
+				<LocationInCommandBar>InCommandBarAndInAdditionalSubmenu</LocationInCommandBar>
+				<ExtendedTooltip name="КнопкаПечатьКоманднаяПанельExtendedTooltip" id="64"/>
+			</Button>
+			<Button name="КнопкаПредварительныйПросмотр" id="67">
+				<Type>CommandBarButton</Type>
+				<Representation>Picture</Representation>
+				<CommandName>Form.Item.ТабличныйДокумент.StandardCommand.Preview</CommandName>
+				<LocationInCommandBar>InCommandBarAndInAdditionalSubmenu</LocationInCommandBar>
+				<ExtendedTooltip name="КнопкаПредварительныйПросмотрРасширеннаяПодсказка" id="68"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="Группа3" id="65">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="66"/>
+			<ChildItems>
+				<Button name="ФормаСформироватьОтчет" id="1">
+					<Type>UsualButton</Type>
+					<Representation>PictureAndText</Representation>
+					<DefaultButton>true</DefaultButton>
+					<CommandName>Form.Command.СформироватьОтчет</CommandName>
+					<BackColor>style:FieldBackColor</BackColor>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Акт сверки</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="ФормаСформироватьОтчетРасширеннаяПодсказка" id="2"/>
+				</Button>
+				<Button name="ФормаАктСверки" id="56">
+					<Type>UsualButton</Type>
+					<Representation>PictureAndText</Representation>
+					<CommandName>Form.Command.АктСверкиПД</CommandName>
+					<ExtendedTooltip name="ФормаАктСверкиРасширеннаяПодсказка" id="57"/>
+				</Button>
+				<Button name="ФормаНастройки" id="54">
+					<Type>UsualButton</Type>
+					<CommandName>Form.Command.Настройки</CommandName>
+					<ExtendedTooltip name="ФормаНастройкиРасширеннаяПодсказка" id="55"/>
+				</Button>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="Группа1" id="6">
+			<Group>AlwaysHorizontal</Group>
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="7"/>
+			<ChildItems>
+				<UsualGroup name="ПерваяКолонка" id="49">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Первая колонка</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Первая колонка</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Vertical</Group>
+					<Behavior>Usual</Behavior>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ПерваяКолонкаРасширеннаяПодсказка" id="50"/>
+					<ChildItems>
+						<SpreadSheetDocumentField name="ТабличныйДокумент" id="51">
+							<DataPath>ПолеТабличногоДокумента</DataPath>
+							<TitleLocation>None</TitleLocation>
+							<ShowHeaders>true</ShowHeaders>
+							<ContextMenu name="ТабличныйДокументКонтекстноеМеню" id="52"/>
+							<ExtendedTooltip name="ТабличныйДокументРасширеннаяПодсказка" id="53"/>
+							<Events>
+								<Event name="DetailProcessing">ТабличныйДокументОбработкаРасшифровки</Event>
+							</Events>
+						</SpreadSheetDocumentField>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="ВтораяКолонка" id="15">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Настройки</v8:content>
+						</v8:item>
+					</Title>
+					<TitleFont ref="style:TextFont" height="11" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Вторая колонка</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Width>49</Width>
+					<Group>Vertical</Group>
+					<Behavior>Usual</Behavior>
+					<Representation>StrongSeparation</Representation>
+					<ExtendedTooltip name="ВтораяКолонкаРасширеннаяПодсказка" id="16"/>
+					<ChildItems>
+						<UsualGroup name="Группа5" id="80">
+							<Behavior>Usual</Behavior>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="Группа5РасширеннаяПодсказка" id="81"/>
+							<ChildItems>
+								<InputField name="НачалоПериода" id="77">
+									<DataPath>Объект.НачалоПериода</DataPath>
+									<ContextMenu name="НачалоПериодаКонтекстноеМеню" id="78"/>
+									<ExtendedTooltip name="НачалоПериодаРасширеннаяПодсказка" id="79"/>
+								</InputField>
+								<InputField name="КонецПериода" id="82">
+									<DataPath>Объект.КонецПериода</DataPath>
+									<ContextMenu name="КонецПериодаКонтекстноеМеню" id="83"/>
+									<ExtendedTooltip name="КонецПериодаРасширеннаяПодсказка" id="84"/>
+								</InputField>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="Группа2" id="58">
+							<Behavior>Usual</Behavior>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="59"/>
+							<ChildItems>
+								<InputField name="Контрагент" id="60">
+									<DataPath>Контрагент</DataPath>
+									<ContextMenu name="КонтрагентКонтекстноеМеню" id="61"/>
+									<ExtendedTooltip name="КонтрагентРасширеннаяПодсказка" id="62"/>
+								</InputField>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="Группа4" id="75">
+							<Behavior>Usual</Behavior>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="76"/>
+							<ChildItems>
+								<CheckBoxField name="Поставщик" id="69">
+									<DataPath>Объект.Поставщик</DataPath>
+									<TitleFont ref="style:TextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+									<CheckBoxType>Auto</CheckBoxType>
+									<ContextMenu name="ПоставщикКонтекстноеМеню" id="70"/>
+									<ExtendedTooltip name="ПоставщикРасширеннаяПодсказка" id="71"/>
+								</CheckBoxField>
+								<CheckBoxField name="Покупатель" id="72">
+									<DataPath>Объект.Покупатель</DataPath>
+									<TitleFont ref="style:TextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+									<CheckBoxType>Auto</CheckBoxType>
+									<ContextMenu name="ПокупательКонтекстноеМеню" id="73"/>
+									<ExtendedTooltip name="ПокупательРасширеннаяПодсказка" id="74"/>
+								</CheckBoxField>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.АктСверки</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+		<Attribute name="ПолеТабличногоДокумента" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Поле табличного документа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type xmlns:mxl="http://v8.1c.ru/8.2/data/spreadsheet">mxl:SpreadsheetDocument</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="Контрагент" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Контрагент</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Контрагенты</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="СформироватьОтчет" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сформировать отчет</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сформировать отчет</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СформироватьОтчет</Action>
+		</Command>
+		<Command name="Печать_Спецификация" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать спецификация</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать спецификация</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Печать_Спецификация</Action>
+		</Command>
+		<Command name="Печать_Спецификация_ТТН" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать спецификация ТТН</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать спецификация ТТН</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Печать_Спецификация_ТТН</Action>
+		</Command>
+		<Command name="АктСверкиПД" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Акт сверки (ПД)</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Акт сверки ПД</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>АктСверкиПД</Action>
+		</Command>
+		<Command name="Настройки" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.DataCompositionOutputParameters</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>Настройки</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+		<Command name="Печать" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Напечатать на принтере</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Shortcut>Ctrl+Shift+P</Shortcut>
+			<Picture>
+				<xr:Ref>StdPicture.PrintImmediately</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>Печать</Action>
+			<Representation>TextPicture</Representation>
+			<CurrentRowUse>DontUse</CurrentRowUse>
+		</Command>
+	</Commands>
+</Form>

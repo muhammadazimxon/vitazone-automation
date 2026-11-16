@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.15">
+	<AutoTime>CurrentOrLast</AutoTime>
+	<UsePostingMode>Auto</UsePostingMode>
+	<RepostOnWrite>true</RepostOnWrite>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<Events>
+		<Event name="BeforeWrite">ПередЗаписью</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="Группа4" id="86">
+			<Behavior>Usual</Behavior>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="87"/>
+			<ChildItems>
+				<InputField name="Номер" id="1">
+					<DataPath>Объект.Number</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="НомерКонтекстноеМеню" id="2"/>
+					<ExtendedTooltip name="НомерРасширеннаяПодсказка" id="3"/>
+				</InputField>
+				<Button name="Команда2" id="192">
+					<Type>UsualButton</Type>
+					<CommandName>Form.Command.Команда2</CommandName>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Контрагентлар</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="Команда2РасширеннаяПодсказка" id="193"/>
+				</Button>
+				<Button name="Команда1" id="190">
+					<Type>UsualButton</Type>
+					<CommandName>Form.Command.Команда1</CommandName>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Обощать</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="Команда1РасширеннаяПодсказка" id="191"/>
+				</Button>
+				<Button name="Расчет" id="194">
+					<Type>UsualButton</Type>
+					<CommandName>Form.Command.Расчет</CommandName>
+					<ExtendedTooltip name="РасчетРасширеннаяПодсказка" id="195"/>
+				</Button>
+				<InputField name="Дата" id="4">
+					<DataPath>Объект.Date</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ДатаКонтекстноеМеню" id="5"/>
+					<ExtendedTooltip name="ДатаРасширеннаяПодсказка" id="6"/>
+				</InputField>
+				<InputField name="Счет" id="41">
+					<DataPath>Объект.Счет</DataPath>
+					<ContextMenu name="СчетКонтекстноеМеню" id="42"/>
+					<ExtendedTooltip name="СчетРасширеннаяПодсказка" id="43"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<Pages name="Группа1" id="44">
+			<PagesRepresentation>TabsOnTop</PagesRepresentation>
+			<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="45"/>
+			<ChildItems>
+				<Page name="Группа2" id="46">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Задано</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="47"/>
+				</Page>
+				<Page name="Группа3" id="48">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Обработано</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="49"/>
+				</Page>
+			</ChildItems>
+		</Pages>
+		<Pages name="Группа5" id="131">
+			<PagesRepresentation>TabsOnTop</PagesRepresentation>
+			<ExtendedTooltip name="Группа5РасширеннаяПодсказка" id="132"/>
+			<ChildItems>
+				<Page name="Группа6" id="133">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Эксель</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="Группа6РасширеннаяПодсказка" id="134"/>
+					<ChildItems>
+						<Table name="Эксел" id="88">
+							<AutoInsertNewRow>true</AutoInsertNewRow>
+							<EnableStartDrag>true</EnableStartDrag>
+							<EnableDrag>true</EnableDrag>
+							<DataPath>Объект.Эксел</DataPath>
+							<RowFilter xsi:nil="true"/>
+							<ContextMenu name="ЭкселКонтекстноеМеню" id="89"/>
+							<AutoCommandBar name="ЭкселКоманднаяПанель" id="90"/>
+							<ExtendedTooltip name="ЭкселРасширеннаяПодсказка" id="91"/>
+							<SearchStringAddition name="ЭкселСтрокаПоиска" id="92">
+								<AdditionSource>
+									<Item>Эксел</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ЭкселСтрокаПоискаКонтекстноеМеню" id="93"/>
+								<ExtendedTooltip name="ЭкселСтрокаПоискаРасширеннаяПодсказка" id="94"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="ЭкселСостояниеПросмотра" id="95">
+								<AdditionSource>
+									<Item>Эксел</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ЭкселСостояниеПросмотраКонтекстноеМеню" id="96"/>
+								<ExtendedTooltip name="ЭкселСостояниеПросмотраРасширеннаяПодсказка" id="97"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="ЭкселУправлениеПоиском" id="98">
+								<AdditionSource>
+									<Item>Эксел</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="ЭкселУправлениеПоискомКонтекстноеМеню" id="99"/>
+								<ExtendedTooltip name="ЭкселУправлениеПоискомРасширеннаяПодсказка" id="100"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<LabelField name="ЭкселНомерСтроки" id="101">
+									<DataPath>Объект.Эксел.LineNumber</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселНомерСтрокиКонтекстноеМеню" id="102"/>
+									<ExtendedTooltip name="ЭкселНомерСтрокиРасширеннаяПодсказка" id="103"/>
+								</LabelField>
+								<InputField name="ЭкселИНН" id="104">
+									<DataPath>Объект.Эксел.ИНН</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселИННКонтекстноеМеню" id="105"/>
+									<ExtendedTooltip name="ЭкселИННРасширеннаяПодсказка" id="106"/>
+								</InputField>
+								<InputField name="ЭкселКонтрагенты" id="107">
+									<DataPath>Объект.Эксел.Контрагенты</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселКонтрагентыКонтекстноеМеню" id="108"/>
+									<ExtendedTooltip name="ЭкселКонтрагентыРасширеннаяПодсказка" id="109"/>
+								</InputField>
+								<InputField name="ЭкселСуммаЭксель" id="184">
+									<DataPath>Объект.Эксел.СуммаЭксель</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселСуммаЭксельКонтекстноеМеню" id="185"/>
+									<ExtendedTooltip name="ЭкселСуммаЭксельРасширеннаяПодсказка" id="186"/>
+								</InputField>
+								<InputField name="ЭкселСуммаПрограмма" id="187">
+									<DataPath>Объект.Эксел.СуммаПрограмма</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселСуммаПрограммаКонтекстноеМеню" id="188"/>
+									<ExtendedTooltip name="ЭкселСуммаПрограммаРасширеннаяПодсказка" id="189"/>
+								</InputField>
+								<InputField name="ЭкселНомерДок" id="110">
+									<DataPath>Объект.Эксел.НомерДок</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселНомерДокКонтекстноеМеню" id="111"/>
+									<ExtendedTooltip name="ЭкселНомерДокРасширеннаяПодсказка" id="112"/>
+								</InputField>
+								<InputField name="ЭкселМП" id="113">
+									<DataPath>Объект.Эксел.МП</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселМПКонтекстноеМеню" id="114"/>
+									<ExtendedTooltip name="ЭкселМПРасширеннаяПодсказка" id="115"/>
+								</InputField>
+								<InputField name="ЭкселРегион" id="116">
+									<DataPath>Объект.Эксел.Регион</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселРегионКонтекстноеМеню" id="117"/>
+									<ExtendedTooltip name="ЭкселРегионРасширеннаяПодсказка" id="118"/>
+								</InputField>
+								<InputField name="ЭкселДебиторкаси" id="119">
+									<DataPath>Объект.Эксел.Дебиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселДебиторкасиКонтекстноеМеню" id="120"/>
+									<ExtendedTooltip name="ЭкселДебиторкасиРасширеннаяПодсказка" id="121"/>
+								</InputField>
+								<InputField name="ЭкселКредиторкаси" id="122">
+									<DataPath>Объект.Эксел.Кредиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселКредиторкасиКонтекстноеМеню" id="123"/>
+									<ExtendedTooltip name="ЭкселКредиторкасиРасширеннаяПодсказка" id="124"/>
+								</InputField>
+								<InputField name="ЭкселСДебиторкаси" id="125">
+									<DataPath>Объект.Эксел.СДебиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселСДебиторкасиКонтекстноеМеню" id="126"/>
+									<ExtendedTooltip name="ЭкселСДебиторкасиРасширеннаяПодсказка" id="127"/>
+								</InputField>
+								<InputField name="ЭкселСКредиторкаси" id="128">
+									<DataPath>Объект.Эксел.СКредиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ЭкселСКредиторкасиКонтекстноеМеню" id="129"/>
+									<ExtendedTooltip name="ЭкселСКредиторкасиРасширеннаяПодсказка" id="130"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+				<Page name="Группа7" id="135">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>1С</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="Группа7РасширеннаяПодсказка" id="136"/>
+					<ChildItems>
+						<Table name="Программа" id="137">
+							<AutoInsertNewRow>true</AutoInsertNewRow>
+							<EnableStartDrag>true</EnableStartDrag>
+							<EnableDrag>true</EnableDrag>
+							<DataPath>Объект.Программа</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>1С</v8:content>
+								</v8:item>
+							</Title>
+							<RowFilter xsi:nil="true"/>
+							<ContextMenu name="ПрограммаКонтекстноеМеню" id="138"/>
+							<AutoCommandBar name="ПрограммаКоманднаяПанель" id="139"/>
+							<ExtendedTooltip name="ПрограммаРасширеннаяПодсказка" id="140"/>
+							<SearchStringAddition name="ПрограммаСтрокаПоиска" id="141">
+								<AdditionSource>
+									<Item>Программа</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ПрограммаСтрокаПоискаКонтекстноеМеню" id="142"/>
+								<ExtendedTooltip name="ПрограммаСтрокаПоискаРасширеннаяПодсказка" id="143"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="ПрограммаСостояниеПросмотра" id="144">
+								<AdditionSource>
+									<Item>Программа</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ПрограммаСостояниеПросмотраКонтекстноеМеню" id="145"/>
+								<ExtendedTooltip name="ПрограммаСостояниеПросмотраРасширеннаяПодсказка" id="146"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="ПрограммаУправлениеПоиском" id="147">
+								<AdditionSource>
+									<Item>Программа</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="ПрограммаУправлениеПоискомКонтекстноеМеню" id="148"/>
+								<ExtendedTooltip name="ПрограммаУправлениеПоискомРасширеннаяПодсказка" id="149"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<LabelField name="ПрограммаНомерСтроки" id="150">
+									<DataPath>Объект.Программа.LineNumber</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаНомерСтрокиКонтекстноеМеню" id="151"/>
+									<ExtendedTooltip name="ПрограммаНомерСтрокиРасширеннаяПодсказка" id="152"/>
+								</LabelField>
+								<InputField name="ПрограммаИНН" id="153">
+									<DataPath>Объект.Программа.ИНН</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаИННКонтекстноеМеню" id="154"/>
+									<ExtendedTooltip name="ПрограммаИННРасширеннаяПодсказка" id="155"/>
+								</InputField>
+								<InputField name="ПрограммаКонтрагенты" id="156">
+									<DataPath>Объект.Программа.Контрагенты</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаКонтрагентыКонтекстноеМеню" id="157"/>
+									<ExtendedTooltip name="ПрограммаКонтрагентыРасширеннаяПодсказка" id="158"/>
+								</InputField>
+								<InputField name="ПрограммаНомерДок" id="159">
+									<DataPath>Объект.Программа.НомерДок</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаНомерДокКонтекстноеМеню" id="160"/>
+									<ExtendedTooltip name="ПрограммаНомерДокРасширеннаяПодсказка" id="161"/>
+								</InputField>
+								<InputField name="ПрограммаМП" id="162">
+									<DataPath>Объект.Программа.МП</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаМПКонтекстноеМеню" id="163"/>
+									<ExtendedTooltip name="ПрограммаМПРасширеннаяПодсказка" id="164"/>
+								</InputField>
+								<InputField name="ПрограммаРегион" id="165">
+									<DataPath>Объект.Программа.Регион</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаРегионКонтекстноеМеню" id="166"/>
+									<ExtendedTooltip name="ПрограммаРегионРасширеннаяПодсказка" id="167"/>
+								</InputField>
+								<InputField name="ПрограммаДебиторкаси" id="168">
+									<DataPath>Объект.Программа.Дебиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаДебиторкасиКонтекстноеМеню" id="169"/>
+									<ExtendedTooltip name="ПрограммаДебиторкасиРасширеннаяПодсказка" id="170"/>
+								</InputField>
+								<InputField name="ПрограммаКредиторкаси" id="171">
+									<DataPath>Объект.Программа.Кредиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаКредиторкасиКонтекстноеМеню" id="172"/>
+									<ExtendedTooltip name="ПрограммаКредиторкасиРасширеннаяПодсказка" id="173"/>
+								</InputField>
+								<InputField name="ПрограммаСДебиторкаси" id="174">
+									<DataPath>Объект.Программа.СДебиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаСДебиторкасиКонтекстноеМеню" id="175"/>
+									<ExtendedTooltip name="ПрограммаСДебиторкасиРасширеннаяПодсказка" id="176"/>
+								</InputField>
+								<InputField name="ПрограммаСКредиторкаси" id="177">
+									<DataPath>Объект.Программа.СКредиторкаси</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ПрограммаСКредиторкасиКонтекстноеМеню" id="178"/>
+									<ExtendedTooltip name="ПрограммаСКредиторкасиРасширеннаяПодсказка" id="179"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DocumentObject.ПроверкаОплат</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+			<UseAlways>
+				<Field>Объект.RegisterRecords</Field>
+			</UseAlways>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Команда1" id="1">
+			<Action>Команда1</Action>
+		</Command>
+		<Command name="Команда2" id="2">
+			<Action>Команда2</Action>
+		</Command>
+		<Command name="Расчет" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Расчет</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Расчет</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Расчет</Action>
+		</Command>
+	</Commands>
+</Form>
